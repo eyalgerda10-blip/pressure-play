@@ -14,7 +14,7 @@
   "bottom": 1.03
  },
  "freezeAtMs": 2400,
- "decisionWindowMs": 3000,
+ "decisionWindowMs": 5000,
  "facing": "cbR",
  "entities": [
   {

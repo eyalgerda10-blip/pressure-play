@@ -4,61 +4,433 @@
   "type": "marking",
   "position": "CB",
   "difficulty": 2,
-  "tags": ["cross", "marking", "box"],
-  "view": { "top": 0.55, "bottom": 1.03 },
+  "tags": [
+    "cross",
+    "marking",
+    "box"
+  ],
+  "view": {
+    "top": 0.55,
+    "bottom": 1.03
+  },
   "freezeAtMs": 2400,
-  "decisionWindowMs": 3000,
+  "decisionWindowMs": 5000,
   "facing": "ball",
   "entities": [
-    { "id": "gk",  "team": "gk",   "track": [[0, 0.53, 0.975]] },
-    { "id": "me",  "team": "me",   "track": [[0, 0.58, 0.86], [2400, 0.60, 0.895]] },
-    { "id": "cb2", "team": "home", "track": [[0, 0.45, 0.86], [2400, 0.46, 0.895]] },
-    { "id": "lb",  "team": "home", "track": [[0, 0.24, 0.84], [2400, 0.27, 0.90]] },
-    { "id": "rb",  "team": "home", "track": [[0, 0.82, 0.70], [2400, 0.87, 0.77]] },
-    { "id": "dm",  "team": "home", "track": [[0, 0.50, 0.72], [2400, 0.52, 0.77]] },
-    { "id": "cm1", "team": "home", "track": [[0, 0.36, 0.64], [2400, 0.38, 0.70]] },
-    { "id": "wg",  "team": "away", "track": [[0, 0.86, 0.70], [2400, 0.91, 0.80]] },
-    { "id": "stA", "team": "away", "track": [[0, 0.60, 0.76], [1200, 0.61, 0.82], [2400, 0.63, 0.91]] },
-    { "id": "stB", "team": "away", "track": [[0, 0.47, 0.78], [2400, 0.49, 0.875]] },
-    { "id": "cmL", "team": "away", "track": [[0, 0.36, 0.70], [2400, 0.30, 0.86]] },
-    { "id": "m4",  "team": "away", "track": [[0, 0.62, 0.64], [2400, 0.66, 0.72]] },
-    { "id": "ball", "track": [[0, 0.87, 0.715], [2400, 0.905, 0.815]] }
+    {
+      "id": "gk",
+      "team": "gk",
+      "track": [
+        [
+          0,
+          0.53,
+          0.975
+        ]
+      ]
+    },
+    {
+      "id": "me",
+      "team": "me",
+      "track": [
+        [
+          0,
+          0.58,
+          0.86
+        ],
+        [
+          2400,
+          0.6,
+          0.895
+        ]
+      ]
+    },
+    {
+      "id": "cb2",
+      "team": "home",
+      "track": [
+        [
+          0,
+          0.45,
+          0.86
+        ],
+        [
+          2400,
+          0.46,
+          0.895
+        ]
+      ]
+    },
+    {
+      "id": "lb",
+      "team": "home",
+      "track": [
+        [
+          0,
+          0.24,
+          0.84
+        ],
+        [
+          2400,
+          0.27,
+          0.9
+        ]
+      ]
+    },
+    {
+      "id": "rb",
+      "team": "home",
+      "track": [
+        [
+          0,
+          0.82,
+          0.7
+        ],
+        [
+          2400,
+          0.87,
+          0.77
+        ]
+      ]
+    },
+    {
+      "id": "dm",
+      "team": "home",
+      "track": [
+        [
+          0,
+          0.5,
+          0.72
+        ],
+        [
+          2400,
+          0.52,
+          0.77
+        ]
+      ]
+    },
+    {
+      "id": "cm1",
+      "team": "home",
+      "track": [
+        [
+          0,
+          0.36,
+          0.64
+        ],
+        [
+          2400,
+          0.38,
+          0.7
+        ]
+      ]
+    },
+    {
+      "id": "wg",
+      "team": "away",
+      "track": [
+        [
+          0,
+          0.86,
+          0.7
+        ],
+        [
+          2400,
+          0.91,
+          0.8
+        ]
+      ]
+    },
+    {
+      "id": "stA",
+      "team": "away",
+      "track": [
+        [
+          0,
+          0.6,
+          0.76
+        ],
+        [
+          1200,
+          0.61,
+          0.82
+        ],
+        [
+          2400,
+          0.63,
+          0.91
+        ]
+      ]
+    },
+    {
+      "id": "stB",
+      "team": "away",
+      "track": [
+        [
+          0,
+          0.47,
+          0.78
+        ],
+        [
+          2400,
+          0.49,
+          0.875
+        ]
+      ]
+    },
+    {
+      "id": "cmL",
+      "team": "away",
+      "track": [
+        [
+          0,
+          0.36,
+          0.7
+        ],
+        [
+          2400,
+          0.3,
+          0.86
+        ]
+      ]
+    },
+    {
+      "id": "m4",
+      "team": "away",
+      "track": [
+        [
+          0,
+          0.62,
+          0.64
+        ],
+        [
+          2400,
+          0.66,
+          0.72
+        ]
+      ]
+    },
+    {
+      "id": "ball",
+      "track": [
+        [
+          0,
+          0.87,
+          0.715
+        ],
+        [
+          2400,
+          0.905,
+          0.815
+        ]
+      ]
+    }
   ],
-  "candidates": ["stA", "stB", "cmL"],
+  "candidates": [
+    "stA",
+    "stB",
+    "cmL"
+  ],
   "correctOptionId": "stA",
   "options": [
     {
-      "id": "stA", "entity": "stA",
-      "labelKey": "cb-m1.opt.stA", "explainKey": "cb-m1.why.stA",
-      "outcome": { "kind": "good", "captionKey": "cb-m1.out.stA", "durationMs": 1700, "tracks": {
-        "me":   [[0, 0.60, 0.895], [700, 0.625, 0.925]],
-        "stA":  [[0, 0.63, 0.91], [700, 0.635, 0.94]],
-        "ball": [[0, 0.905, 0.815], [700, 0.625, 0.92], [1700, 0.80, 0.66]]
-      } }
+      "id": "stA",
+      "entity": "stA",
+      "labelKey": "cb-m1.opt.stA",
+      "explainKey": "cb-m1.why.stA",
+      "outcome": {
+        "kind": "good",
+        "captionKey": "cb-m1.out.stA",
+        "durationMs": 1700,
+        "tracks": {
+          "me": [
+            [
+              0,
+              0.6,
+              0.895
+            ],
+            [
+              700,
+              0.625,
+              0.925
+            ]
+          ],
+          "stA": [
+            [
+              0,
+              0.63,
+              0.91
+            ],
+            [
+              700,
+              0.635,
+              0.94
+            ]
+          ],
+          "ball": [
+            [
+              0,
+              0.905,
+              0.815
+            ],
+            [
+              700,
+              0.625,
+              0.92
+            ],
+            [
+              1700,
+              0.8,
+              0.66
+            ]
+          ]
+        }
+      }
     },
     {
-      "id": "stB", "entity": "stB",
-      "labelKey": "cb-m1.opt.stB", "explainKey": "cb-m1.why.stB",
-      "outcome": { "kind": "bad", "captionKey": "cb-m1.out.stB", "durationMs": 1700, "tracks": {
-        "me":   [[0, 0.60, 0.895], [700, 0.52, 0.89]],
-        "stA":  [[0, 0.63, 0.91], [700, 0.62, 0.945]],
-        "ball": [[0, 0.905, 0.815], [700, 0.62, 0.94], [1300, 0.55, 1.005]]
-      } }
+      "id": "stB",
+      "entity": "stB",
+      "labelKey": "cb-m1.opt.stB",
+      "explainKey": "cb-m1.why.stB",
+      "outcome": {
+        "kind": "bad",
+        "captionKey": "cb-m1.out.stB",
+        "durationMs": 1700,
+        "tracks": {
+          "me": [
+            [
+              0,
+              0.6,
+              0.895
+            ],
+            [
+              700,
+              0.52,
+              0.89
+            ]
+          ],
+          "stA": [
+            [
+              0,
+              0.63,
+              0.91
+            ],
+            [
+              700,
+              0.62,
+              0.945
+            ]
+          ],
+          "ball": [
+            [
+              0,
+              0.905,
+              0.815
+            ],
+            [
+              700,
+              0.62,
+              0.94
+            ],
+            [
+              1300,
+              0.55,
+              1.005
+            ]
+          ]
+        }
+      }
     },
     {
-      "id": "cmL", "entity": "cmL",
-      "labelKey": "cb-m1.opt.cmL", "explainKey": "cb-m1.why.cmL",
-      "outcome": { "kind": "bad", "captionKey": "cb-m1.out.cmL", "durationMs": 1700, "tracks": {
-        "me":   [[0, 0.60, 0.895], [900, 0.36, 0.90]],
-        "stA":  [[0, 0.63, 0.91], [700, 0.62, 0.945]],
-        "ball": [[0, 0.905, 0.815], [700, 0.62, 0.94], [1300, 0.55, 1.005]]
-      } }
+      "id": "cmL",
+      "entity": "cmL",
+      "labelKey": "cb-m1.opt.cmL",
+      "explainKey": "cb-m1.why.cmL",
+      "outcome": {
+        "kind": "bad",
+        "captionKey": "cb-m1.out.cmL",
+        "durationMs": 1700,
+        "tracks": {
+          "me": [
+            [
+              0,
+              0.6,
+              0.895
+            ],
+            [
+              900,
+              0.36,
+              0.9
+            ]
+          ],
+          "stA": [
+            [
+              0,
+              0.63,
+              0.91
+            ],
+            [
+              700,
+              0.62,
+              0.945
+            ]
+          ],
+          "ball": [
+            [
+              0,
+              0.905,
+              0.815
+            ],
+            [
+              700,
+              0.62,
+              0.94
+            ],
+            [
+              1300,
+              0.55,
+              1.005
+            ]
+          ]
+        }
+      }
     }
   ],
-  "timeoutOutcome": { "kind": "bad", "captionKey": "cb-m1.out.timeout", "durationMs": 1700, "tracks": {
-    "stA":  [[0, 0.63, 0.91], [700, 0.62, 0.945]],
-    "ball": [[0, 0.905, 0.815], [700, 0.62, 0.94], [1300, 0.55, 1.005]]
-  } },
+  "timeoutOutcome": {
+    "kind": "bad",
+    "captionKey": "cb-m1.out.timeout",
+    "durationMs": 1700,
+    "tracks": {
+      "stA": [
+        [
+          0,
+          0.63,
+          0.91
+        ],
+        [
+          700,
+          0.62,
+          0.945
+        ]
+      ],
+      "ball": [
+        [
+          0,
+          0.905,
+          0.815
+        ],
+        [
+          700,
+          0.62,
+          0.94
+        ],
+        [
+          1300,
+          0.55,
+          1.005
+        ]
+      ]
+    }
+  },
   "approvedBy": null,
   "approvedAt": null
 }

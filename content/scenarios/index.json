@@ -3,182 +3,218 @@
     {
       "id": "cb-01",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "cb-02",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "cb-03",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "cb-04",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "cb-05",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "cb-06",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "cb-07",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "cb-08",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "cb-09",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "cb-10",
       "position": "CB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "cb-m1",
       "position": "CB",
-      "type": "marking"
+      "type": "marking",
+      "difficulty": 2
     },
     {
       "id": "cb-m2",
       "position": "CB",
-      "type": "marking"
+      "type": "marking",
+      "difficulty": 3
     },
     {
       "id": "dm-01",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "dm-02",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "dm-03",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "dm-04",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "dm-05",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "dm-06",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "dm-07",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "dm-08",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "dm-09",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "dm-10",
       "position": "DM",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "dm-m1",
       "position": "DM",
-      "type": "marking"
+      "type": "marking",
+      "difficulty": 2
     },
     {
       "id": "dm-m2",
       "position": "DM",
-      "type": "marking"
+      "type": "marking",
+      "difficulty": 2
     },
     {
       "id": "fb-01",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "fb-02",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "fb-03",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "fb-04",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "fb-05",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "fb-06",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 2
     },
     {
       "id": "fb-07",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "fb-08",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "fb-09",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 1
     },
     {
       "id": "fb-10",
       "position": "FB",
-      "type": "decision"
+      "type": "decision",
+      "difficulty": 3
     },
     {
       "id": "fb-m1",
       "position": "FB",
-      "type": "marking"
+      "type": "marking",
+      "difficulty": 2
     },
     {
       "id": "fb-m2",
       "position": "FB",
-      "type": "marking"
+      "type": "marking",
+      "difficulty": 3
     }
   ]
 }

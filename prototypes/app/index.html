@@ -51,6 +51,17 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .tab[aria-current="page"]{color:var(--chalk);font-weight:700}
 .tab[aria-current="page"] svg{stroke:var(--marker)}
 
+/* מסך פתיחה (סמל) */
+#s-splash{min-height:calc(100vh - 40px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px}
+#s-splash .logo{width:168px;height:168px;opacity:0;transform:scale(.85);animation:logoIn .6s .1s cubic-bezier(.2,1.4,.4,1) forwards}
+#s-splash .logo .arrow{stroke-dasharray:7 7;stroke-dashoffset:120;animation:draw 1s .5s ease-out forwards}
+#s-splash .word{font-family:"Secular One",sans-serif;font-size:52px;line-height:1;color:var(--marker);letter-spacing:2px;margin-top:14px;opacity:0;animation:fadeUp .5s .7s ease-out forwards}
+#s-splash .tag{font-size:20px;font-weight:600;max-width:17em;text-wrap:balance;opacity:0;animation:fadeUp .5s .9s ease-out forwards}
+#s-splash .primary{max-width:360px;margin-top:34px;opacity:0;animation:fadeUp .5s 1.1s ease-out forwards}
+@keyframes logoIn{to{opacity:1;transform:none}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){#s-splash *{animation-duration:.01s !important;animation-delay:0s !important}}
+
 /* פתיחה */
 .steps{display:flex;gap:4px;margin:8px 0 22px}
 .steps i{flex:1;height:5px;border-radius:2px;background:rgba(242,239,230,.2)}
@@ -82,6 +93,27 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .two .secondary{margin:0;min-height:64px;background:var(--board-2);font-size:15px}
 .coach{margin-top:18px}
 .coach .k{font-size:13px;font-weight:700;color:var(--chalk-muted);margin-bottom:4px}
+
+/* מצבים */
+.modes{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.mode{display:flex;align-items:center;gap:14px;width:100%;min-height:68px;text-align:start;border:var(--dash);border-radius:4px;background:var(--board-2);padding:10px 14px}
+.mode:disabled{opacity:.75;cursor:default}
+.mode .ic{width:42px;height:42px;border-radius:4px;background:var(--board-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mode b{display:block;font-family:"Secular One",sans-serif;font-weight:400;font-size:19px;line-height:1.2}
+.mode .sub{display:block;font-size:14px;color:var(--chalk-muted)}
+.mode .go{margin-inline-start:auto;flex-shrink:0}
+.tf-card{position:relative;overflow:hidden;touch-action:pan-y;margin:0 auto 10px}
+.tf-claim{position:absolute;left:10px;right:10px;top:10px;text-align:center;background:rgba(10,24,18,.9);border:var(--dash);border-radius:4px;
+  padding:8px 10px;font-family:"Secular One",sans-serif;font-size:20px;line-height:1.2;pointer-events:none}
+.tf-flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Secular One",sans-serif;font-size:96px;pointer-events:none;opacity:0}
+.tf-flash.good{opacity:1;background:rgba(255,210,63,.22);color:var(--marker);animation:pop .2s ease-out}
+.tf-flash.bad{opacity:1;background:rgba(10,24,18,.55);color:var(--chalk);animation:pop .2s ease-out}
+.tf-btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tf-btns button{min-height:64px;border-radius:4px;font-family:"Secular One",sans-serif;font-size:24px}
+.tf-yes{background:var(--marker);color:var(--on-marker);border:0}
+.tf-no{background:transparent;border:var(--dash);color:var(--chalk)}
+.me-big{font-family:"Secular One",sans-serif;font-size:120px;line-height:1;color:var(--marker);margin:24px 0 0;font-variant-numeric:tabular-nums}
+.record{display:inline-block;background:var(--marker);color:var(--on-marker);font-weight:700;border-radius:4px;padding:4px 12px;margin-top:10px}
 
 /* התקדמות */
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
@@ -120,7 +152,7 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 /* תרחיש */
 .top{display:flex;justify-content:space-between;align-items:center;min-height:44px;margin-bottom:6px}
 .x{width:44px;height:44px;border:0;background:transparent;display:flex;align-items:center;justify-content:center}
-.stage{position:relative;margin:0 auto 10px;border-radius:4px;overflow:hidden;touch-action:manipulation}
+.stage{position:relative;margin:0 auto 8px;overflow:hidden;touch-action:manipulation}
 canvas{display:block;width:100%}
 .count{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
   font-family:"Secular One",sans-serif;font-size:96px;color:var(--chalk);text-shadow:0 4px 24px rgba(0,0,0,.5)}
@@ -132,15 +164,15 @@ canvas{display:block;width:100%}
 .caption.bad{background:rgba(10,24,18,.92);color:var(--chalk);border:var(--dash)}
 .caption.neutral{background:var(--board-2);color:var(--chalk)}
 @keyframes pop{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
-.timer{height:10px;background:var(--board-dark);border-radius:2px;overflow:hidden;margin:0 0 10px}
+.timer{height:8px;background:var(--board-dark);border-radius:2px;overflow:hidden;margin:0 0 8px}
 .timer>i{display:block;height:100%;width:100%;background:var(--marker)}
 .timer.low>i{background:var(--chalk)}
 .concealed{visibility:hidden}
 .scan{display:block;width:100%;min-height:56px;border:var(--dash);border-radius:4px;background:transparent;font-size:18px;font-weight:700;margin:0 0 10px}
-.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.options button{min-height:60px;border:var(--dash);background:var(--board-2);border-radius:4px;font-size:16px;font-weight:600;padding:6px 10px;line-height:1.25}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.options button{min-height:46px;border:var(--dash);background:var(--board-2);border-radius:4px;font-size:15px;font-weight:600;padding:4px 8px;line-height:1.2}
 .options button:active{background:var(--board-dark)}
-.prompt{text-align:center;font-family:"Secular One",sans-serif;font-size:22px;color:var(--marker);min-height:60px;display:flex;align-items:center;justify-content:center}
+.prompt{text-align:center;font-family:"Secular One",sans-serif;font-size:20px;color:var(--marker);min-height:44px;display:flex;align-items:center;justify-content:center}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:3px 10px;border-radius:4px;background:var(--board-dark);
   font-size:14px;font-weight:700;color:var(--chalk)}
@@ -212,6 +244,21 @@ canvas{display:block;width:100%}
 <body>
 <main class="app">
 
+  <!-- ============ מסך פתיחה ============ -->
+  <section id="s-splash" hidden>
+    <svg class="logo" viewBox="0 0 120 120" role="img" aria-label="Pressure">
+      <rect x="3" y="3" width="114" height="114" rx="6" fill="#24533F" stroke="rgba(242,239,230,.6)" stroke-width="2.5" stroke-dasharray="8 6"/>
+      <g fill="none" stroke="rgba(242,239,230,.35)" stroke-width="1.5"><line x1="10" y1="60" x2="110" y2="60"/><circle cx="60" cy="60" r="13"/></g>
+      <path class="arrow" d="M38 86 C 48 58, 70 46, 88 36" fill="none" stroke="#FFD23F" stroke-width="4" stroke-linecap="round"/>
+      <path d="M81 31 L92 33 L86 43" fill="none" stroke="#FFD23F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="38" cy="86" r="11" fill="#FFD23F" stroke="#1D2A12" stroke-width="3"/>
+      <circle cx="62" cy="78" r="8" fill="#F08A4B"/><circle cx="72" cy="62" r="8" fill="#F08A4B"/>
+    </svg>
+    <div class="word">PRESSURE</div>
+    <p class="tag" id="spTag"></p>
+    <button class="primary" id="spBtn"></button>
+  </section>
+
   <!-- ============ פתיחה ============ -->
   <section id="s-onboard" hidden>
     <div class="steps" id="obSteps" aria-hidden="true"></div>
@@ -276,6 +323,12 @@ canvas{display:block;width:100%}
         </svg>
       </div>
       <button class="primary" id="dailyBtn"></button>
+    </div>
+    <h3 class="section-gap" id="modesH"></h3>
+    <div class="modes">
+      <button class="mode" id="mSurv"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span><b id="mSurvT"></b><span class="sub" id="mSurvS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="mode" id="mTf"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l4 4 7-8"/><path d="M15 14l6 6M21 14l-6 6"/></svg></span><span><b id="mTfT"></b><span class="sub" id="mTfS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="mode" id="mWeek"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b id="mWeekT"></b><span class="sub" id="mWeekS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
     </div>
     <div class="card section-gap">
       <div class="row"><b id="wkK"></b><span class="spacer"></span><span class="muted" id="wkV"></span></div>
@@ -351,6 +404,28 @@ canvas{display:block;width:100%}
     <button class="scan" id="scanBtn" hidden></button>
     <div class="options concealed" id="options" hidden></div>
     <div class="prompt concealed" id="prompt" hidden></div>
+  </section>
+
+  <!-- ============ נכון או לא ============ -->
+  <section id="s-tf" hidden>
+    <div class="top"><span class="display" id="tfScore" style="font-size:22px"></span>
+      <button class="x" id="tfClose" aria-label="יציאה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="timer"><i id="tfBar"></i></div>
+    <div class="tf-card" id="tfCard"><canvas id="tfPitch" aria-label="מגרש כדורגל מלמעלה"></canvas><div class="tf-claim" id="tfClaim"></div><div class="tf-flash" id="tfFlash"></div></div>
+    <div class="tf-btns"><button class="tf-yes" id="tfYes"></button><button class="tf-no" id="tfNo"></button></div>
+    <p class="muted" id="tfHint" style="text-align:center;margin-top:8px;font-size:14px"></p>
+  </section>
+
+  <!-- ============ סוף מצב ============ -->
+  <section id="s-modeEnd" hidden style="text-align:center;padding-top:30px">
+    <p class="muted" id="meK" style="font-size:18px;margin:0"></p>
+    <div class="me-big" id="meBig"></div>
+    <h2 id="meTitle"></h2>
+    <div id="meRec"></div>
+    <p class="muted" id="meSub" style="font-size:17px;margin-top:10px"></p>
+    <button class="primary" id="meAgain"></button>
+    <button class="secondary" id="meHome"></button>
   </section>
 
   <!-- ============ סיכום אימון ============ -->
@@ -460,7 +535,7 @@ function boot(){
     var direct = new URLSearchParams(location.search).get("s");
     if (direct){ startSession("single", [direct]); return; }
     if (new URLSearchParams(location.search).get("dev")){ nav("dev"); return; }
-    if (!profile) startOnboarding(); else nav("home");
+    nav("splash");
   }).catch(function(e){
     el("err").hidden = false;
     el("err").textContent = "לא הצלחתי לטעון את התרחישים: " + e.message + ". צריך להריץ דרך שרת מקומי.";
@@ -479,7 +554,7 @@ function staticTexts(){
 }
 
 // ---------- ניווט ----------
-var SCREENS = ["onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
+var SCREENS = ["tf","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
 var TABBED = {home:1, progress:1, profile:1};
 function nav(name){
   SCREENS.forEach(function(s){ el("s-" + s).hidden = s !== name; });
@@ -565,6 +640,12 @@ function finishOnboarding(){
   if (first) nav("calibIntro"); else nav("profile");
 }
 
+function renderSplash(){
+  el("spTag").textContent = t("sp.tag");
+  el("spBtn").textContent = profile ? t("sp.continue", {name:profile.name}) : t("sp.start");
+}
+el("spBtn").addEventListener("click", function(){ if (profile) nav("home"); else startOnboarding(); });
+
 function renderCalibIntro(){
   el("ciTitle").textContent = t("ci.title", {name:profile.name});
   el("ciText").textContent = t("ci.text");
@@ -630,6 +711,7 @@ function renderHome(){
   el("playedL").textContent = t("home.played");
   el("coachK").textContent = t("coach.k");
   el("coachText").textContent = coachLine();
+  renderModes();
 }
 
 function practicedDays(){
@@ -833,6 +915,143 @@ function renderDev(){
 el("devClose").addEventListener("click", function(){ nav(profile ? "profile" : "home"); });
 el("devPlayAll").addEventListener("click", function(){ startSession("single", index.map(function(s){ return s.id; })); });
 
+// ================= מצבים =================
+function records(){ return store.get("records", {survival:0, tf:0}); }
+function weekStart(){ var d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate() - d.getDay()); return d; }
+function weekKey(){ return dayKey(weekStart()); }
+function weeklyId(){
+  var hard = index.filter(function(s){ return s.difficulty === 3; });
+  var n = Math.floor(weekStart().getTime() / (7 * 864e5));
+  return hard.length ? hard[n % hard.length].id : index[0].id;
+}
+function revealDay(){ return new Date().getDay() === 6; }   // שבת
+
+function renderModes(){
+  var rec = records();
+  el("modesH").textContent = t("modes.h");
+  el("mSurvT").textContent = t("sv.title");
+  el("mSurvS").textContent = rec.survival ? t("sv.best", {n:rec.survival}) : t("sv.sub");
+  el("mTfT").textContent = t("tf.title");
+  el("mTfS").textContent = rec.tf ? t("tf.best", {n:rec.tf}) : t("tf.sub");
+  el("mWeekT").textContent = t("wk.title");
+  var w = store.get("weekly", null), done = w && w.week === weekKey();
+  el("mWeek").disabled = !!(done && !revealDay());
+  el("mWeekS").textContent = !done ? t("wk.sub")
+    : revealDay() ? t("wk.reveal")
+    : w.ok == null ? t("wk.doneNull") : w.ok ? t("wk.doneOk") : t("wk.doneBad");
+}
+
+var lastMode = null;
+function startSurvival(){
+  lastMode = "survival";
+  var mine = index.filter(function(s){ return s.position === profile.pos; }).map(function(s){ return s.id; });
+  var rest = index.filter(function(s){ return s.position !== profile.pos; }).map(function(s){ return s.id; });
+  startSession("survival", shuffle(mine).concat(shuffle(rest)));
+}
+function survivalWindow(){ return Math.max(2000, 5000 - 500 * (session ? session.results.length : 0)); }
+function finishSurvival(){
+  var r = session ? session.results : [];
+  var n = r.filter(function(x){ return x.ok; }).length;
+  var rec = records(), isNew = n > (rec.survival || 0);
+  if (isNew){ rec.survival = n; store.set("records", rec); }
+  showModeEnd({k:t("sv.title"), big:n, title:n === 0 ? t("sv.endZero") : n === 1 ? t("sv.endOne") : t("sv.end", {n:n}), isNew:isNew && n > 0,
+    sub:isNew ? t("sv.subNew") : rec.survival ? t("sv.subBest", {n:rec.survival}) : t("sv.subZero")});
+}
+
+function startWeekly(){
+  var w = store.get("weekly", null);
+  if (w && w.week === weekKey()){ if (revealDay()) startSession("weeklyReview", [w.id]); return; }
+  startSession("weekly", [weeklyId()]);
+}
+
+// ---------- נכון או לא ----------
+var tf = null, pool = null, tfTimer = 0, TF_MS = 30000;
+function loadPool(){
+  if (pool) return Promise.resolve(pool);
+  return Promise.all(index.map(function(s){ return getJSON("scenarios/" + s.id + ".json"); })).then(function(a){ pool = a; return a; });
+}
+function startTF(){
+  lastMode = "tf";
+  loadPool().then(function(){
+    tf = {score:0, total:0, end:performance.now() + TF_MS, lock:false, last:null};
+    canvas = el("tfPitch"); ctx = canvas.getContext("2d");
+    el("tfYes").textContent = t("tf.yes"); el("tfNo").textContent = t("tf.no"); el("tfHint").textContent = t("tf.hint");
+    nav("tf");
+    nextCard(); tfScore();
+    clearInterval(tfTimer); tfTimer = setInterval(tfTick, 100);
+  }).catch(function(e){ alert(e.message); });
+}
+function nextCard(){
+  var cand = pool.filter(function(p){ return p.id !== tf.last; });
+  sc = cand[Math.floor(Math.random() * cand.length)]; tf.last = sc.id;
+  VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
+  var truth = Math.random() < 0.5, opt;
+  if (truth) opt = optionById(sc.correctOptionId);
+  else { var wrong = sc.options.filter(function(o){ return o.id !== sc.correctOptionId; }); opt = wrong[Math.floor(Math.random() * wrong.length)]; }
+  tf.opt = opt; tf.truth = truth;
+  S = {phase:"tf", fog:false, choice:null};
+  layout(el("tfCard"), 300);
+  el("tfClaim").textContent = t(sc.type === "marking" ? "tf.claimMark" : "tf.claimPass", {x:t(opt.labelKey)});
+  el("tfFlash").className = "tf-flash"; el("tfFlash").textContent = "";
+  render(performance.now());
+}
+function tfScore(){ el("tfScore").textContent = t("tf.score", {n:tf.score}); }
+function tfAnswer(saysTrue){
+  if (!tf || tf.lock) return;
+  tf.lock = true;
+  var right = saysTrue === tf.truth;
+  tf.total++; if (right) tf.score++;
+  var f = el("tfFlash"); f.className = "tf-flash " + (right ? "good" : "bad"); f.textContent = right ? "\u2713" : "\u2717";
+  tfScore();
+  setTimeout(function(){ if (!tf) return; tf.lock = false; if (performance.now() < tf.end) nextCard(); }, 420);
+}
+function tfTick(){
+  if (!tf) return;
+  var left = tf.end - performance.now();
+  el("tfBar").style.width = Math.max(0, left / TF_MS * 100) + "%";
+  el("tfBar").parentNode.classList.toggle("low", left < 5000);
+  if (left <= 0) endTF(true);
+}
+function endTF(finished){
+  clearInterval(tfTimer); tfTimer = 0;
+  canvas = el("pitch"); ctx = canvas.getContext("2d");
+  var res = tf; tf = null;
+  if (!finished || !res){ nav("home"); return; }
+  var rec = records(), isNew = res.score > (rec.tf || 0);
+  if (isNew){ rec.tf = res.score; store.set("records", rec); }
+  showModeEnd({k:t("tf.title"), big:res.score, title:t("tf.end", {n:res.score, total:res.total}), isNew:isNew && res.score > 0,
+    sub:isNew ? t("sv.subNew") : t("tf.subBest", {n:rec.tf})});
+}
+el("tfYes").addEventListener("click", function(){ tfAnswer(true); });
+el("tfNo").addEventListener("click", function(){ tfAnswer(false); });
+el("tfClose").addEventListener("click", function(){ endTF(false); });
+(function(){
+  var x0 = null;
+  el("tfCard").addEventListener("pointerdown", function(e){ x0 = e.clientX; });
+  el("tfCard").addEventListener("pointerup", function(e){
+    if (x0 == null) return; var dx = e.clientX - x0; x0 = null;
+    if (dx > 60) tfAnswer(true); else if (dx < -60) tfAnswer(false);
+  });
+})();
+
+// ---------- מסך סוף מצב ----------
+function showModeEnd(o){
+  nav("modeEnd");
+  el("meK").textContent = o.k;
+  el("meBig").textContent = o.big;
+  el("meTitle").textContent = o.title;
+  var rec = el("meRec"); rec.innerHTML = "";
+  if (o.isNew){ rec.appendChild(h("span", "record", t("me.record"))); if (settings.sound !== false) playStreakSound(); }
+  el("meSub").textContent = o.sub;
+  el("meAgain").textContent = t("me.again");
+  el("meHome").textContent = t("ma.home");
+}
+el("meAgain").addEventListener("click", function(){ if (lastMode === "tf") startTF(); else startSurvival(); });
+el("meHome").addEventListener("click", function(){ nav("home"); });
+el("mSurv").addEventListener("click", startSurvival);
+el("mTf").addEventListener("click", startTF);
+el("mWeek").addEventListener("click", startWeekly);
+
 // ================= סיכום משחק =================
 var MA = [
   {key:"how", options:["bad","ok","good","great"]},
@@ -890,7 +1109,9 @@ function endSession(){
     else nav("summary");
   } else if (kind === "calib") nav("calibResult");
   else if (kind === "warmup") nav("warmupDone");
-  else if (profile) nav("dev"); else nav("dev");
+  else if (kind === "survival") finishSurvival();
+  else if (kind === "weekly" || kind === "weeklyReview") nav("home");
+  else nav("dev");
 }
 
 function quitSession(){
@@ -946,29 +1167,66 @@ function renderWarmupDone(){
 }
 el("wdBtn").addEventListener("click", function(){ nav("home"); });
 
-var RENDER = {onboard:renderOnboard, calibIntro:renderCalibIntro, calibResult:renderCalibResult, waitlist:renderWaitlist,
+var RENDER = {splash:renderSplash, onboard:renderOnboard, calibIntro:renderCalibIntro, calibResult:renderCalibResult, waitlist:renderWaitlist,
   home:renderHome, progress:renderProgress, profile:renderProfile, dev:renderDev, summary:renderSummary, warmupDone:renderWarmupDone, match:renderMatch};
 
 // ================= מנוע התרחישים (מהנגן) =================
 var canvas = el("pitch"), ctx = canvas.getContext("2d");
 var fog = document.createElement("canvas"), fctx = fog.getContext("2d");
-var W = 0, H = 0, VT = 0.4, VB = 1.03;
+var W = 0, H = 0, VT = 0.4, VB = 1.03, VT0 = 0.4, VB0 = 1.03, VL = 0, VR = 1, PX = 1, R0 = 11;
 
+// אזור הפעולה: מה שחשוב להחלטה — אתה, הכדור, והשחקנים/הנקודות שאפשר לבחור
+function actionBox(){
+  var x0 = 1, x1 = 0;
+  function add(p){ if (p.y < VT - 0.02 || p.y > VB + 0.02) return; x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); }
+  ["me", "ball"].forEach(function(id){ var e = entity(id); if (e){ add(at(e.track, 0, id === "ball")); add(at(e.track, sc.freezeAtMs, id === "ball")); } });
+  if (sc.type === "marking") (sc.candidates || []).forEach(function(id){ add(freezePos(id)); });
+  else sc.options.forEach(function(o){
+    if (typeof o.target === "string" && entity(o.target)) add(freezePos(o.target));
+    else if (o.target && typeof o.target.x === "number") add({x:Math.max(0, Math.min(1, o.target.x)), y:o.target.y});
+  });
+  if (x1 < x0){ x0 = 0; x1 = 1; }
+  return {x0:x0, x1:x1};
+}
+
+// המגרש ממלא את כל הרוחב ואת הגובה הפנוי. אם צריך — זום על אזור הפעולה.
 function resize(){
-  var full = el("s-play").clientWidth || 360;
+  var reserved = S.phase === "preview" ? 330 : (sc.type === "marking" ? 162 : 220);
+  layout(el("stage"), reserved + (S.fog ? 62 : 0));
+}
+function layout(st, reserved){
+  VT = VT0; VB = VB0;
+  var vw = Math.min(document.documentElement.clientWidth || 375, 560);
   var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-  var ratio = (VB - VT) * 105 / 68;
-  var reserved = (S.phase === "preview" ? 330 : 250) + (S.fog ? 66 : 0);
-  var w = Math.floor(Math.min(full, Math.max(220, (vh - reserved) / ratio)));
-  el("stage").style.width = w + "px";
+  var availH = Math.max(220, vh - reserved);
+  var spanY = VB - VT;
+  var spanX = spanY * 105 * vw / (68 * availH);
+  var box = actionBox();
+  spanX = Math.min(1.04, Math.max(spanX, box.x1 - box.x0 + 0.14, 0.5));
+  var cx = (box.x0 + box.x1) / 2;
+  VL = cx - spanX / 2; VR = cx + spanX / 2;
+  if (VL < -0.02){ VR += -0.02 - VL; VL = -0.02; }
+  if (VR > 1.02){ VL -= VR - 1.02; VR = 1.02; }
+  W = vw; H = Math.round(W * spanY * 105 / (spanX * 68));
+  if (H > availH){ H = Math.round(availH); W = Math.round(H * spanX * 68 / (spanY * 105)); }
+  PX = W / spanX;
+  // נשאר מקום בגובה? מראים עוד מגרש מעל (באותו גודל), כדי שהמגרש ימלא את המסך
+  if (H < availH - 4){
+    var perY = PX * 105 / 68, extra = (availH - H) / perY;
+    var up = Math.min(extra, Math.max(0, VT + 0.03));
+    VT -= up; VB = Math.min(1.06, VB + (extra - up));
+    H = Math.round((VB - VT) * perY);
+  }
+  R0 = Math.max(9, Math.min(18, PX * 0.028));
+  st.style.width = W + "px";
+  st.style.marginInline = "calc((100% - " + W + "px) / 2)";
   var dpr = Math.min(window.devicePixelRatio || 1, 3);
-  W = w; H = Math.round(w * ratio);
   canvas.style.height = H + "px";
   canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
   fog.width = canvas.width; fog.height = canvas.height;
   ctx.setTransform(dpr,0,0,dpr,0,0); fctx.setTransform(dpr,0,0,dpr,0,0);
 }
-function X(x){ return x * W; }
+function X(x){ return (x - VL) * PX; }
 function Y(y){ return (y - VT) / (VB - VT) * H; }
 
 function at(track, time, linear){
@@ -988,8 +1246,8 @@ function at(track, time, linear){
 function drawPitch(){
   ctx.fillStyle = "#24533F"; ctx.fillRect(0, 0, W, H);
   ctx.strokeStyle = "rgba(242,239,230,.75)";
-  ctx.lineWidth = Math.max(1.5, W * 0.004);
-  var r = 9.15 / 68 * W;
+  ctx.lineWidth = Math.max(1.5, PX * 0.004);
+  var r = 9.15 / 68 * PX;
   ctx.beginPath();
   ctx.moveTo(X(0.004), Y(0)); ctx.lineTo(X(0.004), Y(1));
   ctx.moveTo(X(0.996), Y(0)); ctx.lineTo(X(0.996), Y(1));
@@ -1015,7 +1273,7 @@ function drawPitch(){
 
 function label(text, x, y, color){
   ctx.save();
-  ctx.font = "700 " + Math.round(W * 0.036) + "px Assistant, system-ui, sans-serif";
+  ctx.font = "700 " + Math.round(R0 * 1.25) + "px Assistant, system-ui, sans-serif";
   ctx.textAlign = "center"; ctx.textBaseline = "bottom";
   try { ctx.direction = "rtl"; } catch(e){}
   ctx.lineWidth = 4; ctx.strokeStyle = "rgba(0,0,0,.55)";
@@ -1025,7 +1283,7 @@ function label(text, x, y, color){
 
 var FILL = {away:"#F08A4B", me:"#FFD23F", gk:"#9FD8CF", home:"#F2EFE6"};
 function drawPlayer(p, team){
-  var r = W * 0.03;
+  var r = R0;
   ctx.beginPath(); ctx.arc(X(p.x), Y(p.y) + 2, r, 0, Math.PI*2);
   ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.fill();
   ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), r, 0, Math.PI*2);
@@ -1035,14 +1293,34 @@ function drawPlayer(p, team){
   if (team === "me") label(t("ui.you"), X(p.x), Y(p.y) - r - 3, "#FFD23F");
 }
 function drawBall(p){
-  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), W * 0.014, 0, Math.PI*2);
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), R0 * 0.48, 0, Math.PI*2);
   ctx.fillStyle = "#FFFFFF"; ctx.fill();
   ctx.lineWidth = 1.5; ctx.strokeStyle = "#111"; ctx.stroke();
 }
 function ring(p, color, pulse){
   ctx.save();
   ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.setLineDash([6, 5]);
-  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), W * (0.055 + pulse * 0.01), 0, Math.PI*2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), R0 * (1.8 + pulse * 0.35), 0, Math.PI*2); ctx.stroke();
+  ctx.restore();
+}
+
+function targetPos(o){
+  if (typeof o.target === "string") return freezePos(o.target);
+  if (o.target && typeof o.target.x === "number") return {x:o.target.x, y:o.target.y};
+  return freezePos("me");
+}
+function arrow(a, b, color){
+  var x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  var ang = Math.atan2(y2 - y1, x2 - x1), hl = R0 * 1.3;
+  ctx.save();
+  ctx.strokeStyle = color; ctx.fillStyle = color; ctx.lineWidth = Math.max(3, R0 * 0.3); ctx.lineCap = "round";
+  ctx.setLineDash([R0 * 0.8, R0 * 0.6]);
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - Math.cos(ang) * hl * 0.7, y2 - Math.sin(ang) * hl * 0.7); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - hl * Math.cos(ang - 0.45), y2 - hl * Math.sin(ang - 0.45));
+  ctx.lineTo(x2 - hl * Math.cos(ang + 0.45), y2 - hl * Math.sin(ang + 0.45));
+  ctx.closePath(); ctx.fill();
   ctx.restore();
 }
 
@@ -1054,12 +1332,12 @@ function drawFog(me, face, alpha){
   fctx.globalCompositeOperation = "destination-out";
   var cx = X(me.x), cy = Y(me.y);
   var ang = Math.atan2(Y(face.y) - cy, X(face.x) - cx);
-  var R = W * 0.55, half = 55 * Math.PI / 180;
+  var R = PX * 0.55, half = 55 * Math.PI / 180;
   var g = fctx.createRadialGradient(cx, cy, 0, cx, cy, R);
   g.addColorStop(0, "rgba(0,0,0,1)"); g.addColorStop(0.7, "rgba(0,0,0,1)"); g.addColorStop(1, "rgba(0,0,0,0)");
   fctx.fillStyle = g;
   fctx.beginPath(); fctx.moveTo(cx, cy); fctx.arc(cx, cy, R, ang - half, ang + half); fctx.closePath(); fctx.fill();
-  fctx.beginPath(); fctx.arc(cx, cy, W * 0.09, 0, Math.PI*2); fctx.fill();
+  fctx.beginPath(); fctx.arc(cx, cy, R0 * 3, 0, Math.PI*2); fctx.fill();
   ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha = alpha; ctx.drawImage(fog, 0, 0); ctx.restore();
 }
 
@@ -1100,6 +1378,10 @@ function render(now){
   if (sc.type === "marking" && (S.phase === "outcome" || S.phase === "after") && S.choice){
     ring(posOf(S.choice, now), S.choice === sc.correctOptionId ? "#FFD23F" : "#F2EFE6", 0);
   }
+  if (S.phase === "tf" && tf && tf.opt){
+    if (sc.type === "marking") ring(freezePos(tf.opt.entity || tf.opt.id), "#FFD23F", 0.3);
+    else arrow(freezePos("me"), targetPos(tf.opt), "#FFD23F");
+  }
   if (S.fog){
     var a = 1 - reveal(now);
     if (S.phase === "outcome" || S.phase === "after") a = Math.min(a, Math.max(0, 1 - (now - S.oStart) / 300));
@@ -1137,8 +1419,11 @@ function loop(now){
 
 function setup(data){
   sc = data;
-  VT = sc.view ? sc.view.top : 0.4; VB = sc.view ? sc.view.bottom : 1.03;
+  VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
   S = {phase:"idle", fog:!!settings.fog, scans:0, scanStart:-1e9, choice:null, solution:false};
+  var kind = session ? session.kind : "";
+  if (kind === "survival") sc.decisionWindowMs = survivalWindow();
+  if (kind === "weekly") sc.decisionWindowMs = 4000;
   el("pTitle").textContent = t(sc.id + ".title");
   el("pIntro").textContent = t(sc.id + ".intro");
   el("introBox").hidden = false; el("introFoot").hidden = false;
@@ -1157,6 +1442,7 @@ function setup(data){
   S.phase = "preview";
   resize(); render(performance.now());
   el("freezeTag").hidden = false;
+  if (kind === "survival") setTimeout(function(){ if (S.phase === "preview" && sc === data) startRun(); }, 1100);
 }
 
 function buildIntro(){
@@ -1168,7 +1454,9 @@ function buildIntro(){
   var dots = h("span", "dots"); dots.setAttribute("aria-label", t("ui.diffAria", {n:sc.difficulty}));
   for (var i = 1; i <= 3; i++) dots.appendChild(h("i", i <= sc.difficulty ? "on" : ""));
   d.appendChild(dots);
-  if (sessionTotal > 1) chip(t("ui.progress", {n:sessionTotal - queue.length, total:sessionTotal}), "progress");
+  if (session && session.kind === "survival") chip(t("sv.chip", {n:session.results.length, s:(sc.decisionWindowMs / 1000).toFixed(1)}), "progress");
+  else if (session && session.kind === "weekly") chip(t("wk.chip"), "mark");
+  else if (sessionTotal > 1) chip(t("ui.progress", {n:sessionTotal - queue.length, total:sessionTotal}), "progress");
   el("freezeTag").textContent = t("ui.startPosition");
   var secs = (sc.decisionWindowMs / 1000).toString().replace(".0", "");
   var items = [["1", t("ui.rule1")], ["2", sc.type === "marking" ? t("ui.rule2mark") : t("ui.rule2", {s:secs})], ["3", S.fog ? t("ui.rule3fog") : t("ui.rule3")]];
@@ -1182,6 +1470,8 @@ function startRun(){
   var ans = sc.type === "marking" ? "prompt" : "options";
   el(ans).hidden = false; el(ans).classList.add("concealed");
   el("scanBtn").hidden = !S.fog;
+  S.phase = "countdown";
+  if (session && session.kind === "weekly") store.set("weekly", {week:weekKey(), id:sc.id, ok:null});   // ניסיון אחד: נספר ברגע שמתחילים
   resize();
   el("timerBar").style.width = "100%";
   el("count").hidden = false; el("count").textContent = "3";
@@ -1202,6 +1492,7 @@ function choose(id, now){
   if (S.phase !== "decide") return;
   S.choice = id; S.rt = id === null ? null : now - S.dStart;
   recordResult();
+  if (session && session.kind === "weekly") store.set("weekly", {week:weekKey(), id:sc.id, ok:id === sc.correctOptionId, rt:S.rt});
   playOutcome(id === null ? sc.timeoutOutcome : optionById(id).outcome, now);
   ["timer","options","prompt","scanBtn","hint"].forEach(function(x){ el(x).hidden = true; });
 }
@@ -1227,6 +1518,9 @@ function openSheet(){
   el("rWhy").textContent = ok ? t(right.explainKey) : (chosen ? t(chosen.explainKey) + " " : "") + t(right.explainKey);
   el("nextBtn").textContent = queue.length ? t("ui.next") : t("ui.finish");
   el("solBtn").hidden = ok;
+  var kind = session ? session.kind : "";
+  if (kind === "survival" && !ok){ queue = []; el("nextBtn").textContent = t("sv.toEnd"); }
+  if (kind === "weekly"){ el("rWhy").textContent = t("wk.hidden"); el("solBtn").hidden = true; }
   el("sheetWrap").hidden = false;
   el("nextBtn").focus();
 }
@@ -1313,7 +1607,7 @@ function shuffle(a){
 canvas.addEventListener("pointerdown", function(ev){
   if (sc && sc.type === "marking" && S.phase === "decide"){
     var rect = canvas.getBoundingClientRect();
-    var px = ev.clientX - rect.left, py = ev.clientY - rect.top, best = null, bestD = W * 0.09;
+    var px = ev.clientX - rect.left, py = ev.clientY - rect.top, best = null, bestD = R0 * 3;
     sc.candidates.forEach(function(id){
       var p = freezePos(id), d = Math.hypot(X(p.x) - px, Y(p.y) - py);
       if (d < bestD){ bestD = d; best = id; }

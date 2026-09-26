@@ -14,7 +14,7 @@
   "bottom": 0.75
  },
  "freezeAtMs": 2400,
- "decisionWindowMs": 3000,
+ "decisionWindowMs": 5000,
  "facing": "ball",
  "entities": [
   {
