@@ -1,0 +1,341 @@
+{
+ "id": "cb-07",
+ "version": 1,
+ "type": "decision",
+ "position": "CB",
+ "difficulty": 2,
+ "tags": [
+  "box",
+  "clearance"
+ ],
+ "view": {
+  "top": 0.55,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.96
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.52,
+     0.86
+    ],
+    [
+     2200,
+     0.5,
+     0.885
+    ]
+   ]
+  },
+  {
+   "id": "cb2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.4,
+     0.92
+    ]
+   ]
+  },
+  {
+   "id": "lb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.3,
+     0.9
+    ]
+   ]
+  },
+  {
+   "id": "rb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.7,
+     0.91
+    ]
+   ]
+  },
+  {
+   "id": "a1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.56,
+     0.78
+    ],
+    [
+     2200,
+     0.53,
+     0.84
+    ]
+   ]
+  },
+  {
+   "id": "a2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.44,
+     0.79
+    ],
+    [
+     2200,
+     0.47,
+     0.845
+    ]
+   ]
+  },
+  {
+   "id": "m1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.72
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.85,
+     0.8
+    ],
+    [
+     2200,
+     0.5,
+     0.875
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "clear",
+ "options": [
+  {
+   "id": "clear",
+   "target": {
+    "x": 0.95,
+    "y": 0.72
+   },
+   "labelKey": "cb-07.opt.clear",
+   "explainKey": "cb-07.why.clear",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "cb-07.out.clear",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.875
+      ],
+      [
+       1400,
+       0.97,
+       0.7
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "chest",
+   "target": "cb2",
+   "labelKey": "cb-07.opt.chest",
+   "explainKey": "cb-07.why.chest",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-07.out.chest",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.875
+      ],
+      [
+       400,
+       0.5,
+       0.89
+      ],
+      [
+       900,
+       0.52,
+       0.875
+      ],
+      [
+       1500,
+       0.5,
+       0.995
+      ]
+     ],
+     "a1": [
+      [
+       0,
+       0.53,
+       0.84
+      ],
+      [
+       900,
+       0.52,
+       0.87
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "gk",
+   "target": "gk",
+   "labelKey": "cb-07.opt.gk",
+   "explainKey": "cb-07.why.gk",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-07.out.gk",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.875
+      ],
+      [
+       900,
+       0.49,
+       0.93
+      ]
+     ],
+     "a2": [
+      [
+       0,
+       0.47,
+       0.845
+      ],
+      [
+       900,
+       0.49,
+       0.925
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "straight",
+   "target": {
+    "x": 0.5,
+    "y": 0.62
+   },
+   "labelKey": "cb-07.opt.straight",
+   "explainKey": "cb-07.why.straight",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-07.out.straight",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.875
+      ],
+      [
+       700,
+       0.5,
+       0.72
+      ],
+      [
+       1600,
+       0.5,
+       0.78
+      ]
+     ],
+     "m1": [
+      [
+       0,
+       0.5,
+       0.72
+      ],
+      [
+       700,
+       0.5,
+       0.725
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "cb-07.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.5,
+     0.875
+    ],
+    [
+     400,
+     0.5,
+     0.89
+    ],
+    [
+     900,
+     0.52,
+     0.875
+    ],
+    [
+     1500,
+     0.5,
+     0.995
+    ]
+   ],
+   "a1": [
+    [
+     0,
+     0.53,
+     0.84
+    ],
+    [
+     900,
+     0.52,
+     0.87
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

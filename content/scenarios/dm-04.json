@@ -1,0 +1,408 @@
+{
+ "id": "dm-04",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 2,
+ "tags": [
+  "line-break",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.25,
+  "bottom": 0.95
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.64
+    ],
+    [
+     2400,
+     0.5,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "cbR",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.62,
+     0.82
+    ]
+   ]
+  },
+  {
+   "id": "cbL",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.4,
+     0.82
+    ]
+   ]
+  },
+  {
+   "id": "am",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.62,
+     0.4
+    ],
+    [
+     2400,
+     0.58,
+     0.45
+    ]
+   ]
+  },
+  {
+   "id": "rw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.9,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "lw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.1,
+     0.48
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.5,
+     0.33
+    ]
+   ]
+  },
+  {
+   "id": "mA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.35,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "mB",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.54
+    ]
+   ]
+  },
+  {
+   "id": "mC",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.65,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "c1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.42,
+     0.37
+    ]
+   ]
+  },
+  {
+   "id": "c2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.58,
+     0.37
+    ]
+   ]
+  },
+  {
+   "id": "fb",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.84,
+     0.44
+    ]
+   ]
+  },
+  {
+   "id": "fb2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.16,
+     0.44
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.505,
+     0.635
+    ],
+    [
+     2400,
+     0.505,
+     0.615
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "am",
+ "options": [
+  {
+   "id": "am",
+   "target": "am",
+   "labelKey": "dm-04.opt.am",
+   "explainKey": "dm-04.why.am",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-04.out.am",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.505,
+       0.615
+      ],
+      [
+       500,
+       0.58,
+       0.455
+      ],
+      [
+       1500,
+       0.56,
+       0.365
+      ]
+     ],
+     "am": [
+      [
+       0,
+       0.58,
+       0.45
+      ],
+      [
+       500,
+       0.58,
+       0.45
+      ],
+      [
+       1500,
+       0.56,
+       0.36
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "rw",
+   "target": "rw",
+   "labelKey": "dm-04.opt.rw",
+   "explainKey": "dm-04.why.rw",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-04.out.rw",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.505,
+       0.615
+      ],
+      [
+       800,
+       0.89,
+       0.5
+      ]
+     ],
+     "fb": [
+      [
+       0,
+       0.84,
+       0.44
+      ],
+      [
+       900,
+       0.87,
+       0.48
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "carry",
+   "target": {
+    "x": 0.5,
+    "y": 0.56
+   },
+   "labelKey": "dm-04.opt.carry",
+   "explainKey": "dm-04.why.carry",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-04.out.carry",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.62
+      ],
+      [
+       800,
+       0.5,
+       0.58
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.505,
+       0.615
+      ],
+      [
+       800,
+       0.505,
+       0.575
+      ]
+     ],
+     "mB": [
+      [
+       0,
+       0.5,
+       0.54
+      ],
+      [
+       800,
+       0.52,
+       0.56
+      ]
+     ],
+     "mC": [
+      [
+       0,
+       0.65,
+       0.55
+      ],
+      [
+       800,
+       0.6,
+       0.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "st",
+   "target": "st",
+   "labelKey": "dm-04.opt.st",
+   "explainKey": "dm-04.why.st",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-04.out.st",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.505,
+       0.615
+      ],
+      [
+       900,
+       0.5,
+       0.32
+      ]
+     ],
+     "c1": [
+      [
+       0,
+       0.42,
+       0.37
+      ],
+      [
+       900,
+       0.49,
+       0.33
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "neutral",
+  "captionKey": "dm-04.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "mC": [
+    [
+     0,
+     0.65,
+     0.55
+    ],
+    [
+     800,
+     0.6,
+     0.5
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

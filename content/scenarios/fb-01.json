@@ -1,0 +1,72 @@
+{
+  "id": "fb-01",
+  "version": 1,
+  "type": "decision",
+  "position": "FB",
+  "difficulty": 1,
+  "tags": ["press", "build-up", "scanning"],
+  "view": { "top": 0.35, "bottom": 1.03 },
+  "freezeAtMs": 2600,
+  "decisionWindowMs": 3000,
+  "facing": "cbR",
+  "entities": [
+    { "id": "gk",  "team": "gk",   "track": [[0, 0.50, 0.975]] },
+    { "id": "me",  "team": "me",   "track": [[0, 0.88, 0.69], [2600, 0.87, 0.74]] },
+    { "id": "cbR", "team": "home", "track": [[0, 0.62, 0.84], [2600, 0.64, 0.83]] },
+    { "id": "cbL", "team": "home", "track": [[0, 0.40, 0.84], [2600, 0.40, 0.84]] },
+    { "id": "lb",  "team": "home", "track": [[0, 0.13, 0.72], [2600, 0.12, 0.70]] },
+    { "id": "dm",  "team": "home", "track": [[0, 0.52, 0.66], [2600, 0.60, 0.67]] },
+    { "id": "cm1", "team": "home", "track": [[0, 0.33, 0.55], [2600, 0.34, 0.54]] },
+    { "id": "rw",  "team": "home", "track": [[0, 0.90, 0.56], [2600, 0.935, 0.52]] },
+    { "id": "st",  "team": "home", "track": [[0, 0.50, 0.40], [2600, 0.52, 0.40]] },
+    { "id": "ww",  "team": "away", "track": [[0, 0.66, 0.58], [1300, 0.71, 0.65], [2600, 0.775, 0.715]] },
+    { "id": "sa",  "team": "away", "track": [[0, 0.54, 0.68], [2600, 0.55, 0.74]] },
+    { "id": "ma",  "team": "away", "track": [[0, 0.55, 0.58], [2600, 0.62, 0.63]] },
+    { "id": "mb",  "team": "away", "track": [[0, 0.38, 0.56], [2600, 0.40, 0.58]] },
+    { "id": "wo",  "team": "away", "track": [[0, 0.20, 0.62], [2600, 0.18, 0.64]] },
+    { "id": "fa",  "team": "away", "track": [[0, 0.82, 0.40], [2600, 0.82, 0.41]] },
+    { "id": "ball", "track": [[0, 0.63, 0.83], [700, 0.635, 0.83], [2600, 0.86, 0.735]] }
+  ],
+  "correctOptionId": "rw",
+  "options": [
+    {
+      "id": "rw", "target": "rw",
+      "labelKey": "fb-01.opt.rw", "explainKey": "fb-01.why.rw",
+      "outcome": { "kind": "good", "captionKey": "fb-01.out.rw", "durationMs": 1600, "tracks": {
+        "ball": [[0, 0.86, 0.735], [700, 0.935, 0.53], [1600, 0.94, 0.39]],
+        "rw":   [[0, 0.935, 0.52], [700, 0.935, 0.52], [1600, 0.94, 0.40]]
+      } }
+    },
+    {
+      "id": "dm", "target": "dm",
+      "labelKey": "fb-01.opt.dm", "explainKey": "fb-01.why.dm",
+      "outcome": { "kind": "bad", "captionKey": "fb-01.out.dm", "durationMs": 1600, "tracks": {
+        "ball": [[0, 0.86, 0.735], [450, 0.78, 0.71], [1600, 0.84, 0.86]],
+        "ww":   [[0, 0.775, 0.715], [450, 0.78, 0.71], [1600, 0.835, 0.855]]
+      } }
+    },
+    {
+      "id": "cb", "target": "cbR",
+      "labelKey": "fb-01.opt.cb", "explainKey": "fb-01.why.cb",
+      "outcome": { "kind": "bad", "captionKey": "fb-01.out.cb", "durationMs": 1600, "tracks": {
+        "ball": [[0, 0.86, 0.735], [400, 0.775, 0.765], [1600, 0.66, 0.895]],
+        "ww":   [[0, 0.775, 0.715], [400, 0.775, 0.76], [1600, 0.655, 0.89]]
+      } }
+    },
+    {
+      "id": "carry", "target": { "x": 0.80, "y": 0.72 },
+      "labelKey": "fb-01.opt.carry", "explainKey": "fb-01.why.carry",
+      "outcome": { "kind": "bad", "captionKey": "fb-01.out.carry", "durationMs": 1600, "tracks": {
+        "me":   [[0, 0.87, 0.74], [500, 0.815, 0.73]],
+        "ball": [[0, 0.86, 0.735], [500, 0.80, 0.725], [1600, 0.72, 0.87]],
+        "ww":   [[0, 0.775, 0.715], [500, 0.795, 0.72], [1600, 0.715, 0.865]]
+      } }
+    }
+  ],
+  "timeoutOutcome": { "kind": "bad", "captionKey": "fb-01.out.timeout", "durationMs": 1600, "tracks": {
+    "ww":   [[0, 0.775, 0.715], [700, 0.85, 0.735]],
+    "ball": [[0, 0.86, 0.735], [700, 0.86, 0.735], [1600, 0.74, 0.86]]
+  } },
+  "approvedBy": null,
+  "approvedAt": null
+}

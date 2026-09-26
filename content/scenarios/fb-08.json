@@ -1,0 +1,391 @@
+{
+ "id": "fb-08",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 3,
+ "tags": [
+  "2v1",
+  "overlap",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.86,
+     0.78
+    ],
+    [
+     2400,
+     0.85,
+     0.76
+    ]
+   ]
+  },
+  {
+   "id": "cbR",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.84
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.66
+    ],
+    [
+     2400,
+     0.76,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.85,
+     0.62
+    ],
+    [
+     2400,
+     0.84,
+     0.68
+    ]
+   ]
+  },
+  {
+   "id": "o",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.88,
+     0.5
+    ],
+    [
+     2400,
+     0.94,
+     0.66
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.76
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.845,
+     0.625
+    ],
+    [
+     2400,
+     0.835,
+     0.685
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "o",
+ "options": [
+  {
+   "id": "o",
+   "target": "o",
+   "labelKey": "fb-08.opt.o",
+   "explainKey": "fb-08.why.o",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-08.out.o",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       800,
+       0.93,
+       0.74
+      ]
+     ],
+     "dm": [
+      [
+       0,
+       0.76,
+       0.7
+      ],
+      [
+       800,
+       0.81,
+       0.69
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       800,
+       0.82,
+       0.7
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "w",
+   "target": "w",
+   "labelKey": "fb-08.opt.w",
+   "explainKey": "fb-08.why.w",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-08.out.w",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       500,
+       0.84,
+       0.71
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       600,
+       0.95,
+       0.72
+      ],
+      [
+       1500,
+       0.6,
+       0.92
+      ]
+     ],
+     "o": [
+      [
+       0,
+       0.94,
+       0.66
+      ],
+      [
+       600,
+       0.95,
+       0.715
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "between",
+   "target": {
+    "x": 0.89,
+    "y": 0.72
+   },
+   "labelKey": "fb-08.opt.between",
+   "explainKey": "fb-08.why.between",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-08.out.between",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       500,
+       0.89,
+       0.73
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       600,
+       0.95,
+       0.72
+      ],
+      [
+       1500,
+       0.6,
+       0.92
+      ]
+     ],
+     "o": [
+      [
+       0,
+       0.94,
+       0.66
+      ],
+      [
+       600,
+       0.95,
+       0.715
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "dive",
+   "target": {
+    "x": 0.84,
+    "y": 0.69
+   },
+   "labelKey": "fb-08.opt.dive",
+   "explainKey": "fb-08.why.dive",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-08.out.dive",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       400,
+       0.84,
+       0.7
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       500,
+       0.95,
+       0.72
+      ],
+      [
+       1500,
+       0.6,
+       0.92
+      ]
+     ],
+     "o": [
+      [
+       0,
+       0.94,
+       0.66
+      ],
+      [
+       500,
+       0.95,
+       0.715
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-08.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.835,
+     0.685
+    ],
+    [
+     600,
+     0.95,
+     0.72
+    ],
+    [
+     1500,
+     0.6,
+     0.92
+    ]
+   ],
+   "o": [
+    [
+     0,
+     0.94,
+     0.66
+    ],
+    [
+     600,
+     0.95,
+     0.715
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

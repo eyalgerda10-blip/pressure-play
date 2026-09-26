@@ -1,0 +1,339 @@
+{
+ "id": "fb-04",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 2,
+ "tags": [
+  "overlap",
+  "underlap",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.12,
+  "bottom": 0.75
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.86,
+     0.6
+    ],
+    [
+     2400,
+     0.86,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "rw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.88,
+     0.42
+    ],
+    [
+     2400,
+     0.88,
+     0.4
+    ]
+   ]
+  },
+  {
+   "id": "cm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.45
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.5,
+     0.25
+    ]
+   ]
+  },
+  {
+   "id": "fb",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.82,
+     0.36
+    ]
+   ]
+  },
+  {
+   "id": "c1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.45,
+     0.28
+    ]
+   ]
+  },
+  {
+   "id": "c2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.62,
+     0.28
+    ]
+   ]
+  },
+  {
+   "id": "mA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.72,
+     0.48
+    ],
+    [
+     2400,
+     0.92,
+     0.46
+    ]
+   ]
+  },
+  {
+   "id": "mB",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.4
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.875,
+     0.425
+    ],
+    [
+     2400,
+     0.875,
+     0.405
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "inside",
+ "options": [
+  {
+   "id": "inside",
+   "target": {
+    "x": 0.72,
+    "y": 0.25
+   },
+   "labelKey": "fb-04.opt.inside",
+   "explainKey": "fb-04.why.inside",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-04.out.inside",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.86,
+       0.55
+      ],
+      [
+       1000,
+       0.72,
+       0.26
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.875,
+       0.405
+      ],
+      [
+       1000,
+       0.72,
+       0.26
+      ],
+      [
+       1600,
+       0.7,
+       0.18
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "around",
+   "target": {
+    "x": 0.95,
+    "y": 0.28
+   },
+   "labelKey": "fb-04.opt.around",
+   "explainKey": "fb-04.why.around",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-04.out.around",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.86,
+       0.55
+      ],
+      [
+       1000,
+       0.95,
+       0.3
+      ]
+     ],
+     "mA": [
+      [
+       0,
+       0.92,
+       0.46
+      ],
+      [
+       800,
+       0.95,
+       0.36
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "stay",
+   "target": {
+    "x": 0.84,
+    "y": 0.52
+   },
+   "labelKey": "fb-04.opt.stay",
+   "explainKey": "fb-04.why.stay",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-04.out.stay",
+    "durationMs": 1600,
+    "tracks": {
+     "fb": [
+      [
+       0,
+       0.82,
+       0.36
+      ],
+      [
+       600,
+       0.86,
+       0.39
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "feet",
+   "target": {
+    "x": 0.86,
+    "y": 0.48
+   },
+   "labelKey": "fb-04.opt.feet",
+   "explainKey": "fb-04.why.feet",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-04.out.feet",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.86,
+       0.55
+      ],
+      [
+       500,
+       0.86,
+       0.48
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.875,
+       0.405
+      ],
+      [
+       500,
+       0.86,
+       0.475
+      ]
+     ],
+     "mB": [
+      [
+       0,
+       0.5,
+       0.4
+      ],
+      [
+       1000,
+       0.7,
+       0.42
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "neutral",
+  "captionKey": "fb-04.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "mB": [
+    [
+     0,
+     0.5,
+     0.4
+    ],
+    [
+     1000,
+     0.7,
+     0.42
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

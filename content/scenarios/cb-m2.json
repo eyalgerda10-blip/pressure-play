@@ -1,0 +1,346 @@
+{
+ "id": "cb-m2",
+ "version": 1,
+ "type": "marking",
+ "position": "CB",
+ "difficulty": 3,
+ "tags": [
+  "counter",
+  "marking",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.6,
+     0.78
+    ],
+    [
+     2400,
+     0.58,
+     0.8
+    ]
+   ]
+  },
+  {
+   "id": "cbL",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.42,
+     0.78
+    ],
+    [
+     2400,
+     0.44,
+     0.8
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.36,
+     0.45
+    ],
+    [
+     2400,
+     0.35,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "c",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.3,
+     0.5
+    ],
+    [
+     2400,
+     0.33,
+     0.66
+    ]
+   ]
+  },
+  {
+   "id": "a",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.52,
+     0.5
+    ],
+    [
+     2400,
+     0.52,
+     0.66
+    ]
+   ]
+  },
+  {
+   "id": "r",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.74,
+     0.52
+    ],
+    [
+     2400,
+     0.7,
+     0.67
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.3,
+     0.51
+    ],
+    [
+     2400,
+     0.33,
+     0.67
+    ]
+   ]
+  }
+ ],
+ "candidates": [
+  "c",
+  "a",
+  "r"
+ ],
+ "correctOptionId": "r",
+ "options": [
+  {
+   "id": "r",
+   "entity": "r",
+   "labelKey": "cb-m2.opt.r",
+   "explainKey": "cb-m2.why.r",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "cb-m2.out.r",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.58,
+       0.8
+      ],
+      [
+       800,
+       0.67,
+       0.76
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.33,
+       0.67
+      ],
+      [
+       800,
+       0.37,
+       0.72
+      ]
+     ],
+     "dm": [
+      [
+       0,
+       0.35,
+       0.62
+      ],
+      [
+       800,
+       0.36,
+       0.7
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "c",
+   "entity": "c",
+   "labelKey": "cb-m2.opt.c",
+   "explainKey": "cb-m2.why.c",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-m2.out.c",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.58,
+       0.8
+      ],
+      [
+       800,
+       0.42,
+       0.72
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.33,
+       0.67
+      ],
+      [
+       700,
+       0.7,
+       0.72
+      ],
+      [
+       1500,
+       0.62,
+       0.995
+      ]
+     ],
+     "r": [
+      [
+       0,
+       0.7,
+       0.67
+      ],
+      [
+       700,
+       0.7,
+       0.715
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "a",
+   "entity": "a",
+   "labelKey": "cb-m2.opt.a",
+   "explainKey": "cb-m2.why.a",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-m2.out.a",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.58,
+       0.8
+      ],
+      [
+       700,
+       0.52,
+       0.75
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.33,
+       0.67
+      ],
+      [
+       700,
+       0.7,
+       0.72
+      ],
+      [
+       1500,
+       0.62,
+       0.995
+      ]
+     ],
+     "r": [
+      [
+       0,
+       0.7,
+       0.67
+      ],
+      [
+       700,
+       0.7,
+       0.715
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "cb-m2.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.33,
+     0.67
+    ],
+    [
+     700,
+     0.7,
+     0.72
+    ],
+    [
+     1500,
+     0.62,
+     0.995
+    ]
+   ],
+   "r": [
+    [
+     0,
+     0.7,
+     0.67
+    ],
+    [
+     700,
+     0.7,
+     0.715
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

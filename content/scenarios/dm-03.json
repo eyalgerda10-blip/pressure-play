@@ -1,0 +1,456 @@
+{
+ "id": "dm-03",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 1,
+ "tags": [
+  "build-up",
+  "support"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2600,
+ "decisionWindowMs": 3000,
+ "facing": "cbR",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.62
+    ],
+    [
+     2600,
+     0.5,
+     0.64
+    ]
+   ]
+  },
+  {
+   "id": "cbR",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.62,
+     0.84
+    ]
+   ]
+  },
+  {
+   "id": "cbL",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.4,
+     0.84
+    ]
+   ]
+  },
+  {
+   "id": "rb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.86,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "lb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.14,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "cm1",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.32,
+     0.52
+    ]
+   ]
+  },
+  {
+   "id": "cm2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.7,
+     0.52
+    ]
+   ]
+  },
+  {
+   "id": "st1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.6,
+     0.7
+    ],
+    [
+     2600,
+     0.62,
+     0.79
+    ]
+   ]
+  },
+  {
+   "id": "st2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.44,
+     0.7
+    ],
+    [
+     2600,
+     0.4,
+     0.78
+    ]
+   ]
+  },
+  {
+   "id": "m1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.55,
+     0.66
+    ],
+    [
+     2600,
+     0.55,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "wl",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.82,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "wr",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.18,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "m2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.4,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.62,
+     0.835
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "drop",
+ "options": [
+  {
+   "id": "drop",
+   "target": {
+    "x": 0.51,
+    "y": 0.86
+   },
+   "labelKey": "dm-03.opt.drop",
+   "explainKey": "dm-03.why.drop",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-03.out.drop",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.64
+      ],
+      [
+       700,
+       0.51,
+       0.86
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.62,
+       0.835
+      ],
+      [
+       1100,
+       0.515,
+       0.855
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "side",
+   "target": {
+    "x": 0.4,
+    "y": 0.66
+   },
+   "labelKey": "dm-03.opt.side",
+   "explainKey": "dm-03.why.side",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-03.out.side",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.64
+      ],
+      [
+       700,
+       0.4,
+       0.66
+      ]
+     ],
+     "m1": [
+      [
+       0,
+       0.55,
+       0.7
+      ],
+      [
+       700,
+       0.45,
+       0.67
+      ]
+     ],
+     "st1": [
+      [
+       0,
+       0.62,
+       0.79
+      ],
+      [
+       900,
+       0.62,
+       0.825
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.62,
+       0.835
+      ],
+      [
+       900,
+       0.62,
+       0.835
+      ],
+      [
+       1500,
+       0.58,
+       0.95
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "near",
+   "target": {
+    "x": 0.7,
+    "y": 0.84
+   },
+   "labelKey": "dm-03.opt.near",
+   "explainKey": "dm-03.why.near",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-03.out.near",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.64
+      ],
+      [
+       700,
+       0.7,
+       0.83
+      ]
+     ],
+     "st1": [
+      [
+       0,
+       0.62,
+       0.79
+      ],
+      [
+       900,
+       0.63,
+       0.83
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.62,
+       0.835
+      ],
+      [
+       1000,
+       0.66,
+       0.83
+      ],
+      [
+       1500,
+       0.64,
+       0.9
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "stay",
+   "target": {
+    "x": 0.5,
+    "y": 0.64
+   },
+   "labelKey": "dm-03.opt.stay",
+   "explainKey": "dm-03.why.stay",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-03.out.stay",
+    "durationMs": 1600,
+    "tracks": {
+     "st1": [
+      [
+       0,
+       0.62,
+       0.79
+      ],
+      [
+       700,
+       0.625,
+       0.83
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.62,
+       0.835
+      ],
+      [
+       700,
+       0.62,
+       0.835
+      ],
+      [
+       1500,
+       0.56,
+       0.97
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-03.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "st1": [
+    [
+     0,
+     0.62,
+     0.79
+    ],
+    [
+     700,
+     0.625,
+     0.83
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.62,
+     0.835
+    ],
+    [
+     700,
+     0.62,
+     0.835
+    ],
+    [
+     1500,
+     0.56,
+     0.97
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

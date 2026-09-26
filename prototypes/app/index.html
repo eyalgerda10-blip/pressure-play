@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D4535">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:,">
+<title>Pressure · אב טיפוס</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* צבעים מ־docs/design.md ("לוח טקטיקה") */
+:root{
+  --board:#1D4535; --board-2:#24533F; --board-dark:#173A2C;
+  --chalk:#F2EFE6; --chalk-muted:#C5CFC3; --marker:#FFD23F; --on-marker:#1D2A12;
+  --away:#F08A4B; --dash:2px dashed rgba(242,239,230,.55);
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0;min-height:100%;background:var(--board);color:var(--chalk);
+  font-family:"Assistant",system-ui,sans-serif;font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.app{max-width:520px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+body.has-tabs .app{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3,.display{font-family:"Secular One",sans-serif;font-weight:400;margin:0}
+h1{font-size:40px;line-height:1.08}
+h2{font-size:28px;line-height:1.15}
+h3{font-size:20px;line-height:1.2}
+p{margin:0 0 10px}
+.muted{color:var(--chalk-muted)}
+.accent{color:var(--marker)}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;color:inherit}
+button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outline:3px solid var(--marker);outline-offset:2px}
+.primary{display:block;width:100%;min-height:56px;border:0;border-radius:4px;background:var(--marker);color:var(--on-marker);
+  font-size:19px;font-weight:700;margin-top:16px}
+.primary:disabled{opacity:.4;cursor:default}
+.secondary{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;border:var(--dash);border-radius:4px;background:transparent;
+  font-size:17px;font-weight:600;margin-top:10px}
+.card{border:var(--dash);border-radius:4px;background:var(--board-2);padding:14px 16px}
+.section-gap{margin-top:18px}
+.row{display:flex;align-items:center;gap:10px}
+.spacer{flex:1}
+
+/* סרגל תחתון */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--board-dark);border-top:1px solid rgba(242,239,230,.18);
+  padding:6px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.tabs-in{max-width:520px;margin:0 auto;display:flex}
+.tab{flex:1;min-height:56px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  color:var(--chalk-muted);font-size:13px;font-weight:600}
+.tab[aria-current="page"]{color:var(--chalk);font-weight:700}
+.tab[aria-current="page"] svg{stroke:var(--marker)}
+
+/* פתיחה */
+.steps{display:flex;gap:4px;margin:8px 0 22px}
+.steps i{flex:1;height:5px;border-radius:2px;background:rgba(242,239,230,.2)}
+.steps i.on{background:var(--marker)}
+.choices{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.choice{min-height:58px;border:var(--dash);border-radius:4px;background:var(--board-2);font-size:18px;font-weight:600;text-align:start;padding:10px 16px}
+.choice[aria-pressed="true"]{background:var(--marker);color:var(--on-marker);border-color:var(--marker)}
+.choices.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.field{width:100%;min-height:58px;margin-top:16px;border:var(--dash);border-radius:4px;background:var(--board-2);color:var(--chalk);
+  font:inherit;font-size:20px;font-weight:600;padding:10px 16px}
+.field::placeholder{color:rgba(242,239,230,.45)}
+.back{background:none;border:0;color:var(--chalk-muted);min-height:44px;padding:0;font-size:15px}
+.hero-pitch{display:block;width:100%;height:auto;margin:10px 0 18px}
+
+/* בית */
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.badge-streak{display:flex;align-items:center;gap:4px;padding:6px 12px 6px 10px;border:var(--dash);border-radius:4px;
+  background:var(--board-2);font-family:"Secular One",sans-serif;font-size:26px;line-height:1;color:var(--marker);flex-shrink:0}
+.badge-streak svg{display:block}
+.daily{margin-top:18px;border:var(--dash);border-radius:4px;background:var(--board-2);padding:18px}
+.daily .k{font-size:14px;font-weight:700;color:var(--chalk-muted)}
+.daily .big{font-family:"Secular One",sans-serif;font-size:36px;line-height:1.1;margin:2px 0 4px}
+.daily-in{display:flex;gap:14px;align-items:flex-start}
+.daily-in > div{flex:1}
+.week{display:flex;gap:6px;margin-top:10px}
+.week i{flex:1;height:10px;border-radius:2px;background:rgba(242,239,230,.18)}
+.week i.on{background:var(--marker)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.two .secondary{margin:0;min-height:64px;background:var(--board-2);font-size:15px}
+.coach{margin-top:18px}
+.coach .k{font-size:13px;font-weight:700;color:var(--chalk-muted);margin-bottom:4px}
+
+/* התקדמות */
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.tile{border:var(--dash);border-radius:4px;background:var(--board-2);padding:12px 14px}
+.tile .v{font-family:"Secular One",sans-serif;font-size:32px;line-height:1.1;color:var(--marker);font-variant-numeric:tabular-nums}
+.tile .l{font-size:14px;color:var(--chalk-muted)}
+.chart{margin-top:18px}
+.chart svg{display:block;width:100%;height:auto}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:10px}
+.cal i{aspect-ratio:1;border-radius:3px;background:rgba(242,239,230,.12)}
+.cal i.on{background:var(--marker)}
+.cal i.today{outline:2px solid var(--chalk);outline-offset:-2px}
+.cal-h{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;font-size:12px;color:var(--chalk-muted);text-align:center;margin-top:12px}
+.sw{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.sw .card .k{font-size:13px;font-weight:700;color:var(--chalk-muted)}
+.sw .card .v{font-family:"Secular One",sans-serif;font-size:20px;line-height:1.2;margin-top:2px}
+.empty{text-align:center;padding:28px 12px}
+
+/* פרופיל */
+.kv{display:flex;flex-direction:column;gap:0;margin-top:12px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(242,239,230,.14)}
+.kv div span:first-child{color:var(--chalk-muted)}
+.toggle{display:flex;align-items:center;gap:12px;min-height:52px;font-weight:600;border-bottom:1px solid rgba(242,239,230,.14)}
+.toggle input{width:22px;height:22px;accent-color:var(--marker)}
+.devnote{font-size:14px;color:var(--chalk-muted);margin-top:22px}
+
+/* רשימת תרחישים (בדיקה) */
+.group{margin-top:22px}
+.group h3{margin-bottom:8px}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:56px;text-align:start;
+  border:var(--dash);border-radius:4px;background:var(--board-2);padding:10px 14px;font-size:16px;font-weight:600}
+.badge{font-size:13px;font-weight:700;border-radius:4px;padding:2px 8px;background:var(--board-dark);color:var(--chalk-muted);white-space:nowrap}
+.badge.mark{background:var(--marker);color:var(--on-marker)}
+
+/* תרחיש */
+.top{display:flex;justify-content:space-between;align-items:center;min-height:44px;margin-bottom:6px}
+.x{width:44px;height:44px;border:0;background:transparent;display:flex;align-items:center;justify-content:center}
+.stage{position:relative;margin:0 auto 10px;border-radius:4px;overflow:hidden;touch-action:manipulation}
+canvas{display:block;width:100%}
+.count{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;
+  font-family:"Secular One",sans-serif;font-size:96px;color:var(--chalk);text-shadow:0 4px 24px rgba(0,0,0,.5)}
+.hint{position:absolute;top:10px;left:50%;transform:translateX(-50%);white-space:nowrap;pointer-events:none;
+  background:var(--marker);color:var(--on-marker);font-weight:700;font-size:16px;padding:6px 14px;border-radius:4px}
+.caption{position:absolute;left:12px;right:12px;top:12px;text-align:center;pointer-events:none;
+  font-family:"Secular One",sans-serif;font-size:24px;line-height:1.2;padding:10px 12px;border-radius:4px;animation:pop .25s ease-out}
+.caption.good{background:var(--marker);color:var(--on-marker)}
+.caption.bad{background:rgba(10,24,18,.92);color:var(--chalk);border:var(--dash)}
+.caption.neutral{background:var(--board-2);color:var(--chalk)}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
+.timer{height:10px;background:var(--board-dark);border-radius:2px;overflow:hidden;margin:0 0 10px}
+.timer>i{display:block;height:100%;width:100%;background:var(--marker)}
+.timer.low>i{background:var(--chalk)}
+.concealed{visibility:hidden}
+.scan{display:block;width:100%;min-height:56px;border:var(--dash);border-radius:4px;background:transparent;font-size:18px;font-weight:700;margin:0 0 10px}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.options button{min-height:60px;border:var(--dash);background:var(--board-2);border-radius:4px;font-size:16px;font-weight:600;padding:6px 10px;line-height:1.25}
+.options button:active{background:var(--board-dark)}
+.prompt{text-align:center;font-family:"Secular One",sans-serif;font-size:22px;color:var(--marker);min-height:60px;display:flex;align-items:center;justify-content:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:3px 10px;border-radius:4px;background:var(--board-dark);
+  font-size:14px;font-weight:700;color:var(--chalk)}
+.chip.mark{background:var(--marker);color:var(--on-marker)}
+.chip.progress{margin-inline-start:auto;background:transparent;border:var(--dash);color:var(--chalk-muted)}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:7px;height:14px;border-radius:1px;background:rgba(242,239,230,.25)}
+.dots i.on{background:var(--marker)}
+.card.intro{margin:0 0 12px;font-size:18px;font-weight:600}
+.freeze-tag{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);white-space:nowrap;pointer-events:none;
+  background:rgba(10,24,18,.85);border:var(--dash);color:var(--chalk);font-size:14px;font-weight:700;padding:4px 12px;border-radius:4px}
+.rules{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.rules li{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--chalk-muted)}
+.rules b{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;border-radius:4px;
+  background:var(--board-2);border:var(--dash);color:var(--marker);font-family:"Secular One",sans-serif;font-size:15px;font-weight:400}
+
+/* חלון תוצאה */
+.sheet-wrap{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;background:rgba(6,16,11,.5)}
+.sheet{width:100%;max-width:520px;max-height:80vh;overflow:auto;background:var(--board-2);border-top:6px solid var(--marker);
+  border-radius:8px 8px 0 0;padding:20px 20px calc(18px + env(safe-area-inset-bottom,0px));animation:up .28s ease-out}
+.sheet.bad{border-top-color:var(--chalk)}
+.sheet h2{font-size:30px}
+.stat{font-family:"Secular One",sans-serif;font-size:40px;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+
+/* סיכום */
+.big-stat{font-family:"Secular One",sans-serif;font-size:64px;line-height:1;color:var(--marker);margin:18px 0 4px;font-variant-numeric:tabular-nums}
+.cmp{display:flex;gap:10px;margin-top:14px}
+.cmp .tile{flex:1}
+.res-list{list-style:none;margin:0;padding:0}
+.res-list li{display:flex;align-items:center;gap:10px;min-height:44px;border-bottom:1px solid rgba(242,239,230,.12);font-size:16px}
+.res-list li:last-child{border-bottom:0}
+.res-list .mk{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700}
+.res-list .mk.ok{background:var(--marker);color:var(--on-marker)}
+.res-list .mk.no{border:var(--dash);color:var(--chalk)}
+.res-list .tm{margin-inline-start:auto;color:var(--chalk-muted);font-variant-numeric:tabular-nums}
+
+/* רצף — השתלטות על המסך */
+.fx{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:radial-gradient(circle at 50% 42%, #2c6a50 0%, var(--board) 55%, #10291f 100%);text-align:center;padding:24px;overflow:hidden}
+.fx-flame{width:120px;height:120px;transform:scale(.3);opacity:0}
+.fx.play .fx-flame{animation:flameIn .5s .1s cubic-bezier(.2,1.6,.4,1) forwards, flicker 1.2s 1s ease-in-out infinite}
+.odo{position:relative;height:190px;width:100%;overflow:hidden;margin-top:-6px}
+.odo span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:"Secular One",sans-serif;font-size:170px;line-height:1;color:var(--marker);text-shadow:0 6px 30px rgba(255,210,63,.35)}
+.odo .new{transform:translateY(100%)}
+.fx.play .odo .old{animation:odoOut .55s 1.05s cubic-bezier(.6,0,.4,1) forwards}
+.fx.play .odo .new{animation:odoIn .7s 1.05s cubic-bezier(.3,1.5,.5,1) forwards}
+.fx-text{font-family:"Secular One",sans-serif;font-size:26px;margin:6px 0 0;opacity:0}
+.fx-sub{color:var(--chalk-muted);margin:6px 0 0;opacity:0}
+.fx.play .fx-text,.fx.play .fx-sub{animation:fadeUp .4s 1.7s ease-out forwards}
+.fx .primary{max-width:340px;opacity:0}
+.fx.play .primary{animation:fadeUp .4s 2.1s ease-out forwards}
+.spark{position:absolute;left:50%;top:44%;width:8px;height:8px;border-radius:2px;background:var(--marker);opacity:0}
+.fx.play .spark{animation:spark .9s 1.15s ease-out forwards}
+@keyframes flameIn{to{transform:scale(1);opacity:1}}
+@keyframes flicker{50%{transform:scale(1.06) rotate(-2deg)}}
+@keyframes odoOut{to{transform:translateY(-100%);opacity:0}}
+@keyframes odoIn{to{transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes spark{0%{opacity:1;transform:translate(-50%,-50%)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(200deg)}}
+@media (prefers-reduced-motion: reduce){
+  .sheet,.caption{animation:none}
+  .fx.play .fx-flame,.fx.play .odo .old,.fx.play .odo .new,.fx.play .fx-text,.fx.play .fx-sub,.fx.play .primary,.fx.play .spark{animation-duration:.01s;animation-delay:0s}
+}
+.error{border:var(--dash);padding:14px;border-radius:4px;margin-top:20px}
+</style>
+</head>
+<body>
+<main class="app">
+
+  <!-- ============ פתיחה ============ -->
+  <section id="s-onboard" hidden>
+    <div class="steps" id="obSteps" aria-hidden="true"></div>
+    <div id="obBody"></div>
+  </section>
+
+  <!-- לפני תרחישי המיון -->
+  <section id="s-calibIntro" hidden>
+    <svg class="hero-pitch" viewBox="0 0 340 170" aria-hidden="true">
+      <rect x="1" y="1" width="338" height="168" rx="4" fill="#24533F" stroke="rgba(242,239,230,.55)" stroke-width="2" stroke-dasharray="6 5"/>
+      <g fill="none" stroke="rgba(242,239,230,.7)" stroke-width="1.5"><line x1="170" y1="10" x2="170" y2="160"/><circle cx="170" cy="85" r="26"/>
+      <rect x="10" y="45" width="40" height="80"/><rect x="290" y="45" width="40" height="80"/></g>
+      <path d="M120 110 C 150 70, 200 60, 245 70" fill="none" stroke="#FFD23F" stroke-width="3" stroke-dasharray="7 6"/>
+      <circle cx="120" cy="110" r="10" fill="#FFD23F" stroke="#1D2A12" stroke-width="2"/><circle cx="245" cy="70" r="9" fill="#F2EFE6"/>
+      <circle cx="175" cy="112" r="9" fill="#F08A4B"/><circle cx="210" cy="95" r="9" fill="#F08A4B"/><circle cx="90" cy="60" r="9" fill="#F2EFE6"/>
+    </svg>
+    <h1 id="ciTitle"></h1>
+    <p class="muted" id="ciText" style="font-size:18px"></p>
+    <button class="primary" id="ciBtn"></button>
+  </section>
+
+  <!-- תוצאת מיון -->
+  <section id="s-calibResult" hidden>
+    <h1 id="crTitle"></h1>
+    <div class="tiles" id="crTiles"></div>
+    <div class="card coach"><div class="k" id="crCoachK"></div><div id="crCoach" style="font-size:18px;font-weight:600"></div></div>
+    <button class="primary" id="crBtn"></button>
+  </section>
+
+  <!-- רשימת המתנה -->
+  <section id="s-waitlist" hidden>
+    <h1 id="wlTitle"></h1>
+    <p class="muted" id="wlText" style="font-size:18px"></p>
+    <div class="choices" id="wlChoices"></div>
+  </section>
+
+  <!-- ============ בית ============ -->
+  <section id="s-home" hidden>
+    <div class="head">
+      <div>
+        <p class="muted" id="hDate" style="margin:6px 0 0"></p>
+        <h1 id="hHello"></h1>
+      </div>
+      <div class="badge-streak" id="badge" role="img">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFD23F" aria-hidden="true"><path d="M12 2c.8 3.6 5.5 5.3 5.5 11a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4 2.3-5.4.4 1.6 1.2 2.4 2.2 2.9C11 8 10.7 5 12 2z"/></svg>
+        <span id="badgeNum">0</span>
+      </div>
+    </div>
+    <div class="daily">
+      <div class="daily-in">
+        <div>
+          <div class="k" id="dailyK"></div>
+          <div class="big" id="dailyBig"></div>
+          <div class="muted" id="dailyMeta"></div>
+        </div>
+        <svg width="96" height="120" viewBox="0 0 96 120" aria-hidden="true" style="flex-shrink:0">
+          <rect x="1" y="1" width="94" height="118" rx="4" fill="#1D4535" stroke="rgba(242,239,230,.5)" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <g fill="none" stroke="rgba(242,239,230,.6)" stroke-width="1.2"><line x1="6" y1="60" x2="90" y2="60"/><circle cx="48" cy="60" r="11"/><rect x="26" y="96" width="44" height="23"/></g>
+          <path d="M40 86 L72 68" stroke="#FFD23F" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+          <circle cx="40" cy="86" r="6" fill="#FFD23F" stroke="#1D2A12" stroke-width="1.5"/><circle cx="72" cy="68" r="5" fill="#F2EFE6"/>
+          <circle cx="54" cy="76" r="5" fill="#F08A4B"/><circle cx="30" cy="70" r="5" fill="#F08A4B"/>
+        </svg>
+      </div>
+      <button class="primary" id="dailyBtn"></button>
+    </div>
+    <div class="card section-gap">
+      <div class="row"><b id="wkK"></b><span class="spacer"></span><span class="muted" id="wkV"></span></div>
+      <div class="week" id="wkBar"></div>
+    </div>
+    <div class="two">
+      <button class="secondary" id="matchTodayBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/></svg>
+        <span id="matchTodayL"></span>
+      </button>
+      <button class="secondary" id="playedBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+        <span id="playedL"></span>
+      </button>
+    </div>
+    <div class="card coach"><div class="k" id="coachK"></div><div id="coachText" style="font-size:17px"></div></div>
+  </section>
+
+  <!-- ============ התקדמות ============ -->
+  <section id="s-progress" hidden>
+    <h1 id="pgTitle"></h1>
+    <div id="pgBody"></div>
+  </section>
+
+  <!-- ============ פרופיל ============ -->
+  <section id="s-profile" hidden>
+    <h1 id="prTitle"></h1>
+    <div class="kv" id="prKv"></div>
+    <button class="secondary" id="prEdit"></button>
+    <h3 class="section-gap" id="prSetH"></h3>
+    <label class="toggle"><input type="checkbox" id="setFog"> <span id="setFogL"></span></label>
+    <label class="toggle"><input type="checkbox" id="setSound"> <span id="setSoundL"></span></label>
+    <h3 class="section-gap" id="prDevH"></h3>
+    <p class="devnote" id="prDevNote"></p>
+    <button class="secondary" id="prAll"></button>
+    <button class="secondary" id="prDemo"></button>
+    <button class="secondary" id="prReset"></button>
+  </section>
+
+  <!-- ============ כל התרחישים (בדיקה) ============ -->
+  <section id="s-dev" hidden>
+    <div class="top"><h2 id="devTitle"></h2>
+      <button class="x" id="devClose" aria-label="חזרה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <button class="primary" id="devPlayAll"></button>
+    <div id="groups"></div>
+  </section>
+
+  <!-- ============ תרחיש ============ -->
+  <section id="s-play" hidden>
+    <div class="top">
+      <span class="display" id="pTitle" style="font-size:20px"></span>
+      <button class="x" id="closeBtn" aria-label="יציאה">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div id="introBox">
+      <div class="chips" id="chips"></div>
+      <p class="card intro" id="pIntro"></p>
+    </div>
+    <div class="stage" id="stage" hidden>
+      <canvas id="pitch" aria-label="מגרש כדורגל מלמעלה"></canvas>
+      <div class="count" id="count" hidden></div>
+      <div class="hint" id="hint" hidden></div>
+      <div class="caption" id="caption" hidden></div>
+      <div class="freeze-tag" id="freezeTag" hidden></div>
+    </div>
+    <div id="introFoot">
+      <ul class="rules" id="rules"></ul>
+      <button class="primary" id="goBtn"></button>
+    </div>
+    <div class="timer concealed" id="timer" hidden><i id="timerBar"></i></div>
+    <button class="scan" id="scanBtn" hidden></button>
+    <div class="options concealed" id="options" hidden></div>
+    <div class="prompt concealed" id="prompt" hidden></div>
+  </section>
+
+  <!-- ============ סיכום אימון ============ -->
+  <section id="s-summary" hidden>
+    <h1 id="suTitle"></h1>
+    <div class="big-stat" id="suBig"></div>
+    <p class="muted" id="suBigL"></p>
+    <div class="cmp" id="suCmp"></div>
+    <div class="card section-gap"><h3 id="suListH" style="margin-bottom:6px"></h3><ul class="res-list" id="suList"></ul></div>
+    <div class="card coach"><div class="k" id="suCoachK"></div><div id="suCoach" style="font-size:18px;font-weight:600"></div></div>
+    <button class="primary" id="suBtn"></button>
+  </section>
+
+  <!-- ============ חימום נגמר ============ -->
+  <section id="s-warmupDone" hidden style="text-align:center;padding-top:60px">
+    <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 5h-5L8 10z"/></svg>
+    <h1 id="wdTitle" style="margin-top:14px"></h1>
+    <p class="muted" id="wdText" style="font-size:18px"></p>
+    <button class="primary" id="wdBtn"></button>
+  </section>
+
+  <!-- ============ סיכום משחק ============ -->
+  <section id="s-match" hidden>
+    <div class="top"><h2 id="maTitle"></h2>
+      <button class="x" id="maClose" aria-label="חזרה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div id="maBody"></div>
+  </section>
+
+  <div class="error" id="err" hidden></div>
+</main>
+
+<nav class="tabs" id="tabs" hidden aria-label="ניווט ראשי">
+  <div class="tabs-in">
+    <button class="tab" data-tab="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-t="tab.home"></span></button>
+    <button class="tab" data-tab="progress"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span data-t="tab.progress"></span></button>
+    <button class="tab" data-tab="profile"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg><span data-t="tab.profile"></span></button>
+  </div>
+</nav>
+
+<!-- חלון תוצאה -->
+<div class="sheet-wrap" id="sheetWrap" hidden>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+    <h2 id="rTitle"></h2>
+    <div class="stat" id="rTime"></div>
+    <p class="muted" id="rScans"></p>
+    <p id="rWhy"></p>
+    <button class="primary" id="nextBtn"></button>
+    <button class="secondary" id="solBtn"></button>
+  </div>
+</div>
+
+<!-- רצף: השתלטות על המסך -->
+<div class="fx" id="fx" hidden role="dialog" aria-modal="true" aria-labelledby="fxText">
+  <svg class="fx-flame" viewBox="0 0 24 24" fill="#FFD23F" aria-hidden="true"><path d="M12 2c.8 3.6 5.5 5.3 5.5 11a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4 2.3-5.4.4 1.6 1.2 2.4 2.2 2.9C11 8 10.7 5 12 2z"/></svg>
+  <div class="odo" aria-hidden="true"><span class="old" id="fxOld"></span><span class="new" id="fxNew"></span></div>
+  <p class="fx-text" id="fxText"></p>
+  <p class="fx-sub" id="fxSub"></p>
+  <button class="primary" id="fxBtn"></button>
+  <div id="sparks"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var BASE = "../../content/";
+var T = {};
+function t(k, vars){
+  var s = T[k] != null ? T[k] : k;
+  if (vars) Object.keys(vars).forEach(function(v){ s = s.split("{" + v + "}").join(vars[v]); });
+  return s;
+}
+var el = function(id){ return document.getElementById(id); };
+function h(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+// ---------- שמירה בדפדפן (אב טיפוס) ----------
+var store = {
+  get: function(k, def){ try { var v = JSON.parse(localStorage.getItem("pressure." + k)); return v == null ? def : v; } catch(e){ return def; } },
+  set: function(k, v){ try { localStorage.setItem("pressure." + k, JSON.stringify(v)); } catch(e){} },
+  clear: function(){ try { Object.keys(localStorage).forEach(function(k){ if (k.indexOf("pressure.") === 0) localStorage.removeItem(k); }); } catch(e){} }
+};
+var profile = null, settings = {fog:false, sound:true};
+
+// ---------- תאריכים ----------
+function dayKey(d){ d = d || new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+function daysAgo(n){ var d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate() - n); return d; }
+function today(){ return dayKey(); }
+function yesterday(){ return dayKey(daysAgo(1)); }
+
+// ---------- טעינה ----------
+var index = [], queue = [], sc = null, sessionTotal = 0, session = null;
+
+function getJSON(path){
+  return fetch(BASE + path, {cache:"no-store"}).then(function(r){
+    if (!r.ok) throw new Error(path + " (" + r.status + ")");
+    return r.json();
+  });
+}
+
+function boot(){
+  Promise.all([getJSON("i18n/he.json"), getJSON("scenarios/index.json")]).then(function(res){
+    T = res[0]; index = res[1].scenarios;
+    profile = store.get("profile", null);
+    settings = store.get("settings", {fog:false, sound:true});
+    staticTexts();
+    var direct = new URLSearchParams(location.search).get("s");
+    if (direct){ startSession("single", [direct]); return; }
+    if (new URLSearchParams(location.search).get("dev")){ nav("dev"); return; }
+    if (!profile) startOnboarding(); else nav("home");
+  }).catch(function(e){
+    el("err").hidden = false;
+    el("err").textContent = "לא הצלחתי לטעון את התרחישים: " + e.message + ". צריך להריץ דרך שרת מקומי.";
+  });
+}
+
+function staticTexts(){
+  document.querySelectorAll("[data-t]").forEach(function(n){ n.textContent = t(n.getAttribute("data-t")); });
+  el("scanBtn").textContent = t("ui.scan");
+  el("goBtn").textContent = t("ui.ready");
+  el("hint").textContent = t("ui.hintScan");
+  el("prompt").textContent = t("ui.markPrompt");
+  el("closeBtn").setAttribute("aria-label", t("ui.close"));
+  el("fxBtn").textContent = t("ui.continue");
+  el("solBtn").textContent = t("ui.showSolution");
+}
+
+// ---------- ניווט ----------
+var SCREENS = ["onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
+var TABBED = {home:1, progress:1, profile:1};
+function nav(name){
+  SCREENS.forEach(function(s){ el("s-" + s).hidden = s !== name; });
+  var tabbed = !!TABBED[name];
+  el("tabs").hidden = !tabbed;
+  document.body.classList.toggle("has-tabs", tabbed);
+  document.querySelectorAll(".tab").forEach(function(b){
+    if (b.getAttribute("data-tab") === name) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  });
+  var r = RENDER[name]; if (r) r();
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll(".tab").forEach(function(b){ b.addEventListener("click", function(){ nav(b.getAttribute("data-tab")); }); });
+
+// ================= פתיחה: 5 שאלות =================
+var OB = [
+  {key:"name", type:"text"},
+  {key:"pos", options:["CB","DM","FB","OTHER"]},
+  {key:"level", options:["street","youth","academy"]},
+  {key:"hard", options:["press","receiving","transition","cross","unknown"]},
+  {key:"days", options:[3,4,5,7], grid:true}
+];
+var obStep = 0, obDraft = {};
+
+function startOnboarding(){ obStep = 0; obDraft = profile ? JSON.parse(JSON.stringify(profile)) : {}; nav("onboard"); }
+
+function renderOnboard(){
+  var steps = el("obSteps"); steps.innerHTML = "";
+  OB.forEach(function(_, i){ steps.appendChild(h("i", i <= obStep ? "on" : "")); });
+  var q = OB[obStep], body = el("obBody"); body.innerHTML = "";
+  if (obStep > 0){
+    var back = h("button", "back", t("ob.back"));
+    back.addEventListener("click", function(){ obStep--; renderOnboard(); });
+    body.appendChild(back);
+  } else {
+    body.appendChild(h("p", "accent display", t("ob.hello"))).style.fontSize = "22px";
+  }
+  var title = h("h1", "", t("ob.q." + q.key));
+  var titleId = "obQ"; title.id = titleId;
+  body.appendChild(title);
+  var sub = T["ob.sub." + q.key]; if (sub) body.appendChild(h("p", "muted", sub));
+
+  if (q.type === "text"){
+    var inp = h("input", "field"); inp.type = "text"; inp.maxLength = 16; inp.autocomplete = "nickname";
+    inp.placeholder = t("ob.namePh"); inp.value = obDraft.name || ""; inp.setAttribute("aria-labelledby", titleId);
+    var btn = h("button", "primary", t("ob.next"));
+    btn.disabled = !inp.value.trim();
+    inp.addEventListener("input", function(){ btn.disabled = !inp.value.trim(); });
+    inp.addEventListener("keydown", function(e){ if (e.key === "Enter" && inp.value.trim()){ btn.click(); } });
+    btn.addEventListener("click", function(){ obDraft.name = inp.value.trim(); obStep++; renderOnboard(); });
+    body.appendChild(inp); body.appendChild(btn);
+    setTimeout(function(){ inp.focus(); }, 50);
+    return;
+  }
+  var wrap = h("div", "choices" + (q.grid ? " grid" : "")); wrap.setAttribute("role", "group"); wrap.setAttribute("aria-labelledby", titleId);
+  q.options.forEach(function(v){
+    var b = h("button", "choice", t("ob." + q.key + "." + v));
+    b.setAttribute("aria-pressed", String(obDraft[q.key] === v));
+    b.addEventListener("click", function(){
+      if (q.key === "pos" && v === "OTHER"){ nav("waitlist"); return; }
+      obDraft[q.key] = v;
+      if (obStep < OB.length - 1){ obStep++; renderOnboard(); } else finishOnboarding();
+    });
+    wrap.appendChild(b);
+  });
+  body.appendChild(wrap);
+}
+
+function renderWaitlist(){
+  el("wlTitle").textContent = t("wl.title");
+  el("wlText").textContent = t("wl.text");
+  var box = el("wlChoices"); box.innerHTML = "";
+  ["CB","DM","FB"].forEach(function(p){
+    var b = h("button", "choice", t("wl.as", {pos:t("pos." + p)}));
+    b.addEventListener("click", function(){ obDraft.pos = p; obDraft.waitlist = true; obStep = 2; nav("onboard"); });
+    box.appendChild(b);
+  });
+}
+
+function finishOnboarding(){
+  var first = !profile;
+  profile = obDraft; store.set("profile", profile);
+  if (first) nav("calibIntro"); else nav("profile");
+}
+
+function renderCalibIntro(){
+  el("ciTitle").textContent = t("ci.title", {name:profile.name});
+  el("ciText").textContent = t("ci.text");
+  el("ciBtn").textContent = t("ci.btn");
+}
+el("ciBtn").addEventListener("click", function(){ startSession("calib", pickCalibration()); });
+
+function pickCalibration(){
+  var mine = index.filter(function(s){ return s.position === profile.pos; });
+  var dec = mine.filter(function(s){ return s.type === "decision"; });
+  var mark = mine.filter(function(s){ return s.type === "marking"; });
+  return [dec[0], dec[1], mark[0]].filter(Boolean).map(function(s){ return s.id; });
+}
+
+function renderCalibResult(){
+  var r = session ? session.results : [];
+  var ok = r.filter(function(x){ return x.ok; }).length;
+  var times = r.filter(function(x){ return x.rt != null; }).map(function(x){ return x.rt; });
+  var avg = times.length ? times.reduce(function(a,b){ return a+b; }, 0) / times.length / 1000 : null;
+  el("crTitle").textContent = t("cr.title");
+  var tiles = el("crTiles"); tiles.innerHTML = "";
+  tiles.appendChild(tile(avg == null ? "–" : avg.toFixed(1), t("cr.avg")));
+  tiles.appendChild(tile(ok + "/" + r.length, t("cr.ok")));
+  el("crCoachK").textContent = t("coach.k");
+  var line = ok >= 2 && avg != null && avg < 1.8 ? "cr.c.fast" : ok >= 2 ? "cr.c.good" : "cr.c.work";
+  el("crCoach").textContent = t(line);
+  el("crBtn").textContent = t("cr.btn");
+}
+el("crBtn").addEventListener("click", function(){ nav("home"); });
+
+function tile(v, l){ var d = h("div", "tile"); d.appendChild(h("div", "v", v)); d.appendChild(h("div", "l", l)); return d; }
+
+// ================= בית =================
+function attempts(){ return store.get("attempts", []); }
+
+function renderHome(){
+  var hr = new Date().getHours();
+  var greet = hr < 12 ? "home.morning" : hr < 17 ? "home.noon" : "home.evening";
+  el("hHello").textContent = t(greet, {name:profile.name});
+  el("hDate").textContent = new Date().toLocaleDateString("he-IL", {weekday:"long", day:"numeric", month:"long"});
+  var s = loadStreak(), done = s.last === today();
+  el("badgeNum").textContent = s.count;
+  el("badge").setAttribute("aria-label", t("ui.streakAria", {n:s.count}));
+  el("dailyK").textContent = t("ui.dailyKicker");
+  el("dailyBig").textContent = t("ui.dailyTitle");
+  var focus = store.get("focus", null);
+  el("dailyMeta").textContent = done ? t("ui.dailyDone")
+    : focus ? t("home.dailyFocus", {n:DAILY_COUNT, topic:t("tag." + focus.tag)})
+    : t("ui.dailyMeta", {n:DAILY_COUNT});
+  el("dailyBtn").textContent = done ? t("ui.dailyAgain") : t("ui.dailyStart");
+
+  // יעד שבועי: כמה ימים השבוע (מיום ראשון) היה אימון
+  var days = practicedDays(), start = new Date(); start.setHours(12,0,0,0); start.setDate(start.getDate() - start.getDay());
+  var count = 0;
+  for (var i = 0; i < 7; i++){ var d = new Date(start); d.setDate(start.getDate() + i); if (days[dayKey(d)]) count++; }
+  var goal = profile.days || 4;
+  el("wkK").textContent = t("home.week");
+  el("wkV").textContent = t("home.weekV", {n:Math.min(count, goal), goal:goal});
+  var bar = el("wkBar"); bar.innerHTML = "";
+  for (var j = 0; j < goal; j++) bar.appendChild(h("i", j < count ? "on" : ""));
+
+  el("matchTodayL").textContent = t("home.matchToday");
+  el("playedL").textContent = t("home.played");
+  el("coachK").textContent = t("coach.k");
+  el("coachText").textContent = coachLine();
+}
+
+function practicedDays(){
+  var m = {};
+  attempts().forEach(function(a){ if (a.kind === "daily") m[a.day] = 1; });
+  var s = loadStreak(); if (s.last === today()) m[today()] = 1;
+  return m;
+}
+
+function avgRt(list){
+  var x = list.filter(function(a){ return a.rt != null; });
+  return x.length ? x.reduce(function(s,a){ return s + a.rt; }, 0) / x.length / 1000 : null;
+}
+function attemptsBetween(fromDaysAgo, toDaysAgo){
+  var keys = {};
+  for (var i = toDaysAgo; i <= fromDaysAgo; i++) keys[dayKey(daysAgo(i))] = 1;
+  return attempts().filter(function(a){ return keys[a.day]; });
+}
+
+function coachLine(){
+  var focus = store.get("focus", null);
+  if (focus) return t("home.coachFocus", {topic:t("tag." + focus.tag)});
+  var thisWeek = avgRt(attemptsBetween(6, 0)), lastWeek = avgRt(attemptsBetween(13, 7));
+  if (thisWeek != null && lastWeek != null){
+    if (thisWeek < lastWeek - 0.05) return t("home.coachFaster", {a:lastWeek.toFixed(1), b:thisWeek.toFixed(1)});
+    return t("home.coachSteady");
+  }
+  if (profile.hard && profile.hard !== "unknown") return t("home.coachHard", {topic:t("ob.hard." + profile.hard)});
+  return t("home.coachHello");
+}
+
+el("dailyBtn").addEventListener("click", function(){ startSession("daily", pickDaily()); });
+el("matchTodayBtn").addEventListener("click", function(){ startSession("warmup", pickWarmup()); });
+el("playedBtn").addEventListener("click", function(){ maStep = 0; maAns = {}; nav("match"); });
+
+var HARD_TAGS = {press:["press"], receiving:["receiving","press-resistance"], transition:["counter","transition","counter-press"], cross:["cross","box","far-post","marking"]};
+
+function pickDaily(){
+  var att = attempts(), last = {};
+  att.forEach(function(a){ last[a.id] = a; });
+  var mine = index.filter(function(s){ return s.position === profile.pos; });
+  var focus = store.get("focus", null);
+  var wanted = focus ? [focus.tag] : (HARD_TAGS[profile.hard] || []);
+  function score(s){
+    var a = last[s.id], v = Math.random();
+    if (a && !a.ok) v += 3;          // טעה בו — חוזרים אליו
+    else if (!a) v += 2;             // עוד לא ראה
+    if (s.tags && s.tags.some(function(tg){ return wanted.indexOf(tg) >= 0; })) v += 1.5;
+    return v;
+  }
+  return mine.map(function(s){ return {id:s.id, v:score(s)}; })
+    .sort(function(a,b){ return b.v - a.v; }).slice(0, DAILY_COUNT).map(function(x){ return x.id; });
+}
+
+function pickWarmup(){
+  var att = attempts(), okIds = {};
+  att.forEach(function(a){ if (a.ok) okIds[a.id] = 1; });
+  var mine = index.filter(function(s){ return s.position === profile.pos; });
+  var easy = mine.filter(function(s){ return okIds[s.id] || s.difficulty === 1; });
+  if (easy.length < 3) easy = mine;
+  return shuffle(easy.slice()).slice(0, 3).map(function(s){ return s.id; });
+}
+
+// ================= התקדמות =================
+var TAG_ORDER = ["press","build-up","scanning","receiving","switch","line-break","between-lines","aerial","counter","transition","counter-press",
+  "cover","high-line","1v1","cross","far-post","box","marking","second-ball","overlap","final-third"];
+
+function renderProgress(){
+  el("pgTitle").textContent = t("pg.title");
+  var body = el("pgBody"); body.innerHTML = "";
+  var att = attempts();
+  if (!att.length){
+    var e = h("div", "card empty section-gap");
+    e.appendChild(h("h3", "", t("pg.emptyT"))); e.appendChild(h("p", "muted", t("pg.emptyX")));
+    body.appendChild(e); return;
+  }
+  var week = attemptsBetween(6, 0);
+  var tiles = h("div", "tiles");
+  var a7 = avgRt(week);
+  tiles.appendChild(tile(a7 == null ? "–" : a7.toFixed(1), t("pg.avg7")));
+  var acc = week.length ? Math.round(100 * week.filter(function(a){ return a.ok; }).length / week.length) : null;
+  tiles.appendChild(tile(acc == null ? "–" : acc + "%", t("pg.acc7")));
+  tiles.appendChild(tile(String(loadStreak().count), t("pg.streak")));
+  tiles.appendChild(tile(String(att.length), t("pg.total")));
+  body.appendChild(tiles);
+
+  // גרף: זמן החלטה ממוצע ליום, 14 ימים
+  var chart = h("div", "card chart");
+  chart.appendChild(h("h3", "", t("pg.chartT")));
+  chart.appendChild(h("p", "muted", t("pg.chartX"))).style.fontSize = "14px";
+  var pts = [];
+  for (var i = 13; i >= 0; i--){
+    var k = dayKey(daysAgo(i));
+    var v = avgRt(att.filter(function(a){ return a.day === k; }));
+    pts.push({i:13 - i, v:v});
+  }
+  chart.appendChild(lineChart(pts));
+  body.appendChild(chart);
+
+  // לוח ימים: 4 שבועות
+  var calCard = h("div", "card section-gap");
+  calCard.appendChild(h("h3", "", t("pg.calT")));
+  var hd = h("div", "cal-h");
+  ["א","ב","ג","ד","ה","ו","ש"].forEach(function(d){ hd.appendChild(h("span", "", d)); });
+  calCard.appendChild(hd);
+  var cal = h("div", "cal"), days = practicedDays();
+  var start = daysAgo(0); start.setDate(start.getDate() - start.getDay() - 21);
+  for (var j = 0; j < 28; j++){
+    var d = new Date(start); d.setDate(start.getDate() + j);
+    var cls = (days[dayKey(d)] ? "on" : "") + (dayKey(d) === today() ? " today" : "");
+    var cell = h("i", cls.trim()); cell.setAttribute("aria-label", d.toLocaleDateString("he-IL") + (days[dayKey(d)] ? " ✓" : ""));
+    if (d > new Date()) cell.style.opacity = ".35";
+    cal.appendChild(cell);
+  }
+  calCard.appendChild(cal);
+  body.appendChild(calCard);
+
+  // חזק ב / עובדים על — לפי סוגי מצבים
+  var byTag = {};
+  att.forEach(function(a){ (a.tags || []).forEach(function(tg){ if (TAG_ORDER.indexOf(tg) < 0) return; byTag[tg] = byTag[tg] || {n:0, ok:0}; byTag[tg].n++; if (a.ok) byTag[tg].ok++; }); });
+  var ranked = Object.keys(byTag).filter(function(k){ return byTag[k].n >= 2; })
+    .map(function(k){ return {k:k, r:byTag[k].ok / byTag[k].n}; }).sort(function(a,b){ return b.r - a.r; });
+  var sw = h("div", "sw");
+  var strong = ranked.length ? ranked[0] : null, weak = ranked.length > 1 ? ranked[ranked.length - 1] : null;
+  var c1 = h("div", "card"); c1.appendChild(h("div", "k", t("pg.strong"))); c1.appendChild(h("div", "v", strong ? t("tag." + strong.k) : t("pg.notYet")));
+  var c2 = h("div", "card"); c2.appendChild(h("div", "k", t("pg.weak"))); c2.appendChild(h("div", "v", weak && weak.r < 1 ? t("tag." + weak.k) : t("pg.notYet")));
+  sw.appendChild(c1); sw.appendChild(c2);
+  body.appendChild(sw);
+}
+
+function lineChart(pts){
+  var NS = "http://www.w3.org/2000/svg", Wc = 320, Hc = 150, P = 26;
+  var svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", "0 0 " + Wc + " " + Hc); svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", t("pg.chartT"));
+  var vals = pts.filter(function(p){ return p.v != null; }).map(function(p){ return p.v; });
+  var lo = Math.max(0, Math.min.apply(null, vals.concat([1])) - 0.3), hi = Math.max.apply(null, vals.concat([2.5])) + 0.3;
+  function x(i){ return P + i * (Wc - P - 8) / 13; }
+  function y(v){ return 10 + (v - lo) / (hi - lo) * (Hc - 36); }   // מהיר = למעלה
+  function add(tag, attrs){ var e = document.createElementNS(NS, tag); Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); }); svg.appendChild(e); return e; }
+  [lo + 0.3, (lo + hi) / 2, hi - 0.3].forEach(function(v){
+    add("line", {x1:P, x2:Wc - 8, y1:y(v), y2:y(v), stroke:"rgba(242,239,230,.15)", "stroke-dasharray":"3 4"});
+    var tx = add("text", {x:P - 4, y:y(v) + 4, "text-anchor":"end", fill:"#C5CFC3", "font-size":"10"}); tx.textContent = v.toFixed(1);
+  });
+  var lab1 = add("text", {x:x(0), y:Hc - 6, fill:"#C5CFC3", "font-size":"10", "text-anchor":"middle"}); lab1.textContent = t("pg.twoWeeks");
+  var lab2 = add("text", {x:x(13), y:Hc - 6, fill:"#C5CFC3", "font-size":"10", "text-anchor":"middle"}); lab2.textContent = t("pg.today");
+  var d = "", first = true;
+  pts.forEach(function(p){ if (p.v == null) return; d += (first ? "M" : "L") + x(p.i).toFixed(1) + " " + y(p.v).toFixed(1) + " "; first = false; });
+  if (d) add("path", {d:d, fill:"none", stroke:"#FFD23F", "stroke-width":"2.5", "stroke-linejoin":"round"});
+  pts.forEach(function(p){ if (p.v != null) add("circle", {cx:x(p.i), cy:y(p.v), r:"4", fill:"#FFD23F", stroke:"#1D4535", "stroke-width":"2"}); });
+  return svg;
+}
+
+// ================= פרופיל =================
+function renderProfile(){
+  el("prTitle").textContent = profile.name;
+  var kv = el("prKv"); kv.innerHTML = "";
+  [["pr.pos", t("pos." + profile.pos)], ["pr.level", t("ob.level." + profile.level)], ["pr.days", t("pr.daysV", {n:profile.days})]].forEach(function(r){
+    var d = h("div"); d.appendChild(h("span", "", t(r[0]))); d.appendChild(h("span", "", r[1])); kv.appendChild(d);
+  });
+  el("prEdit").textContent = t("pr.edit");
+  el("prSetH").textContent = t("pr.settings");
+  el("setFogL").textContent = t("ui.fog"); el("setFog").checked = !!settings.fog;
+  el("setSoundL").textContent = t("pr.sound"); el("setSound").checked = settings.sound !== false;
+  el("prDevH").textContent = t("pr.dev");
+  el("prDevNote").textContent = t("pr.devNote");
+  el("prAll").textContent = t("pr.all");
+  el("prDemo").textContent = t("ui.demoStreak");
+  el("prReset").textContent = t("pr.reset");
+}
+el("prEdit").addEventListener("click", startOnboarding);
+el("setFog").addEventListener("change", function(){ settings.fog = el("setFog").checked; store.set("settings", settings); });
+el("setSound").addEventListener("change", function(){ settings.sound = el("setSound").checked; store.set("settings", settings); });
+el("prAll").addEventListener("click", function(){ nav("dev"); });
+el("prDemo").addEventListener("click", function(){ var s = loadStreak(); celebrate(s.count, s.count + 1, function(){ nav("profile"); }); });
+el("prReset").addEventListener("click", function(){
+  if (!confirm(t("pr.resetConfirm"))) return;
+  store.clear(); profile = null; settings = {fog:false, sound:true}; startOnboarding();
+});
+
+// ================= כל התרחישים (בדיקה) =================
+function renderDev(){
+  el("devTitle").textContent = t("pr.all");
+  el("devPlayAll").textContent = t("ui.playAll");
+  var box = el("groups"); box.innerHTML = "";
+  ["CB","DM","FB"].forEach(function(pos){
+    var items = index.filter(function(s){ return s.position === pos; });
+    if (!items.length) return;
+    var g = h("div", "group"); g.appendChild(h("h3", "", t("pos." + pos)));
+    var l = h("div", "list");
+    items.forEach(function(s){
+      var b = h("button", "item");
+      b.appendChild(h("span", "", s.id + " · " + t(s.id + ".title")));
+      b.appendChild(h("span", "badge" + (s.type === "marking" ? " mark" : ""), t("type." + s.type)));
+      b.addEventListener("click", function(){ startSession("single", [s.id]); });
+      l.appendChild(b);
+    });
+    g.appendChild(l); box.appendChild(g);
+  });
+}
+el("devClose").addEventListener("click", function(){ nav(profile ? "profile" : "home"); });
+el("devPlayAll").addEventListener("click", function(){ startSession("single", index.map(function(s){ return s.id; })); });
+
+// ================= סיכום משחק =================
+var MA = [
+  {key:"how", options:["bad","ok","good","great"]},
+  {key:"hard", options:["press","receiving","transition","cross","unknown"]},
+  {key:"lost", options:["never","few","many"]}
+];
+var maStep = 0, maAns = {};
+function renderMatch(){
+  el("maTitle").textContent = t("ma.title");
+  var body = el("maBody"); body.innerHTML = "";
+  if (maStep >= MA.length){
+    var tag = (HARD_TAGS[maAns.hard] || [])[0];
+    if (tag) store.set("focus", {tag:tag, at:today()});
+    var c = h("div", "card section-gap");
+    c.appendChild(h("h2", "", tag ? t("ma.doneFocus", {topic:t("tag." + tag)}) : t("ma.done")));
+    body.appendChild(c);
+    var b = h("button", "primary", t("ma.home")); b.addEventListener("click", function(){ nav("home"); });
+    body.appendChild(b);
+    return;
+  }
+  var steps = h("div", "steps"); MA.forEach(function(_, i){ steps.appendChild(h("i", i <= maStep ? "on" : "")); });
+  body.appendChild(steps);
+  var q = MA[maStep];
+  var title = h("h1", "", t("ma.q." + q.key)); title.id = "maQ"; body.appendChild(title);
+  var wrap = h("div", "choices"); wrap.setAttribute("role", "group"); wrap.setAttribute("aria-labelledby", "maQ");
+  q.options.forEach(function(v){
+    var b = h("button", "choice", t("ma." + q.key + "." + v));
+    b.addEventListener("click", function(){ maAns[q.key] = v; maStep++; renderMatch(); });
+    wrap.appendChild(b);
+  });
+  body.appendChild(wrap);
+}
+el("maClose").addEventListener("click", function(){ nav("home"); });
+
+// ================= סשן תרחישים =================
+function startSession(kind, ids){
+  session = {kind:kind, total:ids.length, results:[]};
+  queue = ids.slice(); sessionTotal = ids.length;
+  next();
+}
+
+function next(){
+  el("sheetWrap").hidden = true;
+  stopLoop();
+  if (!queue.length){ endSession(); return; }
+  var id = queue.shift();
+  getJSON("scenarios/" + id + ".json").then(setup).catch(function(e){ alert(e.message); nav(profile ? "home" : "onboard"); });
+}
+
+function endSession(){
+  var kind = session ? session.kind : "single";
+  if (kind === "daily"){
+    var from = completeDaily();
+    if (from != null) celebrate(from, from + 1, function(){ nav("summary"); });
+    else nav("summary");
+  } else if (kind === "calib") nav("calibResult");
+  else if (kind === "warmup") nav("warmupDone");
+  else if (profile) nav("dev"); else nav("dev");
+}
+
+function quitSession(){
+  queue = []; stopLoop(); el("sheetWrap").hidden = true;
+  var kind = session ? session.kind : "single";
+  session = null;
+  if (kind === "calib"){ nav("home"); return; }
+  if (kind === "single"){ nav("dev"); return; }
+  nav("home");
+}
+
+function recordResult(){
+  var r = {id:sc.id, pos:sc.position, tags:sc.tags || [], ok:S.choice === sc.correctOptionId, rt:S.rt, scans:S.fog ? S.scans : null,
+           day:today(), ts:Date.now(), kind:session ? session.kind : "single"};
+  if (session) session.results.push(r);
+  if (r.kind === "single") return;          // בדיקות לא נכנסות להתקדמות
+  var all = attempts(); all.push(r); if (all.length > 2000) all = all.slice(-2000);
+  store.set("attempts", all);
+}
+
+// ---------- סיכום אימון ----------
+function renderSummary(){
+  var r = session ? session.results : [];
+  var ok = r.filter(function(x){ return x.ok; }).length;
+  var avg = avgRt(r);
+  var prev = avgRt(attempts().filter(function(a){ return a.day !== today() && a.ts > Date.now() - 8 * 864e5; }));
+  el("suTitle").textContent = t("su.title", {name:profile.name});
+  el("suBig").textContent = avg == null ? "–" : avg.toFixed(1);
+  el("suBigL").textContent = t("su.bigL");
+  var cmp = el("suCmp"); cmp.innerHTML = "";
+  cmp.appendChild(tile(prev == null ? "–" : prev.toFixed(1), t("su.prev")));
+  cmp.appendChild(tile(ok + "/" + r.length, t("su.ok")));
+  el("suListH").textContent = t("su.listH");
+  var ul = el("suList"); ul.innerHTML = "";
+  r.forEach(function(x){
+    var li = h("li"), mk = h("span", "mk " + (x.ok ? "ok" : "no"), x.ok ? "✓" : "✗");
+    mk.setAttribute("aria-label", x.ok ? t("ui.correct") : t("ui.wrong"));
+    li.appendChild(mk); li.appendChild(h("span", "", t(x.id + ".title")));
+    li.appendChild(h("span", "tm", x.rt == null ? t("ui.timeout") : (x.rt / 1000).toFixed(1)));
+    ul.appendChild(li);
+  });
+  el("suCoachK").textContent = t("coach.k");
+  var line = prev == null || avg == null ? "su.c.first" : avg < prev - 0.05 ? "su.c.faster" : avg > prev + 0.1 ? "su.c.slower" : "su.c.same";
+  el("suCoach").textContent = t(line);
+  el("suBtn").textContent = t("su.btn");
+}
+el("suBtn").addEventListener("click", function(){ nav("home"); });
+
+function renderWarmupDone(){
+  el("wdTitle").textContent = t("wd.title");
+  el("wdText").textContent = t("wd.text");
+  el("wdBtn").textContent = t("wd.btn");
+}
+el("wdBtn").addEventListener("click", function(){ nav("home"); });
+
+var RENDER = {onboard:renderOnboard, calibIntro:renderCalibIntro, calibResult:renderCalibResult, waitlist:renderWaitlist,
+  home:renderHome, progress:renderProgress, profile:renderProfile, dev:renderDev, summary:renderSummary, warmupDone:renderWarmupDone, match:renderMatch};
+
+// ================= מנוע התרחישים (מהנגן) =================
+var canvas = el("pitch"), ctx = canvas.getContext("2d");
+var fog = document.createElement("canvas"), fctx = fog.getContext("2d");
+var W = 0, H = 0, VT = 0.4, VB = 1.03;
+
+function resize(){
+  var full = el("s-play").clientWidth || 360;
+  var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  var ratio = (VB - VT) * 105 / 68;
+  var reserved = (S.phase === "preview" ? 330 : 250) + (S.fog ? 66 : 0);
+  var w = Math.floor(Math.min(full, Math.max(220, (vh - reserved) / ratio)));
+  el("stage").style.width = w + "px";
+  var dpr = Math.min(window.devicePixelRatio || 1, 3);
+  W = w; H = Math.round(w * ratio);
+  canvas.style.height = H + "px";
+  canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+  fog.width = canvas.width; fog.height = canvas.height;
+  ctx.setTransform(dpr,0,0,dpr,0,0); fctx.setTransform(dpr,0,0,dpr,0,0);
+}
+function X(x){ return x * W; }
+function Y(y){ return (y - VT) / (VB - VT) * H; }
+
+function at(track, time, linear){
+  if (track.length === 1 || time <= track[0][0]) return {x:track[0][1], y:track[0][2]};
+  for (var i = 1; i < track.length; i++){
+    var a = track[i-1], b = track[i];
+    if (time <= b[0]){
+      var u = (time - a[0]) / (b[0] - a[0]);
+      if (!linear) u = u * u * (3 - 2 * u);
+      return {x:a[1] + (b[1]-a[1])*u, y:a[2] + (b[2]-a[2])*u};
+    }
+  }
+  var l = track[track.length-1];
+  return {x:l[1], y:l[2]};
+}
+
+function drawPitch(){
+  ctx.fillStyle = "#24533F"; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = "rgba(242,239,230,.75)";
+  ctx.lineWidth = Math.max(1.5, W * 0.004);
+  var r = 9.15 / 68 * W;
+  ctx.beginPath();
+  ctx.moveTo(X(0.004), Y(0)); ctx.lineTo(X(0.004), Y(1));
+  ctx.moveTo(X(0.996), Y(0)); ctx.lineTo(X(0.996), Y(1));
+  ctx.moveTo(0, Y(1)); ctx.lineTo(W, Y(1));
+  ctx.moveTo(0, Y(0.5)); ctx.lineTo(W, Y(0.5));
+  ctx.stroke();
+  ctx.beginPath(); ctx.arc(X(0.5), Y(0.5), r, 0, Math.PI*2); ctx.stroke();
+  ctx.strokeRect(X(0.2037), Y(0.8429), X(0.7963) - X(0.2037), Y(1) - Y(0.8429));
+  ctx.strokeRect(X(0.3653), Y(0.9476), X(0.6347) - X(0.3653), Y(1) - Y(0.9476));
+  ctx.strokeRect(X(0.4462), Y(1), X(0.5538) - X(0.4462), Y(1.02) - Y(1));
+  ctx.beginPath(); ctx.moveTo(0, Y(0)); ctx.lineTo(W, Y(0)); ctx.stroke();
+  ctx.strokeRect(X(0.2037), Y(0), X(0.7963) - X(0.2037), Y(0.1571) - Y(0));
+  ctx.strokeRect(X(0.3653), Y(0), X(0.6347) - X(0.3653), Y(0.0524) - Y(0));
+  ctx.strokeRect(X(0.4462), Y(-0.02), X(0.5538) - X(0.4462), Y(0) - Y(-0.02));
+  ctx.fillStyle = "rgba(242,239,230,.75)";
+  ctx.beginPath(); ctx.arc(X(0.5), Y(0.8952), ctx.lineWidth * 1.3, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(X(0.5), Y(0.1048), ctx.lineWidth * 1.3, 0, Math.PI*2); ctx.fill();
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, Y(0.8429)); ctx.clip();
+  ctx.beginPath(); ctx.arc(X(0.5), Y(0.8952), r, 0, Math.PI*2); ctx.stroke(); ctx.restore();
+  ctx.save(); ctx.beginPath(); ctx.rect(0, Y(0.1571), W, H); ctx.clip();
+  ctx.beginPath(); ctx.arc(X(0.5), Y(0.1048), r, 0, Math.PI*2); ctx.stroke(); ctx.restore();
+}
+
+function label(text, x, y, color){
+  ctx.save();
+  ctx.font = "700 " + Math.round(W * 0.036) + "px Assistant, system-ui, sans-serif";
+  ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+  try { ctx.direction = "rtl"; } catch(e){}
+  ctx.lineWidth = 4; ctx.strokeStyle = "rgba(0,0,0,.55)";
+  ctx.strokeText(text, x, y); ctx.fillStyle = color; ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
+var FILL = {away:"#F08A4B", me:"#FFD23F", gk:"#9FD8CF", home:"#F2EFE6"};
+function drawPlayer(p, team){
+  var r = W * 0.03;
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y) + 2, r, 0, Math.PI*2);
+  ctx.fillStyle = "rgba(0,0,0,.25)"; ctx.fill();
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), r, 0, Math.PI*2);
+  ctx.fillStyle = FILL[team] || FILL.home; ctx.fill();
+  ctx.lineWidth = team === "me" ? 3 : 1.5;
+  ctx.strokeStyle = team === "me" ? "#1D2A12" : "rgba(0,0,0,.35)"; ctx.stroke();
+  if (team === "me") label(t("ui.you"), X(p.x), Y(p.y) - r - 3, "#FFD23F");
+}
+function drawBall(p){
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), W * 0.014, 0, Math.PI*2);
+  ctx.fillStyle = "#FFFFFF"; ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = "#111"; ctx.stroke();
+}
+function ring(p, color, pulse){
+  ctx.save();
+  ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.setLineDash([6, 5]);
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), W * (0.055 + pulse * 0.01), 0, Math.PI*2); ctx.stroke();
+  ctx.restore();
+}
+
+function drawFog(me, face, alpha){
+  if (alpha <= 0.001) return;
+  fctx.globalCompositeOperation = "source-over";
+  fctx.clearRect(0, 0, W, H);
+  fctx.fillStyle = "rgba(10,26,19,.94)"; fctx.fillRect(0, 0, W, H);
+  fctx.globalCompositeOperation = "destination-out";
+  var cx = X(me.x), cy = Y(me.y);
+  var ang = Math.atan2(Y(face.y) - cy, X(face.x) - cx);
+  var R = W * 0.55, half = 55 * Math.PI / 180;
+  var g = fctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+  g.addColorStop(0, "rgba(0,0,0,1)"); g.addColorStop(0.7, "rgba(0,0,0,1)"); g.addColorStop(1, "rgba(0,0,0,0)");
+  fctx.fillStyle = g;
+  fctx.beginPath(); fctx.moveTo(cx, cy); fctx.arc(cx, cy, R, ang - half, ang + half); fctx.closePath(); fctx.fill();
+  fctx.beginPath(); fctx.arc(cx, cy, W * 0.09, 0, Math.PI*2); fctx.fill();
+  ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha = alpha; ctx.drawImage(fog, 0, 0); ctx.restore();
+}
+
+var S = {}, raf = 0;
+function stopLoop(){ if (raf){ cancelAnimationFrame(raf); raf = 0; } }
+function entity(id){ for (var i = 0; i < sc.entities.length; i++) if (sc.entities[i].id === id) return sc.entities[i]; return null; }
+function freezePos(id){ var e = entity(id); return e ? at(e.track, sc.freezeAtMs, id === "ball") : {x:0.5, y:0.5}; }
+
+function posOf(id, now){
+  var e = entity(id);
+  if (S.phase === "countdown" || S.phase === "preview") return at(e.track, 0, id === "ball");
+  if (S.phase === "run") return at(e.track, Math.min(sc.freezeAtMs, now - S.t0), id === "ball");
+  if ((S.phase === "outcome" || S.phase === "after") && S.out && S.out.tracks && S.out.tracks[id]){
+    var tt = S.phase === "after" ? S.out.durationMs : now - S.oStart;
+    return at(S.out.tracks[id], tt, id === "ball");
+  }
+  return freezePos(id);
+}
+
+function reveal(now){
+  var d = now - S.scanStart;
+  if (d < 0) return 0;
+  if (d < 100) return d / 100;
+  if (d < 550) return 1;
+  if (d < 700) return 1 - (d - 550) / 150;
+  return 0;
+}
+
+function render(now){
+  ctx.clearRect(0, 0, W, H);
+  drawPitch();
+  sc.entities.forEach(function(e){ if (e.id !== "ball") drawPlayer(posOf(e.id, now), e.team); });
+  drawBall(posOf("ball", now));
+  if (sc.type === "marking" && S.phase === "decide"){
+    var pulse = (Math.sin(now / 180) + 1) / 2;
+    sc.candidates.forEach(function(id){ ring(freezePos(id), "#FFD23F", pulse); });
+  }
+  if (sc.type === "marking" && (S.phase === "outcome" || S.phase === "after") && S.choice){
+    ring(posOf(S.choice, now), S.choice === sc.correctOptionId ? "#FFD23F" : "#F2EFE6", 0);
+  }
+  if (S.fog){
+    var a = 1 - reveal(now);
+    if (S.phase === "outcome" || S.phase === "after") a = Math.min(a, Math.max(0, 1 - (now - S.oStart) / 300));
+    drawFog(posOf("me", now), posOf(sc.facing || "ball", now), a);
+  }
+}
+
+function loop(now){
+  if (S.phase === "countdown"){
+    var n = 3 - Math.floor((now - S.cStart) / 700);
+    if (n <= 0){ el("count").hidden = true; S.phase = "run"; S.t0 = now; }
+    else el("count").textContent = n;
+  }
+  if (S.phase === "run" && now - S.t0 >= sc.freezeAtMs){
+    S.phase = "decide"; S.dStart = now;
+    el("timer").classList.remove("concealed");
+    el(sc.type === "marking" ? "prompt" : "options").classList.remove("concealed");
+  }
+  if (S.phase === "decide"){
+    var left = sc.decisionWindowMs - (now - S.dStart);
+    var frac = Math.max(0, left / sc.decisionWindowMs);
+    el("timerBar").style.width = (frac * 100) + "%";
+    el("timer").classList.toggle("low", frac < 0.3);
+    if (left <= 0) choose(null, now);
+  }
+  if (S.phase === "outcome" && now - S.oStart >= S.out.durationMs + 700){
+    S.phase = "after";
+    if (!S.solution) openSheet(); else el("sheetWrap").hidden = false;
+  }
+  el("hint").hidden = !(S.fog && S.scans === 0 && (S.phase === "run" || S.phase === "decide"));
+  render(now);
+  if (S.phase === "after"){ raf = 0; return; }
+  raf = requestAnimationFrame(loop);
+}
+
+function setup(data){
+  sc = data;
+  VT = sc.view ? sc.view.top : 0.4; VB = sc.view ? sc.view.bottom : 1.03;
+  S = {phase:"idle", fog:!!settings.fog, scans:0, scanStart:-1e9, choice:null, solution:false};
+  el("pTitle").textContent = t(sc.id + ".title");
+  el("pIntro").textContent = t(sc.id + ".intro");
+  el("introBox").hidden = false; el("introFoot").hidden = false;
+  ["timer","scanBtn","options","prompt","caption","count"].forEach(function(id){ el(id).hidden = true; });
+  buildIntro();
+  var box = el("options"); box.innerHTML = "";
+  if (sc.type === "decision"){
+    shuffle(sc.options.slice()).forEach(function(o){
+      var b = h("button", "", t(o.labelKey));
+      b.addEventListener("click", function(){ choose(o.id, performance.now()); });
+      box.appendChild(b);
+    });
+  }
+  nav("play");
+  el("stage").hidden = false;
+  S.phase = "preview";
+  resize(); render(performance.now());
+  el("freezeTag").hidden = false;
+}
+
+function buildIntro(){
+  var chips = el("chips"); chips.innerHTML = "";
+  function chip(text, cls){ var c = h("span", "chip" + (cls ? " " + cls : ""), text); chips.appendChild(c); return c; }
+  chip(t("pos." + sc.position));
+  chip(t("type." + sc.type), sc.type === "marking" ? "mark" : "");
+  var d = chip(t("ui.difficulty") + " ");
+  var dots = h("span", "dots"); dots.setAttribute("aria-label", t("ui.diffAria", {n:sc.difficulty}));
+  for (var i = 1; i <= 3; i++) dots.appendChild(h("i", i <= sc.difficulty ? "on" : ""));
+  d.appendChild(dots);
+  if (sessionTotal > 1) chip(t("ui.progress", {n:sessionTotal - queue.length, total:sessionTotal}), "progress");
+  el("freezeTag").textContent = t("ui.startPosition");
+  var secs = (sc.decisionWindowMs / 1000).toString().replace(".0", "");
+  var items = [["1", t("ui.rule1")], ["2", sc.type === "marking" ? t("ui.rule2mark") : t("ui.rule2", {s:secs})], ["3", S.fog ? t("ui.rule3fog") : t("ui.rule3")]];
+  var ul = el("rules"); ul.innerHTML = "";
+  items.forEach(function(it){ var li = h("li"); li.appendChild(h("b", "", it[0])); li.appendChild(h("span", "", it[1])); ul.appendChild(li); });
+}
+
+function startRun(){
+  el("introBox").hidden = true; el("introFoot").hidden = true; el("freezeTag").hidden = true;
+  el("timer").hidden = false; el("timer").classList.add("concealed");
+  var ans = sc.type === "marking" ? "prompt" : "options";
+  el(ans).hidden = false; el(ans).classList.add("concealed");
+  el("scanBtn").hidden = !S.fog;
+  resize();
+  el("timerBar").style.width = "100%";
+  el("count").hidden = false; el("count").textContent = "3";
+  S.phase = "countdown"; S.cStart = performance.now();
+  stopLoop(); raf = requestAnimationFrame(loop);
+}
+
+function scan(){
+  if (!S.fog || (S.phase !== "run" && S.phase !== "decide")) return;
+  var now = performance.now();
+  if (reveal(now) > 0) return;
+  S.scanStart = now; S.scans++;
+}
+
+function optionById(id){ for (var i = 0; i < sc.options.length; i++) if (sc.options[i].id === id) return sc.options[i]; return null; }
+
+function choose(id, now){
+  if (S.phase !== "decide") return;
+  S.choice = id; S.rt = id === null ? null : now - S.dStart;
+  recordResult();
+  playOutcome(id === null ? sc.timeoutOutcome : optionById(id).outcome, now);
+  ["timer","options","prompt","scanBtn","hint"].forEach(function(x){ el(x).hidden = true; });
+}
+
+function playOutcome(out, now){
+  S.out = out; S.phase = "outcome"; S.oStart = now;
+  var c = el("caption");
+  c.className = "caption " + (out.kind || "neutral");
+  c.textContent = (S.solution ? t("ui.solutionPrefix") : "") + t(out.captionKey);
+  c.hidden = false;
+  if (!raf) raf = requestAnimationFrame(loop);
+}
+
+function openSheet(){
+  var ok = S.choice === sc.correctOptionId;
+  el("sheet").classList.toggle("bad", !ok);
+  el("rTitle").textContent = S.choice === null ? t("ui.timeout") : ok ? t("ui.correct") : t("ui.wrong");
+  el("rTime").hidden = S.rt === null;
+  el("rTime").textContent = S.rt === null ? "" : (S.rt / 1000).toFixed(1) + " " + t("ui.seconds");
+  el("rScans").hidden = !S.fog;
+  el("rScans").textContent = S.scans === 0 ? t("ui.noScan") : S.scans === 1 ? t("ui.scanOnce") : t("ui.scanMany", {n:S.scans});
+  var chosen = S.choice ? optionById(S.choice) : null, right = optionById(sc.correctOptionId);
+  el("rWhy").textContent = ok ? t(right.explainKey) : (chosen ? t(chosen.explainKey) + " " : "") + t(right.explainKey);
+  el("nextBtn").textContent = queue.length ? t("ui.next") : t("ui.finish");
+  el("solBtn").hidden = ok;
+  el("sheetWrap").hidden = false;
+  el("nextBtn").focus();
+}
+
+function showSolution(){
+  el("sheetWrap").hidden = true; el("solBtn").hidden = true;
+  S.solution = true;
+  var right = optionById(sc.correctOptionId);
+  if (sc.type === "marking") S.choice = right.id;
+  playOutcome(right.outcome, performance.now());
+}
+
+// ================= רצף ימים =================
+var DAILY_COUNT = 6;
+function loadStreak(){
+  var s = store.get("streak", null);
+  if (!s || typeof s.count !== "number") s = {count:0, last:null};
+  if (s.last && s.last !== today() && s.last !== yesterday()) s = {count:0, last:null};   // דילג על יום
+  return s;
+}
+// מחזיר את המספר הקודם אם הרצף גדל היום, אחרת null
+function completeDaily(){
+  var s = loadStreak();
+  if (s.last === today()) return null;
+  var from = s.count;
+  s.count += 1; s.last = today(); store.set("streak", s);
+  return from;
+}
+
+var fxAfter = null;
+function celebrate(from, to, after){
+  fxAfter = after || null;
+  el("fxOld").textContent = from;
+  el("fxNew").textContent = to;
+  el("fxText").textContent = to === 1 ? t("ui.streakFirst") : t("ui.streakText", {n:to});
+  el("fxSub").textContent = t("ui.streakSub");
+  var box = el("sparks"); box.innerHTML = "";
+  for (var i = 0; i < 14; i++){
+    var sp = h("span", "spark"), ang = (i / 14) * Math.PI * 2, dist = 120 + Math.random() * 90;
+    sp.style.setProperty("--dx", Math.round(Math.cos(ang) * dist) + "px");
+    sp.style.setProperty("--dy", Math.round(Math.sin(ang) * dist) + "px");
+    box.appendChild(sp);
+  }
+  var fx = el("fx");
+  fx.classList.remove("play"); fx.hidden = false;
+  void fx.offsetWidth;
+  fx.classList.add("play");
+  if (settings.sound !== false) playStreakSound();
+  setTimeout(function(){ el("fxBtn").focus(); }, 2200);
+}
+el("fxBtn").addEventListener("click", function(){
+  el("fx").hidden = true; el("fx").classList.remove("play");
+  var f = fxAfter; fxAfter = null; if (f) f();
+});
+
+function playStreakSound(){
+  try {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    var a = new AC(), t0 = a.currentTime;
+    var len = Math.floor(a.sampleRate * 0.45), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+    var n = a.createBufferSource(); n.buffer = buf;
+    var f = a.createBiquadFilter(); f.type = "bandpass"; f.Q.value = 1.2;
+    f.frequency.setValueAtTime(300, t0 + 0.6); f.frequency.exponentialRampToValueAtTime(2800, t0 + 1.05);
+    var g = a.createGain(); g.gain.value = 0.22;
+    n.connect(f); f.connect(g); g.connect(a.destination); n.start(t0 + 0.6);
+    [784, 988, 1319].forEach(function(fr, k){
+      var o = a.createOscillator(), gg = a.createGain(), st = t0 + 1.08 + k * 0.09;
+      o.type = "triangle"; o.frequency.value = fr;
+      gg.gain.setValueAtTime(0, st); gg.gain.linearRampToValueAtTime(0.28, st + 0.02);
+      gg.gain.exponentialRampToValueAtTime(0.001, st + 0.7);
+      o.connect(gg); gg.connect(a.destination); o.start(st); o.stop(st + 0.75);
+    });
+    setTimeout(function(){ try { a.close(); } catch(e){} }, 2500);
+  } catch(e){}
+}
+
+function shuffle(a){
+  for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var tmp = a[i]; a[i] = a[j]; a[j] = tmp; }
+  return a;
+}
+
+canvas.addEventListener("pointerdown", function(ev){
+  if (sc && sc.type === "marking" && S.phase === "decide"){
+    var rect = canvas.getBoundingClientRect();
+    var px = ev.clientX - rect.left, py = ev.clientY - rect.top, best = null, bestD = W * 0.09;
+    sc.candidates.forEach(function(id){
+      var p = freezePos(id), d = Math.hypot(X(p.x) - px, Y(p.y) - py);
+      if (d < bestD){ bestD = d; best = id; }
+    });
+    if (best){ choose(best, performance.now()); return; }
+  }
+  scan();
+});
+
+el("goBtn").addEventListener("click", startRun);
+el("scanBtn").addEventListener("click", scan);
+el("nextBtn").addEventListener("click", next);
+el("solBtn").addEventListener("click", showSolution);
+el("closeBtn").addEventListener("click", quitSession);
+window.addEventListener("resize", function(){ if (sc && !el("s-play").hidden && !el("stage").hidden){ resize(); render(performance.now()); } });
+
+boot();
+})();
+</script>
+</body>
+</html>

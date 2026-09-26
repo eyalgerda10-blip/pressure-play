@@ -1,0 +1,328 @@
+{
+ "id": "fb-10",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 3,
+ "tags": [
+  "final-third",
+  "cutback",
+  "scanning",
+  "trap"
+ ],
+ "view": {
+  "top": -0.03,
+  "bottom": 0.5
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.84,
+     0.28
+    ],
+    [
+     2200,
+     0.8,
+     0.2
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.2
+    ],
+    [
+     2200,
+     0.58,
+     0.08
+    ]
+   ]
+  },
+  {
+   "id": "cm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.55,
+     0.32
+    ],
+    [
+     2200,
+     0.5,
+     0.18
+    ]
+   ]
+  },
+  {
+   "id": "lw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.35,
+     0.12
+    ],
+    [
+     2200,
+     0.35,
+     0.07
+    ]
+   ]
+  },
+  {
+   "id": "fb",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.72,
+     0.3
+    ],
+    [
+     2200,
+     0.76,
+     0.24
+    ]
+   ]
+  },
+  {
+   "id": "cA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.6,
+     0.1
+    ],
+    [
+     2200,
+     0.6,
+     0.07
+    ]
+   ]
+  },
+  {
+   "id": "cB",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.42,
+     0.1
+    ],
+    [
+     2200,
+     0.4,
+     0.08
+    ]
+   ]
+  },
+  {
+   "id": "gkA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.015
+    ]
+   ]
+  },
+  {
+   "id": "mA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.62,
+     0.3
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.845,
+     0.285
+    ],
+    [
+     2200,
+     0.795,
+     0.205
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "cut",
+ "options": [
+  {
+   "id": "cut",
+   "target": "cm",
+   "labelKey": "fb-10.opt.cut",
+   "explainKey": "fb-10.why.cut",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-10.out.cut",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.795,
+       0.205
+      ],
+      [
+       600,
+       0.505,
+       0.175
+      ],
+      [
+       1200,
+       0.5,
+       -0.01
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "cross",
+   "target": {
+    "x": 0.38,
+    "y": 0.06
+   },
+   "labelKey": "fb-10.opt.cross",
+   "explainKey": "fb-10.why.cross",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-10.out.cross",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.795,
+       0.205
+      ],
+      [
+       800,
+       0.39,
+       0.065
+      ],
+      [
+       1400,
+       0.45,
+       0.25
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "near",
+   "target": "st",
+   "labelKey": "fb-10.opt.near",
+   "explainKey": "fb-10.why.near",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-10.out.near",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.795,
+       0.205
+      ],
+      [
+       500,
+       0.6,
+       0.08
+      ],
+      [
+       1200,
+       0.75,
+       0.2
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "shoot",
+   "target": {
+    "x": 0.55,
+    "y": 0.0
+   },
+   "labelKey": "fb-10.opt.shoot",
+   "explainKey": "fb-10.why.shoot",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-10.out.shoot",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.795,
+       0.205
+      ],
+      [
+       600,
+       0.52,
+       0.02
+      ]
+     ],
+     "gkA": [
+      [
+       0,
+       0.5,
+       0.015
+      ],
+      [
+       500,
+       0.52,
+       0.02
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-10.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "fb": [
+    [
+     0,
+     0.76,
+     0.24
+    ],
+    [
+     600,
+     0.79,
+     0.21
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}

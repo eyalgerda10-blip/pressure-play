@@ -1,0 +1,393 @@
+{
+ "id": "dm-09",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 1,
+ "tags": [
+  "transition",
+  "counter"
+ ],
+ "view": {
+  "top": 0.18,
+  "bottom": 0.85
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 3000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.56
+    ],
+    [
+     2200,
+     0.5,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.55,
+     0.45
+    ],
+    [
+     2200,
+     0.6,
+     0.33
+    ]
+   ]
+  },
+  {
+   "id": "rw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.85,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "cm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.35,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "c1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.42,
+     0.4
+    ],
+    [
+     2200,
+     0.44,
+     0.34
+    ]
+   ]
+  },
+  {
+   "id": "c2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.58,
+     0.4
+    ],
+    [
+     2200,
+     0.58,
+     0.35
+    ]
+   ]
+  },
+  {
+   "id": "m1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.4,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "m2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.6,
+     0.64
+    ]
+   ]
+  },
+  {
+   "id": "gkA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.02
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.505,
+     0.555
+    ],
+    [
+     2200,
+     0.505,
+     0.545
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "quick",
+ "options": [
+  {
+   "id": "quick",
+   "target": {
+    "x": 0.62,
+    "y": 0.27
+   },
+   "labelKey": "dm-09.opt.quick",
+   "explainKey": "dm-09.why.quick",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-09.out.quick",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.505,
+       0.545
+      ],
+      [
+       800,
+       0.62,
+       0.27
+      ],
+      [
+       1500,
+       0.52,
+       0.005
+      ]
+     ],
+     "st": [
+      [
+       0,
+       0.6,
+       0.33
+      ],
+      [
+       800,
+       0.62,
+       0.27
+      ],
+      [
+       1300,
+       0.55,
+       0.1
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "carry",
+   "target": {
+    "x": 0.5,
+    "y": 0.47
+   },
+   "labelKey": "dm-09.opt.carry",
+   "explainKey": "dm-09.why.carry",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-09.out.carry",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.55
+      ],
+      [
+       900,
+       0.5,
+       0.48
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.505,
+       0.545
+      ],
+      [
+       900,
+       0.505,
+       0.475
+      ]
+     ],
+     "c1": [
+      [
+       0,
+       0.44,
+       0.34
+      ],
+      [
+       900,
+       0.46,
+       0.26
+      ]
+     ],
+     "c2": [
+      [
+       0,
+       0.58,
+       0.35
+      ],
+      [
+       900,
+       0.58,
+       0.27
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "rw",
+   "target": "rw",
+   "labelKey": "dm-09.opt.rw",
+   "explainKey": "dm-09.why.rw",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-09.out.rw",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.505,
+       0.545
+      ],
+      [
+       800,
+       0.84,
+       0.5
+      ]
+     ],
+     "c2": [
+      [
+       0,
+       0.58,
+       0.35
+      ],
+      [
+       900,
+       0.66,
+       0.36
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "hold",
+   "target": {
+    "x": 0.5,
+    "y": 0.55
+   },
+   "labelKey": "dm-09.opt.hold",
+   "explainKey": "dm-09.why.hold",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-09.out.hold",
+    "durationMs": 1600,
+    "tracks": {
+     "c1": [
+      [
+       0,
+       0.44,
+       0.34
+      ],
+      [
+       900,
+       0.46,
+       0.26
+      ]
+     ],
+     "c2": [
+      [
+       0,
+       0.58,
+       0.35
+      ],
+      [
+       900,
+       0.58,
+       0.27
+      ]
+     ],
+     "m1": [
+      [
+       0,
+       0.4,
+       0.62
+      ],
+      [
+       1200,
+       0.44,
+       0.52
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-09.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "c1": [
+    [
+     0,
+     0.44,
+     0.34
+    ],
+    [
+     900,
+     0.46,
+     0.26
+    ]
+   ],
+   "c2": [
+    [
+     0,
+     0.58,
+     0.35
+    ],
+    [
+     900,
+     0.58,
+     0.27
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null
+}
