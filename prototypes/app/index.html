@@ -115,6 +115,20 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .me-big{font-family:"Secular One",sans-serif;font-size:120px;line-height:1;color:var(--marker);margin:24px 0 0;font-variant-numeric:tabular-nums}
 .record{display:inline-block;background:var(--marker);color:var(--on-marker);font-weight:700;border-radius:4px;padding:4px 12px;margin-top:10px}
 
+/* בדיקה לאייל + שליחה */
+.panel-card{margin-top:18px;border:2px solid var(--marker);border-radius:4px;background:var(--board-2);padding:16px}
+.panel-card .k{font-size:13px;font-weight:700;color:var(--marker)}
+.panel-card h3{margin:2px 0 4px}
+.panel-card .bar{height:8px;border-radius:2px;background:rgba(242,239,230,.18);overflow:hidden;margin:10px 0 2px}
+.panel-card .bar i{display:block;height:100%;background:var(--marker)}
+.panel-card .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.panel-card .row2 .primary,.panel-card .row2 .secondary{margin-top:10px;min-height:50px;font-size:16px}
+.disagree{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin-top:10px;border:var(--dash);border-radius:4px;background:transparent;font-size:16px;font-weight:600}
+.disagree[aria-pressed="true"]{background:var(--chalk);color:var(--board);border-color:var(--chalk)}
+.note{width:100%;min-height:96px;margin-top:10px;border:var(--dash);border-radius:4px;background:var(--board-2);color:var(--chalk);font:inherit;padding:10px 12px;resize:vertical}
+.preview-msg{white-space:pre-wrap;direction:rtl;font-size:13px;line-height:1.45;max-height:220px;overflow:auto;background:var(--board-dark);border-radius:4px;padding:10px 12px;margin-top:12px;color:var(--chalk-muted)}
+.wa{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none}
+
 /* התקדמות */
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
 .tile{border:var(--dash);border-radius:4px;background:var(--board-2);padding:12px 14px}
@@ -344,6 +358,14 @@ canvas{display:block;width:100%}
         <span id="playedL"></span>
       </button>
     </div>
+    <div class="panel-card" id="panelCard">
+      <div class="k" id="pcK"></div>
+      <h3 id="pcT"></h3>
+      <div class="muted" id="pcX" style="font-size:15px"></div>
+      <div class="bar" aria-hidden="true"><i id="pcBar"></i></div>
+      <div class="muted" id="pcN" style="font-size:13px"></div>
+      <div class="row2"><button class="primary" id="pcGo"></button><button class="secondary" id="pcSend"></button></div>
+    </div>
     <div class="card coach"><div class="k" id="coachK"></div><div id="coachText" style="font-size:17px"></div></div>
   </section>
 
@@ -428,6 +450,20 @@ canvas{display:block;width:100%}
     <button class="secondary" id="meHome"></button>
   </section>
 
+  <!-- ============ שליחה לאייל ============ -->
+  <section id="s-send" hidden>
+    <div class="top"><h2 id="sdTitle"></h2>
+      <button class="x" id="sdClose" aria-label="חזרה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <p class="muted" id="sdText" style="font-size:17px"></p>
+    <div class="tiles" id="sdTiles"></div>
+    <label for="sdNote" style="display:block;margin-top:18px;font-weight:700" id="sdNoteL"></label>
+    <textarea class="note" id="sdNote"></textarea>
+    <a class="primary wa" id="sdWa" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.3-4.4A9 9 0 1 1 21 12z"/></svg><span id="sdWaL"></span></a>
+    <button class="secondary" id="sdCopy"></button>
+    <details style="margin-top:14px"><summary class="muted" id="sdPrevL" style="cursor:pointer;min-height:44px;display:flex;align-items:center"></summary><div class="preview-msg" id="sdPrev"></div></details>
+  </section>
+
   <!-- ============ סיכום אימון ============ -->
   <section id="s-summary" hidden>
     <h1 id="suTitle"></h1>
@@ -437,6 +473,7 @@ canvas{display:block;width:100%}
     <div class="card section-gap"><h3 id="suListH" style="margin-bottom:6px"></h3><ul class="res-list" id="suList"></ul></div>
     <div class="card coach"><div class="k" id="suCoachK"></div><div id="suCoach" style="font-size:18px;font-weight:600"></div></div>
     <button class="primary" id="suBtn"></button>
+    <button class="secondary" id="suSend"></button>
   </section>
 
   <!-- ============ חימום נגמר ============ -->
@@ -475,6 +512,7 @@ canvas{display:block;width:100%}
     <p id="rWhy"></p>
     <button class="primary" id="nextBtn"></button>
     <button class="secondary" id="solBtn"></button>
+    <button class="disagree" id="disBtn" aria-pressed="false" hidden></button>
   </div>
 </div>
 
@@ -554,7 +592,7 @@ function staticTexts(){
 }
 
 // ---------- ניווט ----------
-var SCREENS = ["tf","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
+var SCREENS = ["send","tf","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
 var TABBED = {home:1, progress:1, profile:1};
 function nav(name){
   SCREENS.forEach(function(s){ el("s-" + s).hidden = s !== name; });
@@ -712,6 +750,7 @@ function renderHome(){
   el("coachK").textContent = t("coach.k");
   el("coachText").textContent = coachLine();
   renderModes();
+  renderPanelCard();
 }
 
 function practicedDays(){
@@ -1052,6 +1091,94 @@ el("mSurv").addEventListener("click", startSurvival);
 el("mTf").addEventListener("click", startTF);
 el("mWeek").addEventListener("click", startWeekly);
 
+// ================= בדיקה לאייל + שליחה =================
+var WA_NUMBER = "972547661599";
+function panelData(){ return store.get("panel", {answers:{}}); }
+
+function renderPanelCard(){
+  var pn = panelData(), n = Object.keys(pn.answers).length, total = index.length;
+  el("pcK").textContent = t("pn.k");
+  el("pcT").textContent = n >= total ? t("pn.doneT") : t("pn.title");
+  el("pcX").textContent = n >= total ? t("pn.doneX") : t("pn.text", {total:total});
+  el("pcBar").style.width = Math.round(100 * n / total) + "%";
+  el("pcN").textContent = t("pn.count", {n:n, total:total});
+  el("pcGo").textContent = n === 0 ? t("pn.start") : n >= total ? t("pn.again") : t("pn.resume");
+  el("pcSend").textContent = t("pn.send");
+  el("pcSend").disabled = n === 0 && !attempts().length;
+}
+el("pcGo").addEventListener("click", function(){
+  var pn = panelData(), total = index.length;
+  if (Object.keys(pn.answers).length >= total){ if (!confirm(t("pn.againConfirm"))) return; pn = {answers:{}}; store.set("panel", pn); }
+  var left = index.map(function(s){ return s.id; }).filter(function(id){ return !pn.answers[id]; });
+  startSession("panel", left);
+  sessionTotal = total;   // "13 מתוך 36" גם כשממשיכים באמצע
+});
+el("pcSend").addEventListener("click", function(){ openSend(Object.keys(panelData().answers).length ? "panel" : "attempts"); });
+el("disBtn").addEventListener("click", function(){
+  var b = el("disBtn"), on = b.getAttribute("aria-pressed") !== "true";
+  b.setAttribute("aria-pressed", String(on));
+  b.textContent = on ? t("pn.disagreeOn") : t("pn.disagree");
+  var pn = panelData(); if (pn.answers[sc.id]){ pn.answers[sc.id].dis = on; store.set("panel", pn); }
+});
+
+var sendSource = "attempts";
+function sendRows(){
+  if (sendSource === "panel"){
+    var a = panelData().answers;
+    return index.filter(function(s){ return a[s.id]; }).map(function(s){ var x = a[s.id]; return {id:s.id, c:x.c, ok:x.ok, rt:x.rt, dis:x.dis}; });
+  }
+  var last = {};
+  attempts().forEach(function(x){ last[x.id] = x; });
+  return index.filter(function(s){ return last[s.id]; }).map(function(s){ var x = last[s.id]; return {id:s.id, c:x.choice, ok:x.ok, rt:x.rt, dis:false}; });
+}
+function buildMessage(){
+  var rows = sendRows(), ok = rows.filter(function(r){ return r.ok; }).length, dis = rows.filter(function(r){ return r.dis; }).length;
+  var lines = [t("sd.msgHead", {name:profile ? profile.name : "", pos:profile ? t("pos." + profile.pos) : ""}),
+               t(sendSource === "panel" ? "sd.msgPanel" : "sd.msgTry", {n:rows.length, ok:ok}), ""];
+  rows.forEach(function(r){
+    lines.push(r.id + ": " + (r.c || t("sd.none")) + " " + (r.ok ? "\u2713" : "\u2717") + " " + (r.rt == null ? "-" : (r.rt / 1000).toFixed(1)) + (r.dis ? " \u2691" : ""));
+  });
+  if (dis) lines.push("", t("sd.flagKey"));
+  var note = el("sdNote").value.trim();
+  if (note) lines.push("", t("sd.noteHead"), note);
+  return lines.join("\n");
+}
+function refreshSend(){
+  var msg = buildMessage();
+  el("sdPrev").textContent = msg;
+  el("sdWa").href = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(msg);
+}
+function openSend(source){
+  sendSource = source;
+  nav("send");
+}
+function renderSend(){
+  var rows = sendRows(), ok = rows.filter(function(r){ return r.ok; }).length, dis = rows.filter(function(r){ return r.dis; }).length;
+  el("sdTitle").textContent = t("sd.title");
+  el("sdText").textContent = t(sendSource === "panel" ? "sd.textPanel" : "sd.textTry");
+  var tl = el("sdTiles"); tl.innerHTML = "";
+  tl.appendChild(tile(rows.length + "/" + index.length, t("sd.tAnswered")));
+  tl.appendChild(tile(sendSource === "panel" ? String(dis) : ok + "/" + rows.length, t(sendSource === "panel" ? "sd.tDis" : "sd.tOk")));
+  el("sdNoteL").textContent = t("sd.noteL");
+  el("sdNote").placeholder = t("sd.notePh");
+  el("sdWaL").textContent = t("sd.wa");
+  el("sdCopy").textContent = t("sd.copy");
+  el("sdPrevL").textContent = t("sd.preview");
+  refreshSend();
+}
+el("sdNote").addEventListener("input", refreshSend);
+el("sdClose").addEventListener("click", function(){ nav("home"); });
+el("sdCopy").addEventListener("click", function(){
+  var msg = buildMessage(), done = function(){ el("sdCopy").textContent = t("sd.copied"); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(msg).then(done, fallback); else fallback();
+  function fallback(){
+    var ta = document.createElement("textarea"); ta.value = msg; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch(e){ el("sdCopy").textContent = t("sd.copyFail"); }
+    document.body.removeChild(ta);
+  }
+});
+el("suSend").addEventListener("click", function(){ openSend("attempts"); });
+
 // ================= סיכום משחק =================
 var MA = [
   {key:"how", options:["bad","ok","good","great"]},
@@ -1111,6 +1238,7 @@ function endSession(){
   else if (kind === "warmup") nav("warmupDone");
   else if (kind === "survival") finishSurvival();
   else if (kind === "weekly" || kind === "weeklyReview") nav("home");
+  else if (kind === "panel") openSend("panel");
   else nav("dev");
 }
 
@@ -1125,8 +1253,11 @@ function quitSession(){
 
 function recordResult(){
   var r = {id:sc.id, pos:sc.position, tags:sc.tags || [], ok:S.choice === sc.correctOptionId, rt:S.rt, scans:S.fog ? S.scans : null,
-           day:today(), ts:Date.now(), kind:session ? session.kind : "single"};
+           choice:S.choice, day:today(), ts:Date.now(), kind:session ? session.kind : "single"};
   if (session) session.results.push(r);
+  if (r.kind === "panel"){
+    var pn = panelData(); pn.answers[sc.id] = {c:S.choice, ok:r.ok, rt:S.rt, dis:false}; store.set("panel", pn);
+  }
   if (r.kind === "single") return;          // בדיקות לא נכנסות להתקדמות
   var all = attempts(); all.push(r); if (all.length > 2000) all = all.slice(-2000);
   store.set("attempts", all);
@@ -1157,6 +1288,7 @@ function renderSummary(){
   var line = prev == null || avg == null ? "su.c.first" : avg < prev - 0.05 ? "su.c.faster" : avg > prev + 0.1 ? "su.c.slower" : "su.c.same";
   el("suCoach").textContent = t(line);
   el("suBtn").textContent = t("su.btn");
+  el("suSend").textContent = t("sd.fromSummary");
 }
 el("suBtn").addEventListener("click", function(){ nav("home"); });
 
@@ -1167,7 +1299,7 @@ function renderWarmupDone(){
 }
 el("wdBtn").addEventListener("click", function(){ nav("home"); });
 
-var RENDER = {splash:renderSplash, onboard:renderOnboard, calibIntro:renderCalibIntro, calibResult:renderCalibResult, waitlist:renderWaitlist,
+var RENDER = {send:renderSend, splash:renderSplash, onboard:renderOnboard, calibIntro:renderCalibIntro, calibResult:renderCalibResult, waitlist:renderWaitlist,
   home:renderHome, progress:renderProgress, profile:renderProfile, dev:renderDev, summary:renderSummary, warmupDone:renderWarmupDone, match:renderMatch};
 
 // ================= מנוע התרחישים (מהנגן) =================
@@ -1521,6 +1653,10 @@ function openSheet(){
   var kind = session ? session.kind : "";
   if (kind === "survival" && !ok){ queue = []; el("nextBtn").textContent = t("sv.toEnd"); }
   if (kind === "weekly"){ el("rWhy").textContent = t("wk.hidden"); el("solBtn").hidden = true; }
+  var dis = el("disBtn");
+  dis.hidden = kind !== "panel";
+  dis.setAttribute("aria-pressed", "false");
+  dis.textContent = t("pn.disagree");
   el("sheetWrap").hidden = false;
   el("nextBtn").focus();
 }
