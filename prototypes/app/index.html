@@ -129,6 +129,15 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .preview-msg{white-space:pre-wrap;direction:rtl;font-size:13px;line-height:1.45;max-height:220px;overflow:auto;background:var(--board-dark);border-radius:4px;padding:10px 12px;margin-top:12px;color:var(--chalk-muted)}
 .wa{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none}
 
+/* סרגל זמן החלטה */
+.secs{border:var(--dash);border-radius:4px;background:var(--board-2);padding:14px 16px;margin-top:16px}
+.secs .k{font-weight:700}
+.secs .val{font-family:"Secular One",sans-serif;font-size:40px;line-height:1.1;color:var(--marker);font-variant-numeric:tabular-nums}
+.secs .val small{font-family:"Assistant",sans-serif;font-size:18px;font-weight:600;color:var(--chalk)}
+.secs .lvl{font-size:15px;color:var(--chalk-muted);min-height:1.5em}
+.secs input[type=range]{width:100%;height:40px;margin:6px 0 0;accent-color:#FFD23F;cursor:pointer}
+.secs .ends{display:flex;justify-content:space-between;font-size:14px;color:var(--chalk-muted)}
+
 /* התקדמות */
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
 .tile{border:var(--dash);border-radius:4px;background:var(--board-2);padding:12px 14px}
@@ -291,6 +300,13 @@ canvas{display:block;width:100%}
     </svg>
     <h1 id="ciTitle"></h1>
     <p class="muted" id="ciText" style="font-size:18px"></p>
+    <div class="secs" id="secsCalib">
+      <div class="k" data-t="sec.k"></div>
+      <div class="val"><span class="n"></span> <small data-t="sec.unit"></small></div>
+      <div class="lvl"></div>
+      <input type="range" min="3" max="20" step="1" dir="ltr">
+      <div class="ends" dir="ltr"><span data-t="sec.hard"></span><span data-t="sec.easy"></span></div>
+    </div>
     <button class="primary" id="ciBtn"></button>
   </section>
 
@@ -383,6 +399,13 @@ canvas{display:block;width:100%}
     <h3 class="section-gap" id="prSetH"></h3>
     <label class="toggle"><input type="checkbox" id="setFog"> <span id="setFogL"></span></label>
     <label class="toggle"><input type="checkbox" id="setSound"> <span id="setSoundL"></span></label>
+    <div class="secs" id="secsProfile">
+      <div class="k" data-t="sec.k"></div>
+      <div class="val"><span class="n"></span> <small data-t="sec.unit"></small></div>
+      <div class="lvl"></div>
+      <input type="range" min="3" max="20" step="1" dir="ltr">
+      <div class="ends" dir="ltr"><span data-t="sec.hard"></span><span data-t="sec.easy"></span></div>
+    </div>
     <h3 class="section-gap" id="prDevH"></h3>
     <p class="devnote" id="prDevNote"></p>
     <button class="secondary" id="prAll"></button>
@@ -568,7 +591,7 @@ function boot(){
   Promise.all([getJSON("i18n/he.json"), getJSON("scenarios/index.json")]).then(function(res){
     T = res[0]; index = res[1].scenarios;
     profile = store.get("profile", null);
-    settings = store.get("settings", {fog:false, sound:true});
+    settings = store.get("settings", {fog:false, sound:true, secs:5});
     staticTexts();
     var direct = new URLSearchParams(location.search).get("s");
     if (direct){ startSession("single", [direct]); return; }
@@ -688,6 +711,7 @@ function renderCalibIntro(){
   el("ciTitle").textContent = t("ci.title", {name:profile.name});
   el("ciText").textContent = t("ci.text");
   el("ciBtn").textContent = t("ci.btn");
+  el("secsCalib")._sync();
 }
 el("ciBtn").addEventListener("click", function(){ startSession("calib", pickCalibration()); });
 
@@ -915,6 +939,7 @@ function renderProfile(){
   el("prSetH").textContent = t("pr.settings");
   el("setFogL").textContent = t("ui.fog"); el("setFog").checked = !!settings.fog;
   el("setSoundL").textContent = t("pr.sound"); el("setSound").checked = settings.sound !== false;
+  el("secsProfile")._sync();
   el("prDevH").textContent = t("pr.dev");
   el("prDevNote").textContent = t("pr.devNote");
   el("prAll").textContent = t("pr.all");
@@ -928,7 +953,7 @@ el("prAll").addEventListener("click", function(){ nav("dev"); });
 el("prDemo").addEventListener("click", function(){ var s = loadStreak(); celebrate(s.count, s.count + 1, function(){ nav("profile"); }); });
 el("prReset").addEventListener("click", function(){
   if (!confirm(t("pr.resetConfirm"))) return;
-  store.clear(); profile = null; settings = {fog:false, sound:true}; startOnboarding();
+  store.clear(); profile = null; settings = {fog:false, sound:true, secs:5}; startOnboarding();
 });
 
 // ================= כל התרחישים (בדיקה) =================
@@ -953,6 +978,17 @@ function renderDev(){
 }
 el("devClose").addEventListener("click", function(){ nav(profile ? "profile" : "home"); });
 el("devPlayAll").addEventListener("click", function(){ startSession("single", index.map(function(s){ return s.id; })); });
+
+// ================= זמן החלטה (3–20 שניות) =================
+function mySecs(){ var v = +settings.secs; return v >= 3 && v <= 20 ? v : 5; }
+function secsLevel(v){ return v <= 4 ? t("sec.lvl.pro") : v <= 6 ? t("sec.lvl.normal") : v <= 11 ? t("sec.lvl.learn") : t("sec.lvl.easy"); }
+function bindSecs(id){
+  var box = el(id), inp = box.querySelector("input"), n = box.querySelector(".n"), lvl = box.querySelector(".lvl");
+  function show(v){ n.textContent = v; lvl.textContent = secsLevel(v); inp.setAttribute("aria-valuetext", t("sec.aria", {n:v})); }
+  inp.addEventListener("input", function(){ var v = +inp.value; show(v); settings.secs = v; store.set("settings", settings); });
+  box._sync = function(){ inp.setAttribute("aria-label", t("sec.k")); inp.value = mySecs(); show(mySecs()); };
+}
+bindSecs("secsCalib"); bindSecs("secsProfile");
 
 // ================= מצבים =================
 function records(){ return store.get("records", {survival:0, tf:0}); }
@@ -987,7 +1023,7 @@ function startSurvival(){
   var rest = index.filter(function(s){ return s.position !== profile.pos; }).map(function(s){ return s.id; });
   startSession("survival", shuffle(mine).concat(shuffle(rest)));
 }
-function survivalWindow(){ return Math.max(2000, 5000 - 500 * (session ? session.results.length : 0)); }
+function survivalWindow(){ return Math.max(2000, mySecs() * 1000 - 500 * (session ? session.results.length : 0)); }
 function finishSurvival(){
   var r = session ? session.results : [];
   var n = r.filter(function(x){ return x.ok; }).length;
@@ -1554,6 +1590,7 @@ function setup(data){
   VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
   S = {phase:"idle", fog:!!settings.fog, scans:0, scanStart:-1e9, choice:null, solution:false};
   var kind = session ? session.kind : "";
+  if (kind !== "weekly" && kind !== "survival") sc.decisionWindowMs = Math.round(mySecs() * 1000 * (sc.decisionWindowMs / 5000));
   if (kind === "survival") sc.decisionWindowMs = survivalWindow();
   if (kind === "weekly") sc.decisionWindowMs = 4000;
   el("pTitle").textContent = t(sc.id + ".title");
