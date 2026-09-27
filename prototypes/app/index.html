@@ -141,6 +141,14 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .q-why{margin-top:10px;font-size:16px}
 .q-count{position:absolute;right:12px;bottom:12px;font-family:"Secular One",sans-serif;font-size:28px;color:var(--marker);pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.6)}
 
+.lvl-pick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:6px}
+.lvl-pick button{min-height:64px;border:var(--dash);border-radius:4px;background:var(--board-2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:700;font-size:16px}
+.lvl-pick button[aria-pressed="true"]{background:var(--marker);color:var(--on-marker);border-color:var(--marker)}
+.lvl-pick .dots i{background:rgba(242,239,230,.3)}
+.lvl-pick button[aria-pressed="true"] .dots i{background:rgba(29,42,18,.3)}
+.lvl-pick button[aria-pressed="true"] .dots i.on{background:var(--on-marker)}
+.lvl-note{font-size:15px;color:var(--chalk-muted);margin-top:8px;min-height:1.5em}
+
 /* התקדמות */
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
 .tile{border:var(--dash);border-radius:4px;background:var(--board-2);padding:12px 14px}
@@ -462,6 +470,12 @@ canvas{display:block;width:100%}
     </div>
     <div class="chips" id="qChips"></div>
     <p class="q-prompt" id="qPrompt" aria-live="polite"></p>
+    <div id="levelSetup" hidden>
+      <div style="font-weight:700" data-t="lv.k"></div>
+      <div class="lvl-pick" id="lvlPick" role="group"></div>
+      <div class="lvl-note" id="lvlNote"></div>
+    </div>
+    <div class="timer" id="qTimer" hidden><i id="qTimerBar"></i></div>
     <div class="secs" id="scanSetup" hidden>
       <div class="k" data-t="q.scan.setupK"></div>
       <div class="val"><span class="n"></span> <small data-t="sec.unit"></small></div>
@@ -1036,6 +1050,54 @@ function startWeekly(){
   startSession("weekly", [weeklyId()]);
 }
 
+// ---------- וריאציות: אותו מצב, כל פעם קצת אחר ----------
+// צד הפוך (ימין <-> שמאל, כולל הטקסטים), הזזה קלה של כל המגרש, ותזוזה קטנה של שחקנים שלא קשורים להחלטה.
+var LR = {"ימני":"שמאלי","שמאלי":"ימני","ימינה":"שמאלה","שמאלה":"ימינה","ימין":"שמאל","שמאל":"ימין"};
+function swapLR(str){
+  return String(str).replace(/(^|[\s(\u05BE"'\u05F4])([הלבמו]?)(ימני|שמאלי|ימינה|שמאלה|ימין|שמאל)(?=[\s.,:;!?)\u05BE"'\u05F4]|$)/g,
+    function(_, a, pre, w){ return a + pre + LR[w]; });
+}
+function tS(key, vars){ var x = t(key, vars); return sc && sc._mirror ? swapLR(x) : x; }
+function rnd(a, b){ return a + Math.random() * (b - a); }
+
+function makeVariant(d, on){
+  var v = JSON.parse(JSON.stringify(d));
+  if (!on) return v;
+  var mirror = Math.random() < 0.5;
+  var key = {me:1, ball:1};
+  (v.candidates || []).forEach(function(id){ key[id] = 1; });
+  v.options.forEach(function(o){ if (typeof o.target === "string") key[o.target] = 1; if (o.entity) key[o.entity] = 1; });
+  function fixed(id){ return id.indexOf("gk") === 0; }            // שוערים נשארים במרכז השער
+  var xs = [];
+  v.entities.forEach(function(e){ if (!fixed(e.id)) e.track.forEach(function(p){ xs.push(mirror ? 1 - p[1] : p[1]); }); });
+  var lo = Math.max(-0.04, 0.02 - Math.min.apply(null, xs)), hi = Math.min(0.04, 0.98 - Math.max.apply(null, xs));
+  var dx = lo <= hi ? rnd(lo, hi) : 0, dy = rnd(-0.01, 0.01);
+  var jit = {};
+  v.entities.forEach(function(e){ if (!key[e.id] && !fixed(e.id)) jit[e.id] = [rnd(-0.012, 0.012), rnd(-0.01, 0.01)]; });
+  function tx(x, id){ var m = mirror ? 1 - x : x; if (id && fixed(id)) return m; return m + dx + (id && jit[id] ? jit[id][0] : 0); }
+  function ty(y, id){ if (id && fixed(id)) return y; return y + dy + (id && jit[id] ? jit[id][1] : 0); }
+  function tr(track, id){ track.forEach(function(p){ p[1] = tx(p[1], id); p[2] = ty(p[2], id); }); }
+  function trs(tracks){ Object.keys(tracks || {}).forEach(function(id){ tr(tracks[id], id); }); }
+  v.entities.forEach(function(e){ tr(e.track, e.id); });
+  v.options.forEach(function(o){
+    if (o.target && typeof o.target.x === "number") o.target = {x:tx(o.target.x), y:ty(o.target.y)};
+    trs(o.outcome.tracks);
+  });
+  if (v.timeoutOutcome) trs(v.timeoutOutcome.tracks);
+  if (v.view) v.view = {top:v.view.top + dy, bottom:v.view.bottom};
+  v._mirror = mirror;
+  return v;
+}
+
+// ---------- רמות קושי למצבי הלוח ----------
+var LEVELS = ["easy", "mid", "hard"];
+var LV = {
+  easy:{diff:1, tolPos:1.5, tolScan:1.7, riskMs:0},
+  mid: {diff:2, tolPos:1.0, tolScan:1.3, riskMs:8000},
+  hard:{diff:3, tolPos:0.75, tolScan:1.0, riskMs:5000}
+};
+function modeLevel(mode){ var l = (settings.lvl || {})[mode]; return LV[l] ? l : "mid"; }
+
 // ---------- מצבי לוח: איפה אתה עומד / צילום מגרש / מה יקרה ----------
 var Q = null, qRaf = 0, Q_ROUNDS = 5;
 function trackEnd(tr){ var l = tr[tr.length - 1]; return {x:l[1], y:l[2]}; }
@@ -1059,60 +1121,88 @@ function qItems(mode){
       if (d.type !== "decision") return;
       d.options.forEach(function(o){
         var thief = Object.keys(o.outcome.tracks).filter(function(k){ return entTeam(d, k) === "away"; })[0];
-        if (o.outcome.kind === "good") items.push({d:d, opt:o, thief:null});
-        else if (thief) items.push({d:d, opt:o, thief:thief});
+        if (o.outcome.kind === "good") items.push({d:d, optId:o.id, thief:null});
+        else if (thief) items.push({d:d, optId:o.id, thief:thief});
       });
     }
   });
-  if (mode === "risk"){   // חצי "עובר", חצי "חוטפים"
-    var good = shuffle(items.filter(function(i){ return !i.thief; })), bad = shuffle(items.filter(function(i){ return i.thief; }));
-    var nGood = Math.min(good.length, Math.random() < 0.5 ? 2 : 3);
-    return shuffle(good.slice(0, nGood).concat(bad.slice(0, Q_ROUNDS - nGood)));
+  // לפי הרמה: קודם תרחישים בקושי המתאים, קצת העדפה לעמדה של השחקן, והרבה אקראיות
+  var want = LV[modeLevel(mode)].diff;
+  function score(i){ return -Math.abs(i.d.difficulty - want) + (i.d.position === profile.pos ? 0.4 : 0) + Math.random() * 0.9; }
+  function pick(list, n){ return list.map(function(i){ return {i:i, v:score(i)}; }).sort(function(a, b){ return b.v - a.v; }).slice(0, n).map(function(x){ return x.i; }); }
+  if (mode === "risk"){   // 2–3 "עובר", השאר "מנצלים"
+    var nGood = Math.random() < 0.5 ? 2 : 3;
+    var good = pick(items.filter(function(i){ return !i.thief; }), nGood), bad = pick(items.filter(function(i){ return i.thief; }), Q_ROUNDS - good.length);
+    return shuffle(good.concat(bad));
   }
-  var mine = shuffle(items.filter(function(i){ return i.d.position === profile.pos; }));
-  var rest = shuffle(items.filter(function(i){ return i.d.position !== profile.pos; }));
-  return mine.concat(rest).slice(0, Q_ROUNDS);
+  return pick(items, Q_ROUNDS);
 }
 
 function startQ(mode){
   lastMode = mode;
   loadPool().then(function(){
-    Q = {mode:mode, items:qItems(mode), i:-1, hits:0, state:"ask", guess:null};
+    Q = {mode:mode, items:[], i:-1, hits:0, state:"ask", guess:null};
     canvas = el("qPitch"); ctx = canvas.getContext("2d");
     nav("q");
     el("qTitle").textContent = t("q." + mode + ".title");
-    if (mode === "scan") scanSetup(); else qNext();
+    qSetup();
   }).catch(function(e){ alert(e.message); });
 }
 
 function scanLook(){ var v = +settings.scanSecs; return v >= 0.5 && v <= 5 ? v : 1.5; }
 function scanLevel(v){ return v <= 1 ? t("q.scan.lvl.pro") : v <= 2 ? t("q.scan.lvl.normal") : t("q.scan.lvl.easy"); }
-function scanSetup(){
+function qSetup(){
   Q.state = "setup";
-  el("qChips").innerHTML = ""; el("qGrade").hidden = true; el("qWhy").hidden = true; el("qCount").hidden = true;
-  el("qPrompt").textContent = t("q.scan.setupX");
+  el("qChips").innerHTML = ""; el("qGrade").hidden = true; el("qWhy").hidden = true; el("qCount").hidden = true; el("qTimer").hidden = true;
+  el("qPrompt").textContent = t("q." + Q.mode + ".setupX");
   el("qCard").hidden = true;
+  // רמה
+  var pickBox = el("lvlPick"); pickBox.innerHTML = "";
+  function note(l){ el("lvlNote").textContent = t("lv." + Q.mode + "." + l); }
+  LEVELS.forEach(function(l, i){
+    var b = h("button"); b.setAttribute("aria-pressed", String(modeLevel(Q.mode) === l));
+    var dots = h("span", "dots"); for (var k = 0; k < 3; k++) dots.appendChild(h("i", k <= i ? "on" : ""));
+    b.appendChild(dots); b.appendChild(h("span", "", t("lv." + l)));
+    b.addEventListener("click", function(){
+      settings.lvl = settings.lvl || {}; settings.lvl[Q.mode] = l; store.set("settings", settings);
+      pickBox.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+      note(l);
+    });
+    pickBox.appendChild(b);
+  });
+  note(modeLevel(Q.mode));
+  el("levelSetup").hidden = false;
+  var main = el("qMain"); main.hidden = false; main.disabled = false; main.textContent = t("sp.start");
+  el("qAlt").hidden = true; el("qActions").className = "q-actions one";
+  el("scanSetup").hidden = Q.mode !== "scan";
+  if (Q.mode === "scan") scanSlider();
+}
+function scanSlider(){
   var box = el("scanSetup"), inp = box.querySelector("input"), n = box.querySelector(".n"), lvl = box.querySelector(".lvl");
   function show(v){ n.textContent = v; lvl.textContent = scanLevel(v); inp.setAttribute("aria-valuetext", t("sec.aria", {n:v})); }
   inp.setAttribute("aria-label", t("q.scan.setupK"));
   inp.value = scanLook(); show(scanLook());
   inp.oninput = function(){ var v = +inp.value; show(v); settings.scanSecs = v; store.set("settings", settings); };
   box.hidden = false;
-  var main = el("qMain"); main.hidden = false; main.disabled = false; main.textContent = t("sp.start");
-  el("qAlt").hidden = true; el("qActions").className = "q-actions one";
 }
 
 function qNext(){
   cancelAnimationFrame(qRaf); qRaf = 0;
-  el("scanSetup").hidden = true; el("qCard").hidden = false;
+  el("scanSetup").hidden = true; el("levelSetup").hidden = true; el("qTimer").hidden = true; el("qCard").hidden = false;
   Q.i++;
   if (Q.i >= Q.items.length){ qEnd(); return; }
-  var it = Q.items[Q.i]; sc = it.d;
+  var it = Q.items[Q.i]; sc = makeVariant(it.d, true);
+  // מה הנכון בגרסה הזו של המצב
+  var cOpt = corOpt(sc);
+  Q.cur = {ideal:cOpt.outcome.tracks.me ? trackEnd(cOpt.outcome.tracks.me) : null, target:it.target, thief:it.thief,
+           opt:it.optId ? sc.options.filter(function(o){ return o.id === it.optId; })[0] : null};
   VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
   S = {phase:"q", fog:false, choice:null, meAt:null, hideOthers:false, qDraw:null};
   Q.state = "ask"; Q.guess = null;
   var chips = el("qChips"); chips.innerHTML = "";
   chips.appendChild(h("span", "chip", t("pos." + sc.position)));
+  var dc = h("span", "chip", t("ui.difficulty") + " "), dd = h("span", "dots");
+  for (var k = 1; k <= 3; k++) dd.appendChild(h("i", k <= sc.difficulty ? "on" : "")); dc.appendChild(dd); chips.appendChild(dc);
   chips.appendChild(h("span", "chip progress", t("ui.progress", {n:Q.i + 1, total:Q.items.length})));
   el("qGrade").hidden = true; el("qWhy").hidden = true; el("qCount").hidden = true;
   layout(el("qCard"), 330);
@@ -1121,7 +1211,7 @@ function qNext(){
   el("qActions").className = "q-actions one";
 
   if (Q.mode === "pos"){
-    el("qPrompt").textContent = t(sc.id + ".intro") + " " + t("q.pos.ask");
+    el("qPrompt").textContent = tS(sc.id + ".intro") + " " + t("q.pos.ask");
     S.meAt = freezePos("me");
     main.textContent = t("q.pos.confirm");
     S.qDraw = function(){ if (Q.state === "ask") ring(S.meAt, "#FFD23F", 0.2); };
@@ -1140,10 +1230,23 @@ function qNext(){
       render(performance.now());
     })(shownAt);
   } else if (Q.mode === "risk"){
-    el("qPrompt").textContent = t("q.risk.ask", {x:t(it.opt.labelKey)});
+    el("qPrompt").textContent = t("q.risk.ask", {x:tS(Q.cur.opt.labelKey)});
     main.textContent = t("q.risk.passes");
     alt.hidden = true;
-    S.qDraw = function(){ if (Q.state === "ask") arrow(freezePos("me"), targetPos(it.opt), "#FFD23F"); };
+    S.qDraw = function(){ if (Q.state === "ask") arrow(freezePos("me"), targetPos(Q.cur.opt), "#FFD23F"); };
+    var limit = LV[Q.level].riskMs;
+    if (limit){
+      el("qTimer").hidden = false;
+      var t0 = performance.now();
+      (function tick(now){
+        if (!Q || Q.state !== "ask") return;
+        var left = limit - (now - t0);
+        el("qTimerBar").style.width = Math.max(0, left / limit * 100) + "%";
+        el("qTimer").classList.toggle("low", left < limit * 0.3);
+        if (left <= 0){ qRiskAnswer("__timeout"); return; }
+        qRaf = requestAnimationFrame(tick);
+      })(t0);
+    }
   }
   render(performance.now());
 }
@@ -1168,7 +1271,7 @@ function qPointer(ev, type){
   }
 }
 
-function qGrade(m, loose){ var f = loose ? 1.3 : 1; return m <= 3 * f ? {k:"perfect", hit:true} : m <= 7 * f ? {k:"close", hit:true} : m <= 12 * f ? {k:"near", hit:false} : {k:"far", hit:false}; }
+function qGrade(m, f){ f = f || 1; return m <= 3 * f ? {k:"perfect", hit:true} : m <= 7 * f ? {k:"close", hit:true} : m <= 12 * f ? {k:"near", hit:false} : {k:"far", hit:false}; }
 function showGrade(text, good){ var g = el("qGrade"); g.className = "q-grade " + (good ? "good" : "bad"); g.textContent = text; g.hidden = false; }
 function qDone(hit, why){
   Q.state = "done"; if (hit) Q.hits++;
@@ -1180,35 +1283,36 @@ function qDone(hit, why){
 }
 
 function qConfirmPos(){
-  var it = Q.items[Q.i], m = meters(S.meAt, it.ideal), g = qGrade(m), mine = S.meAt;
-  S.qDraw = function(){ ring(it.ideal, "#FFD23F", 0.2); if (m > 1.5) arrow(mine, it.ideal, "#F2EFE6"); };
+  var ideal = Q.cur.ideal, m = meters(S.meAt, ideal), g = qGrade(m, LV[Q.level].tolPos), mine = S.meAt;
+  S.qDraw = function(){ ring(ideal, "#FFD23F", 0.2); if (m > 1.5) arrow(mine, ideal, "#F2EFE6"); };
   render(performance.now());
   showGrade(t("q.grade." + g.k, {m:Math.round(m)}), g.hit);
-  qDone(g.hit, t(corOpt(sc).explainKey));
+  qDone(g.hit, tS(corOpt(sc).explainKey));
 }
 function qReveal(pt){
-  var it = Q.items[Q.i], target = freezePos(it.target), m = meters(pt, target), g = qGrade(m, true);
+  var target = freezePos(Q.cur.target), m = meters(pt, target), g = qGrade(m, LV[Q.level].tolScan);
   S.hideOthers = false;
   S.qDraw = function(){ ring(target, "#FFD23F", 0.2); ctx.save(); ctx.fillStyle = "#F2EFE6"; ctx.globalAlpha = .9;
     ctx.beginPath(); ctx.arc(X(pt.x), Y(pt.y), R0 * 0.55, 0, Math.PI * 2); ctx.fill(); ctx.restore();
     if (m > 1.5) arrow(pt, target, "#F2EFE6"); };
   render(performance.now());
   showGrade(t("q.grade." + g.k, {m:Math.round(m)}), g.hit);
-  qDone(g.hit, t("q.scan.why", {x:t(corOpt(sc).labelKey)}));
+  qDone(g.hit, t("q.scan.why", {x:tS(corOpt(sc).labelKey)}));
 }
 function qRiskAnswer(ans){
-  var it = Q.items[Q.i], ok = it.thief ? ans === it.thief : ans === "pass";
+  var cur = Q.cur, ok = cur.thief ? ans === cur.thief : ans === "pass";
   Q.state = "anim"; S.qDraw = null;
+  cancelAnimationFrame(qRaf); qRaf = 0; el("qTimer").hidden = true;
   el("qMain").hidden = true;
-  S.phase = "outcome"; S.out = it.opt.outcome; S.oStart = performance.now();
-  showGrade(t(it.opt.outcome.captionKey), it.opt.outcome.kind === "good");
+  S.phase = "outcome"; S.out = cur.opt.outcome; S.oStart = performance.now();
+  showGrade(tS(cur.opt.outcome.captionKey), cur.opt.outcome.kind === "good");
   (function f(now){
     render(now);
     if (now - S.oStart < S.out.durationMs + 150){ qRaf = requestAnimationFrame(f); return; }
     S.phase = "after"; render(now);
-    var verdict = ok ? t("q.risk.right") : it.thief ? t("q.risk.wrongThief") : t("q.risk.wrongPass");
+    var verdict = ans === "__timeout" ? t("q.risk.timeout") : ok ? t("q.risk.right") : cur.thief ? t("q.risk.wrongThief") : t("q.risk.wrongPass");
     showGrade(verdict, ok);
-    qDone(ok, t(it.opt.explainKey));
+    qDone(ok, tS(cur.opt.explainKey));
   })(S.oStart);
 }
 
@@ -1231,7 +1335,8 @@ function qExit(){
 }
 el("qMain").addEventListener("click", function(){
   if (!Q) return;
-  if (Q.state === "done" || Q.state === "setup"){ qNext(); return; }
+  if (Q.state === "setup"){ Q.items = qItems(Q.mode); Q.level = modeLevel(Q.mode); qNext(); return; }
+  if (Q.state === "done"){ qNext(); return; }
   if (Q.mode === "pos" && Q.state === "ask") qConfirmPos();
   else if (Q.mode === "risk" && Q.state === "ask") qRiskAnswer("pass");
 });
@@ -1403,7 +1508,8 @@ function next(){
   stopLoop();
   if (!queue.length){ endSession(); return; }
   var id = queue.shift();
-  getJSON("scenarios/" + id + ".json").then(setup).catch(function(e){ alert(e.message); nav(profile ? "home" : "onboard"); });
+  var vary = session && (session.kind === "daily" || session.kind === "warmup");
+  getJSON("scenarios/" + id + ".json").then(function(d){ setup(makeVariant(d, vary)); }).catch(function(e){ alert(e.message); nav(profile ? "home" : "onboard"); });
 }
 
 function endSession(){
@@ -1731,15 +1837,15 @@ function setup(data){
   var kind = session ? session.kind : "";
   if (kind !== "weekly") sc.decisionWindowMs = Math.round(mySecs() * 1000 * (sc.decisionWindowMs / 5000));
   if (kind === "weekly") sc.decisionWindowMs = 4000;
-  el("pTitle").textContent = t(sc.id + ".title");
-  el("pIntro").textContent = t(sc.id + ".intro");
+  el("pTitle").textContent = tS(sc.id + ".title");
+  el("pIntro").textContent = tS(sc.id + ".intro");
   el("introBox").hidden = false; el("introFoot").hidden = false;
   ["timer","scanBtn","options","prompt","caption","count"].forEach(function(id){ el(id).hidden = true; });
   buildIntro();
   var box = el("options"); box.innerHTML = "";
   if (sc.type === "decision"){
     shuffle(sc.options.slice()).forEach(function(o){
-      var b = h("button", "", t(o.labelKey));
+      var b = h("button", "", tS(o.labelKey));
       b.addEventListener("click", function(){ choose(o.id, performance.now()); });
       box.appendChild(b);
     });
@@ -1806,7 +1912,7 @@ function playOutcome(out, now){
   S.out = out; S.phase = "outcome"; S.oStart = now;
   var c = el("caption");
   c.className = "caption " + (out.kind || "neutral");
-  c.textContent = (S.solution ? t("ui.solutionPrefix") : "") + t(out.captionKey);
+  c.textContent = (S.solution ? t("ui.solutionPrefix") : "") + tS(out.captionKey);
   c.hidden = false;
   if (!raf) raf = requestAnimationFrame(loop);
 }
@@ -1820,7 +1926,7 @@ function openSheet(){
   el("rScans").hidden = !S.fog;
   el("rScans").textContent = S.scans === 0 ? t("ui.noScan") : S.scans === 1 ? t("ui.scanOnce") : t("ui.scanMany", {n:S.scans});
   var chosen = S.choice ? optionById(S.choice) : null, right = optionById(sc.correctOptionId);
-  el("rWhy").textContent = ok ? t(right.explainKey) : (chosen ? t(chosen.explainKey) + " " : "") + t(right.explainKey);
+  el("rWhy").textContent = ok ? tS(right.explainKey) : (chosen ? tS(chosen.explainKey) + " " : "") + tS(right.explainKey);
   el("nextBtn").textContent = queue.length ? t("ui.next") : t("ui.finish");
   el("solBtn").hidden = ok;
   var kind = session ? session.kind : "";
