@@ -103,15 +103,6 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .mode .sub{display:block;font-size:14px;color:var(--chalk-muted)}
 .mode .go{margin-inline-start:auto;flex-shrink:0}
 .tf-card{position:relative;overflow:hidden;touch-action:pan-y;margin:0 auto 10px}
-.tf-claim{position:absolute;left:10px;right:10px;top:10px;text-align:center;background:rgba(10,24,18,.9);border:var(--dash);border-radius:4px;
-  padding:8px 10px;font-family:"Secular One",sans-serif;font-size:20px;line-height:1.2;pointer-events:none}
-.tf-flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:"Secular One",sans-serif;font-size:96px;pointer-events:none;opacity:0}
-.tf-flash.good{opacity:1;background:rgba(255,210,63,.22);color:var(--marker);animation:pop .2s ease-out}
-.tf-flash.bad{opacity:1;background:rgba(10,24,18,.55);color:var(--chalk);animation:pop .2s ease-out}
-.tf-btns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.tf-btns button{min-height:64px;border-radius:4px;font-family:"Secular One",sans-serif;font-size:24px}
-.tf-yes{background:var(--marker);color:var(--on-marker);border:0}
-.tf-no{background:transparent;border:var(--dash);color:var(--chalk)}
 .me-big{font-family:"Secular One",sans-serif;font-size:120px;line-height:1;color:var(--marker);margin:24px 0 0;font-variant-numeric:tabular-nums}
 .record{display:inline-block;background:var(--marker);color:var(--on-marker);font-weight:700;border-radius:4px;padding:4px 12px;margin-top:10px}
 
@@ -371,8 +362,6 @@ canvas{display:block;width:100%}
       <button class="mode" id="mPos"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span><b id="mPosT"></b><span class="sub" id="mPosS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="mode" id="mScan"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b id="mScanT"></b><span class="sub" id="mScanS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="mode" id="mRisk"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18c3-7 9-11 15-12"/><path d="M15 4l4 2-2 4"/><circle cx="12" cy="11" r="2.2" fill="#FFD23F"/></svg></span><span><b id="mRiskT"></b><span class="sub" id="mRiskS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="mode" id="mSurv"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span><b id="mSurvT"></b><span class="sub" id="mSurvS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="mode" id="mTf"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l4 4 7-8"/><path d="M15 14l6 6M21 14l-6 6"/></svg></span><span><b id="mTfT"></b><span class="sub" id="mTfS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="mode" id="mWeek"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b id="mWeekT"></b><span class="sub" id="mWeekS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
     </div>
     <div class="card section-gap">
@@ -483,17 +472,6 @@ canvas{display:block;width:100%}
     <div class="tf-card" id="qCard"><canvas id="qPitch" aria-label="מגרש כדורגל מלמעלה"></canvas><div class="q-grade" id="qGrade" hidden></div><div class="q-count" id="qCount" hidden></div></div>
     <div class="q-actions" id="qActions"><button class="primary" id="qMain"></button><button class="secondary" id="qAlt"></button></div>
     <p class="card q-why" id="qWhy" hidden></p>
-  </section>
-
-  <!-- ============ נכון או לא ============ -->
-  <section id="s-tf" hidden>
-    <div class="top"><span class="display" id="tfScore" style="font-size:22px"></span>
-      <button class="x" id="tfClose" aria-label="יציאה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    </div>
-    <div class="timer"><i id="tfBar"></i></div>
-    <div class="tf-card" id="tfCard"><canvas id="tfPitch" aria-label="מגרש כדורגל מלמעלה"></canvas><div class="tf-claim" id="tfClaim"></div><div class="tf-flash" id="tfFlash"></div></div>
-    <div class="tf-btns"><button class="tf-yes" id="tfYes"></button><button class="tf-no" id="tfNo"></button></div>
-    <p class="muted" id="tfHint" style="text-align:center;margin-top:8px;font-size:14px"></p>
   </section>
 
   <!-- ============ סוף מצב ============ -->
@@ -649,7 +627,7 @@ function staticTexts(){
 }
 
 // ---------- ניווט ----------
-var SCREENS = ["q","send","tf","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
+var SCREENS = ["q","send","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
 var TABBED = {home:1, progress:1, profile:1};
 function nav(name){
   SCREENS.forEach(function(s){ el("s-" + s).hidden = s !== name; });
@@ -1025,7 +1003,7 @@ function bindSecs(id){
 bindSecs("secsCalib"); bindSecs("secsProfile");
 
 // ================= מצבים =================
-function records(){ return store.get("records", {survival:0, tf:0}); }
+function records(){ return store.get("records", {}); }
 function weekStart(){ var d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate() - d.getDay()); return d; }
 function weekKey(){ return dayKey(weekStart()); }
 function weeklyId(){
@@ -1038,10 +1016,6 @@ function revealDay(){ return new Date().getDay() === 6; }   // שבת
 function renderModes(){
   var rec = records();
   el("modesH").textContent = t("modes.h");
-  el("mSurvT").textContent = t("sv.title");
-  el("mSurvS").textContent = rec.survival ? t("sv.best", {n:rec.survival}) : t("sv.sub");
-  el("mTfT").textContent = t("tf.title");
-  el("mTfS").textContent = rec.tf ? t("tf.best", {n:rec.tf}) : t("tf.sub");
   ["pos", "scan", "risk"].forEach(function(k){
     var id = {pos:"Pos", scan:"Scan", risk:"Risk"}[k];
     el("m" + id + "T").textContent = t("q." + k + ".title");
@@ -1056,22 +1030,6 @@ function renderModes(){
 }
 
 var lastMode = null;
-function startSurvival(){
-  lastMode = "survival";
-  var mine = index.filter(function(s){ return s.position === profile.pos; }).map(function(s){ return s.id; });
-  var rest = index.filter(function(s){ return s.position !== profile.pos; }).map(function(s){ return s.id; });
-  startSession("survival", shuffle(mine).concat(shuffle(rest)));
-}
-function survivalWindow(){ return Math.max(2000, mySecs() * 1000 - 500 * (session ? session.results.length : 0)); }
-function finishSurvival(){
-  var r = session ? session.results : [];
-  var n = r.filter(function(x){ return x.ok; }).length;
-  var rec = records(), isNew = n > (rec.survival || 0);
-  if (isNew){ rec.survival = n; store.set("records", rec); }
-  showModeEnd({k:t("sv.title"), big:n, title:n === 0 ? t("sv.endZero") : n === 1 ? t("sv.endOne") : t("sv.end", {n:n}), isNew:isNew && n > 0,
-    sub:isNew ? t("sv.subNew") : rec.survival ? t("sv.subBest", {n:rec.survival}) : t("sv.subZero")});
-}
-
 function startWeekly(){
   var w = store.get("weekly", null);
   if (w && w.week === weekKey()){ if (revealDay()) startSession("weeklyReview", [w.id]); return; }
@@ -1288,75 +1246,12 @@ el("mPos").addEventListener("click", function(){ startQ("pos"); });
 el("mScan").addEventListener("click", function(){ startQ("scan"); });
 el("mRisk").addEventListener("click", function(){ startQ("risk"); });
 
-// ---------- נכון או לא ----------
-var tf = null, pool = null, tfTimer = 0, TF_MS = 30000;
+// ---------- כל התרחישים (נטען פעם אחת למצבי הלוח) ----------
+var pool = null;
 function loadPool(){
   if (pool) return Promise.resolve(pool);
   return Promise.all(index.map(function(s){ return getJSON("scenarios/" + s.id + ".json"); })).then(function(a){ pool = a; return a; });
 }
-function startTF(){
-  lastMode = "tf";
-  loadPool().then(function(){
-    tf = {score:0, total:0, end:performance.now() + TF_MS, lock:false, last:null};
-    canvas = el("tfPitch"); ctx = canvas.getContext("2d");
-    el("tfYes").textContent = t("tf.yes"); el("tfNo").textContent = t("tf.no"); el("tfHint").textContent = t("tf.hint");
-    nav("tf");
-    nextCard(); tfScore();
-    clearInterval(tfTimer); tfTimer = setInterval(tfTick, 100);
-  }).catch(function(e){ alert(e.message); });
-}
-function nextCard(){
-  var cand = pool.filter(function(p){ return p.id !== tf.last; });
-  sc = cand[Math.floor(Math.random() * cand.length)]; tf.last = sc.id;
-  VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
-  var truth = Math.random() < 0.5, opt;
-  if (truth) opt = optionById(sc.correctOptionId);
-  else { var wrong = sc.options.filter(function(o){ return o.id !== sc.correctOptionId; }); opt = wrong[Math.floor(Math.random() * wrong.length)]; }
-  tf.opt = opt; tf.truth = truth;
-  S = {phase:"tf", fog:false, choice:null};
-  layout(el("tfCard"), 300);
-  el("tfClaim").textContent = t(sc.type === "marking" ? "tf.claimMark" : "tf.claimPass", {x:t(opt.labelKey)});
-  el("tfFlash").className = "tf-flash"; el("tfFlash").textContent = "";
-  render(performance.now());
-}
-function tfScore(){ el("tfScore").textContent = t("tf.score", {n:tf.score}); }
-function tfAnswer(saysTrue){
-  if (!tf || tf.lock) return;
-  tf.lock = true;
-  var right = saysTrue === tf.truth;
-  tf.total++; if (right) tf.score++;
-  var f = el("tfFlash"); f.className = "tf-flash " + (right ? "good" : "bad"); f.textContent = right ? "\u2713" : "\u2717";
-  tfScore();
-  setTimeout(function(){ if (!tf) return; tf.lock = false; if (performance.now() < tf.end) nextCard(); }, 420);
-}
-function tfTick(){
-  if (!tf) return;
-  var left = tf.end - performance.now();
-  el("tfBar").style.width = Math.max(0, left / TF_MS * 100) + "%";
-  el("tfBar").parentNode.classList.toggle("low", left < 5000);
-  if (left <= 0) endTF(true);
-}
-function endTF(finished){
-  clearInterval(tfTimer); tfTimer = 0;
-  canvas = el("pitch"); ctx = canvas.getContext("2d");
-  var res = tf; tf = null;
-  if (!finished || !res){ nav("home"); return; }
-  var rec = records(), isNew = res.score > (rec.tf || 0);
-  if (isNew){ rec.tf = res.score; store.set("records", rec); }
-  showModeEnd({k:t("tf.title"), big:res.score, title:t("tf.end", {n:res.score, total:res.total}), isNew:isNew && res.score > 0,
-    sub:isNew ? t("sv.subNew") : t("tf.subBest", {n:rec.tf})});
-}
-el("tfYes").addEventListener("click", function(){ tfAnswer(true); });
-el("tfNo").addEventListener("click", function(){ tfAnswer(false); });
-el("tfClose").addEventListener("click", function(){ endTF(false); });
-(function(){
-  var x0 = null;
-  el("tfCard").addEventListener("pointerdown", function(e){ x0 = e.clientX; });
-  el("tfCard").addEventListener("pointerup", function(e){
-    if (x0 == null) return; var dx = e.clientX - x0; x0 = null;
-    if (dx > 60) tfAnswer(true); else if (dx < -60) tfAnswer(false);
-  });
-})();
 
 // ---------- מסך סוף מצב ----------
 function showModeEnd(o){
@@ -1370,10 +1265,8 @@ function showModeEnd(o){
   el("meAgain").textContent = t("me.again");
   el("meHome").textContent = t("ma.home");
 }
-el("meAgain").addEventListener("click", function(){ if (lastMode === "tf") startTF(); else if (lastMode === "pos" || lastMode === "scan" || lastMode === "risk") startQ(lastMode); else startSurvival(); });
+el("meAgain").addEventListener("click", function(){ if (lastMode) startQ(lastMode); });
 el("meHome").addEventListener("click", function(){ nav("home"); });
-el("mSurv").addEventListener("click", startSurvival);
-el("mTf").addEventListener("click", startTF);
 el("mWeek").addEventListener("click", startWeekly);
 
 // ================= בדיקה לאייל + שליחה =================
@@ -1521,7 +1414,6 @@ function endSession(){
     else nav("summary");
   } else if (kind === "calib") nav("calibResult");
   else if (kind === "warmup") nav("warmupDone");
-  else if (kind === "survival") finishSurvival();
   else if (kind === "weekly" || kind === "weeklyReview") nav("home");
   else if (kind === "panel") openSend("panel");
   else nav("dev");
@@ -1797,10 +1689,6 @@ function render(now){
     ring(posOf(S.choice, now), S.choice === sc.correctOptionId ? "#FFD23F" : "#F2EFE6", 0);
   }
   if (S.qDraw) S.qDraw(now);
-  if (S.phase === "tf" && tf && tf.opt){
-    if (sc.type === "marking") ring(freezePos(tf.opt.entity || tf.opt.id), "#FFD23F", 0.3);
-    else arrow(freezePos("me"), targetPos(tf.opt), "#FFD23F");
-  }
   if (S.fog){
     var a = 1 - reveal(now);
     if (S.phase === "outcome" || S.phase === "after") a = Math.min(a, Math.max(0, 1 - (now - S.oStart) / 300));
@@ -1841,8 +1729,7 @@ function setup(data){
   VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
   S = {phase:"idle", fog:!!settings.fog, scans:0, scanStart:-1e9, choice:null, solution:false};
   var kind = session ? session.kind : "";
-  if (kind !== "weekly" && kind !== "survival") sc.decisionWindowMs = Math.round(mySecs() * 1000 * (sc.decisionWindowMs / 5000));
-  if (kind === "survival") sc.decisionWindowMs = survivalWindow();
+  if (kind !== "weekly") sc.decisionWindowMs = Math.round(mySecs() * 1000 * (sc.decisionWindowMs / 5000));
   if (kind === "weekly") sc.decisionWindowMs = 4000;
   el("pTitle").textContent = t(sc.id + ".title");
   el("pIntro").textContent = t(sc.id + ".intro");
@@ -1862,7 +1749,6 @@ function setup(data){
   S.phase = "preview";
   resize(); render(performance.now());
   el("freezeTag").hidden = false;
-  if (kind === "survival") setTimeout(function(){ if (S.phase === "preview" && sc === data) startRun(); }, 1100);
 }
 
 function buildIntro(){
@@ -1874,8 +1760,7 @@ function buildIntro(){
   var dots = h("span", "dots"); dots.setAttribute("aria-label", t("ui.diffAria", {n:sc.difficulty}));
   for (var i = 1; i <= 3; i++) dots.appendChild(h("i", i <= sc.difficulty ? "on" : ""));
   d.appendChild(dots);
-  if (session && session.kind === "survival") chip(t("sv.chip", {n:session.results.length, s:(sc.decisionWindowMs / 1000).toFixed(1)}), "progress");
-  else if (session && session.kind === "weekly") chip(t("wk.chip"), "mark");
+  if (session && session.kind === "weekly") chip(t("wk.chip"), "mark");
   else if (sessionTotal > 1) chip(t("ui.progress", {n:sessionTotal - queue.length, total:sessionTotal}), "progress");
   el("freezeTag").textContent = t("ui.startPosition");
   var secs = (sc.decisionWindowMs / 1000).toString().replace(".0", "");
@@ -1939,7 +1824,6 @@ function openSheet(){
   el("nextBtn").textContent = queue.length ? t("ui.next") : t("ui.finish");
   el("solBtn").hidden = ok;
   var kind = session ? session.kind : "";
-  if (kind === "survival" && !ok){ queue = []; el("nextBtn").textContent = t("sv.toEnd"); }
   if (kind === "weekly"){ el("rWhy").textContent = t("wk.hidden"); el("solBtn").hidden = true; }
   var dis = el("disBtn");
   dis.hidden = kind !== "panel";
