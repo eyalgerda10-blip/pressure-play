@@ -1,0 +1,353 @@
+{
+ "id": "cb-14",
+ "version": 1,
+ "type": "decision",
+ "position": "CB",
+ "difficulty": 2,
+ "tags": [
+  "aerial",
+  "duel"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2300,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.42,
+     0.74
+    ],
+    [
+     2300,
+     0.44,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "cb2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.78
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.5,
+     0.6
+    ]
+   ]
+  },
+  {
+   "id": "lb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.15,
+     0.72
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.62
+    ],
+    [
+     2300,
+     0.47,
+     0.66
+    ]
+   ]
+  },
+  {
+   "id": "m",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.6,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.3,
+     0.35
+    ],
+    [
+     2300,
+     0.45,
+     0.67
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "attack",
+ "options": [
+  {
+   "id": "attack",
+   "target": {
+    "x": 0.45,
+    "y": 0.67
+   },
+   "labelKey": "cb-14.opt.attack",
+   "explainKey": "cb-14.why.attack",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "cb-14.out.attack",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.44,
+       0.7
+      ],
+      [
+       400,
+       0.45,
+       0.675
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.67
+      ],
+      [
+       400,
+       0.45,
+       0.675
+      ],
+      [
+       1300,
+       0.5,
+       0.58
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "bounce",
+   "target": {
+    "x": 0.44,
+    "y": 0.72
+   },
+   "labelKey": "cb-14.opt.bounce",
+   "explainKey": "cb-14.why.bounce",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-14.out.bounce",
+    "durationMs": 1600,
+    "tracks": {
+     "st": [
+      [
+       0,
+       0.47,
+       0.66
+      ],
+      [
+       700,
+       0.44,
+       0.72
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.67
+      ],
+      [
+       500,
+       0.44,
+       0.7
+      ],
+      [
+       1000,
+       0.44,
+       0.73
+      ],
+      [
+       1600,
+       0.47,
+       0.86
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "gk",
+   "target": "gk",
+   "labelKey": "cb-14.opt.gk",
+   "explainKey": "cb-14.why.gk",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-14.out.gk",
+    "durationMs": 1600,
+    "tracks": {
+     "st": [
+      [
+       0,
+       0.47,
+       0.66
+      ],
+      [
+       600,
+       0.45,
+       0.68
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.67
+      ],
+      [
+       600,
+       0.45,
+       0.685
+      ],
+      [
+       1500,
+       0.48,
+       0.9
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "backoff",
+   "target": {
+    "x": 0.44,
+    "y": 0.78
+   },
+   "labelKey": "cb-14.opt.backoff",
+   "explainKey": "cb-14.why.backoff",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-14.out.backoff",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.44,
+       0.7
+      ],
+      [
+       700,
+       0.44,
+       0.78
+      ]
+     ],
+     "st": [
+      [
+       0,
+       0.47,
+       0.66
+      ],
+      [
+       600,
+       0.45,
+       0.68
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.67
+      ],
+      [
+       600,
+       0.45,
+       0.685
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "cb-14.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "st": [
+    [
+     0,
+     0.47,
+     0.66
+    ],
+    [
+     600,
+     0.45,
+     0.68
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.45,
+     0.67
+    ],
+    [
+     600,
+     0.45,
+     0.685
+    ],
+    [
+     1500,
+     0.48,
+     0.9
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

@@ -1,0 +1,318 @@
+{
+ "id": "fb-m3",
+ "version": 1,
+ "type": "marking",
+ "position": "FB",
+ "difficulty": 2,
+ "tags": [
+  "counter",
+  "marking"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.82,
+     0.66
+    ],
+    [
+     2400,
+     0.82,
+     0.72
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.78
+    ],
+    [
+     2400,
+     0.6,
+     0.76
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.62,
+     0.55
+    ],
+    [
+     2400,
+     0.6,
+     0.68
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.86,
+     0.5
+    ],
+    [
+     2400,
+     0.86,
+     0.64
+    ]
+   ]
+  },
+  {
+   "id": "c",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.72,
+     0.48
+    ],
+    [
+     2400,
+     0.74,
+     0.6
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.72,
+     0.485
+    ],
+    [
+     2400,
+     0.74,
+     0.605
+    ]
+   ]
+  }
+ ],
+ "candidates": [
+  "st",
+  "w",
+  "c"
+ ],
+ "correctOptionId": "w",
+ "options": [
+  {
+   "id": "w",
+   "entity": "w",
+   "labelKey": "fb-m3.opt.w",
+   "explainKey": "fb-m3.why.w",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-m3.out.w",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.82,
+       0.72
+      ],
+      [
+       700,
+       0.85,
+       0.68
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.74,
+       0.605
+      ],
+      [
+       700,
+       0.84,
+       0.67
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "st",
+   "entity": "st",
+   "labelKey": "fb-m3.opt.st",
+   "explainKey": "fb-m3.why.st",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-m3.out.st",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.82,
+       0.72
+      ],
+      [
+       700,
+       0.66,
+       0.72
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.74,
+       0.605
+      ],
+      [
+       700,
+       0.86,
+       0.66
+      ],
+      [
+       1400,
+       0.6,
+       0.9
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.86,
+       0.64
+      ],
+      [
+       700,
+       0.86,
+       0.655
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "c",
+   "entity": "c",
+   "labelKey": "fb-m3.opt.c",
+   "explainKey": "fb-m3.why.c",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-m3.out.c",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.82,
+       0.72
+      ],
+      [
+       700,
+       0.76,
+       0.64
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.74,
+       0.605
+      ],
+      [
+       700,
+       0.86,
+       0.66
+      ],
+      [
+       1400,
+       0.6,
+       0.9
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.86,
+       0.64
+      ],
+      [
+       700,
+       0.86,
+       0.655
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-m3.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.74,
+     0.605
+    ],
+    [
+     700,
+     0.86,
+     0.66
+    ],
+    [
+     1400,
+     0.6,
+     0.9
+    ]
+   ],
+   "w": [
+    [
+     0,
+     0.86,
+     0.64
+    ],
+    [
+     700,
+     0.86,
+     0.655
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

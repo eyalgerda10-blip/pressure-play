@@ -1,0 +1,282 @@
+{
+ "id": "dm-14",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 1,
+ "tags": [
+  "pressing",
+  "trigger"
+ ],
+ "view": {
+  "top": 0.1,
+  "bottom": 0.7
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.42
+    ],
+    [
+     2200,
+     0.52,
+     0.4
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.45,
+     0.25
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.8,
+     0.35
+    ]
+   ]
+  },
+  {
+   "id": "c",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.7,
+     0.2
+    ],
+    [
+     2200,
+     0.72,
+     0.22
+    ]
+   ]
+  },
+  {
+   "id": "c2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.35,
+     0.2
+    ]
+   ]
+  },
+  {
+   "id": "m",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.55,
+     0.35
+    ]
+   ]
+  },
+  {
+   "id": "gkA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.02
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.6,
+     0.3
+    ],
+    [
+     2200,
+     0.715,
+     0.225
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "press",
+ "options": [
+  {
+   "id": "press",
+   "target": "c",
+   "labelKey": "dm-14.opt.press",
+   "explainKey": "dm-14.why.press",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-14.out.press",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.52,
+       0.4
+      ],
+      [
+       700,
+       0.68,
+       0.26
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.715,
+       0.225
+      ],
+      [
+       800,
+       0.72,
+       0.22
+      ],
+      [
+       1400,
+       0.62,
+       0.3
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "wait",
+   "target": {
+    "x": 0.52,
+    "y": 0.4
+   },
+   "labelKey": "dm-14.opt.wait",
+   "explainKey": "dm-14.why.wait",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-14.out.wait",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.715,
+       0.225
+      ],
+      [
+       900,
+       0.5,
+       0.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "mid",
+   "target": "m",
+   "labelKey": "dm-14.opt.mid",
+   "explainKey": "dm-14.why.mid",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-14.out.mid",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.52,
+       0.4
+      ],
+      [
+       600,
+       0.55,
+       0.37
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.715,
+       0.225
+      ],
+      [
+       900,
+       0.9,
+       0.4
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "back",
+   "target": {
+    "x": 0.52,
+    "y": 0.52
+   },
+   "labelKey": "dm-14.opt.back",
+   "explainKey": "dm-14.why.back",
+   "outcome": {
+    "kind": "neutral",
+    "captionKey": "dm-14.out.back",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.52,
+       0.4
+      ],
+      [
+       700,
+       0.52,
+       0.5
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-14.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.715,
+     0.225
+    ],
+    [
+     900,
+     0.5,
+     0.5
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

@@ -1,0 +1,296 @@
+{
+ "id": "fb-14",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 1,
+ "tags": [
+  "box",
+  "clearance",
+  "aerial"
+ ],
+ "view": {
+  "top": 0.55,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.45,
+     0.97
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.72,
+     0.9
+    ],
+    [
+     2200,
+     0.72,
+     0.91
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.5,
+     0.92
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.8,
+     0.8
+    ],
+    [
+     2200,
+     0.76,
+     0.88
+    ]
+   ]
+  },
+  {
+   "id": "s",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.55,
+     0.9
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.08,
+     0.8
+    ],
+    [
+     2200,
+     0.68,
+     0.9
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "wide",
+ "options": [
+  {
+   "id": "wide",
+   "target": {
+    "x": 0.95,
+    "y": 0.75
+   },
+   "labelKey": "fb-14.opt.wide",
+   "explainKey": "fb-14.why.wide",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-14.out.wide",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.68,
+       0.9
+      ],
+      [
+       300,
+       0.71,
+       0.905
+      ],
+      [
+       1200,
+       0.98,
+       0.72
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "gk",
+   "target": "gk",
+   "labelKey": "fb-14.opt.gk",
+   "explainKey": "fb-14.why.gk",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-14.out.gk",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.68,
+       0.9
+      ],
+      [
+       300,
+       0.71,
+       0.905
+      ],
+      [
+       1200,
+       0.52,
+       0.97
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.76,
+       0.88
+      ],
+      [
+       1100,
+       0.56,
+       0.95
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "control",
+   "target": {
+    "x": 0.72,
+    "y": 0.91
+   },
+   "labelKey": "fb-14.opt.control",
+   "explainKey": "fb-14.why.control",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-14.out.control",
+    "durationMs": 1600,
+    "tracks": {
+     "w": [
+      [
+       0,
+       0.76,
+       0.88
+      ],
+      [
+       600,
+       0.72,
+       0.9
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.68,
+       0.9
+      ],
+      [
+       500,
+       0.715,
+       0.905
+      ],
+      [
+       1300,
+       0.55,
+       0.995
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "center",
+   "target": {
+    "x": 0.5,
+    "y": 0.72
+   },
+   "labelKey": "fb-14.opt.center",
+   "explainKey": "fb-14.why.center",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-14.out.center",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.68,
+       0.9
+      ],
+      [
+       300,
+       0.71,
+       0.905
+      ],
+      [
+       1200,
+       0.5,
+       0.72
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-14.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "w": [
+    [
+     0,
+     0.76,
+     0.88
+    ],
+    [
+     600,
+     0.72,
+     0.9
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.68,
+     0.9
+    ],
+    [
+     500,
+     0.715,
+     0.905
+    ],
+    [
+     1300,
+     0.55,
+     0.995
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

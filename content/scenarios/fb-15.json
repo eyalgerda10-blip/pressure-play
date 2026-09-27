@@ -1,0 +1,325 @@
+{
+ "id": "fb-15",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 2,
+ "tags": [
+  "one-two",
+  "press-resistance"
+ ],
+ "view": {
+  "top": 0.3,
+  "bottom": 0.95
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.86,
+     0.66
+    ],
+    [
+     2400,
+     0.85,
+     0.64
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.66,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "rw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.9,
+     0.42
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.62,
+     0.82
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.8,
+     0.6
+    ],
+    [
+     2400,
+     0.82,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "fb",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.87,
+     0.44
+    ]
+   ]
+  },
+  {
+   "id": "m",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.6,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.855,
+     0.655
+    ],
+    [
+     2400,
+     0.845,
+     0.635
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "onetwo",
+ "options": [
+  {
+   "id": "onetwo",
+   "target": "dm",
+   "labelKey": "fb-15.opt.onetwo",
+   "explainKey": "fb-15.why.onetwo",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-15.out.onetwo",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.845,
+       0.635
+      ],
+      [
+       400,
+       0.665,
+       0.615
+      ],
+      [
+       900,
+       0.84,
+       0.5
+      ]
+     ],
+     "me": [
+      [
+       0,
+       0.85,
+       0.64
+      ],
+      [
+       900,
+       0.84,
+       0.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "dribble",
+   "target": {
+    "x": 0.87,
+    "y": 0.56
+   },
+   "labelKey": "fb-15.opt.dribble",
+   "explainKey": "fb-15.why.dribble",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-15.out.dribble",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.64
+      ],
+      [
+       400,
+       0.87,
+       0.58
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.82,
+       0.62
+      ],
+      [
+       400,
+       0.86,
+       0.59
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.845,
+       0.635
+      ],
+      [
+       400,
+       0.865,
+       0.585
+      ],
+      [
+       1200,
+       0.8,
+       0.75
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "line",
+   "target": "rw",
+   "labelKey": "fb-15.opt.line",
+   "explainKey": "fb-15.why.line",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-15.out.line",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.845,
+       0.635
+      ],
+      [
+       600,
+       0.88,
+       0.46
+      ]
+     ],
+     "fb": [
+      [
+       0,
+       0.87,
+       0.44
+      ],
+      [
+       600,
+       0.88,
+       0.455
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "back",
+   "target": "cb",
+   "labelKey": "fb-15.opt.back",
+   "explainKey": "fb-15.why.back",
+   "outcome": {
+    "kind": "neutral",
+    "captionKey": "fb-15.out.back",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.845,
+       0.635
+      ],
+      [
+       800,
+       0.62,
+       0.815
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-15.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "w": [
+    [
+     0,
+     0.82,
+     0.62
+    ],
+    [
+     600,
+     0.85,
+     0.64
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.845,
+     0.635
+    ],
+    [
+     700,
+     0.85,
+     0.64
+    ],
+    [
+     1300,
+     0.8,
+     0.75
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

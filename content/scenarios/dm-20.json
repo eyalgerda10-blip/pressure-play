@@ -1,0 +1,295 @@
+{
+ "id": "dm-20",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 2,
+ "tags": [
+  "shooting",
+  "final-third",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.0,
+  "bottom": 0.55
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.3
+    ],
+    [
+     2400,
+     0.5,
+     0.29
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.55,
+     0.12
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.2,
+     0.15
+    ]
+   ]
+  },
+  {
+   "id": "gkA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.05
+    ],
+    [
+     2400,
+     0.5,
+     0.06
+    ]
+   ]
+  },
+  {
+   "id": "c",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.55,
+     0.1
+    ]
+   ]
+  },
+  {
+   "id": "c2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.42,
+     0.11
+    ]
+   ]
+  },
+  {
+   "id": "m",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.4,
+     0.4
+    ],
+    [
+     2400,
+     0.44,
+     0.34
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.52,
+     0.13
+    ],
+    [
+     2400,
+     0.5,
+     0.285
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "shoot",
+ "options": [
+  {
+   "id": "shoot",
+   "target": {
+    "x": 0.47,
+    "y": 0
+   },
+   "labelKey": "dm-20.opt.shoot",
+   "explainKey": "dm-20.why.shoot",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-20.out.shoot",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.285
+      ],
+      [
+       700,
+       0.47,
+       -0.01
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "control",
+   "target": {
+    "x": 0.5,
+    "y": 0.29
+   },
+   "labelKey": "dm-20.opt.control",
+   "explainKey": "dm-20.why.control",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-20.out.control",
+    "durationMs": 1600,
+    "tracks": {
+     "m": [
+      [
+       0,
+       0.44,
+       0.34
+      ],
+      [
+       700,
+       0.49,
+       0.3
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.5,
+       0.285
+      ],
+      [
+       800,
+       0.45,
+       0.4
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "st",
+   "target": "st",
+   "labelKey": "dm-20.opt.st",
+   "explainKey": "dm-20.why.st",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-20.out.st",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.285
+      ],
+      [
+       600,
+       0.54,
+       0.13
+      ]
+     ],
+     "c": [
+      [
+       0,
+       0.55,
+       0.1
+      ],
+      [
+       600,
+       0.54,
+       0.125
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "wide",
+   "target": "w",
+   "labelKey": "dm-20.opt.wide",
+   "explainKey": "dm-20.why.wide",
+   "outcome": {
+    "kind": "neutral",
+    "captionKey": "dm-20.out.wide",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.5,
+       0.285
+      ],
+      [
+       900,
+       0.21,
+       0.16
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-20.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "m": [
+    [
+     0,
+     0.44,
+     0.34
+    ],
+    [
+     700,
+     0.49,
+     0.3
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.5,
+     0.285
+    ],
+    [
+     800,
+     0.45,
+     0.4
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

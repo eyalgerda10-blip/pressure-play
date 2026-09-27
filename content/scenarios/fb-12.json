@@ -1,0 +1,380 @@
+{
+ "id": "fb-12",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 2,
+ "tags": [
+  "1v1",
+  "defending",
+  "scanning",
+  "trap"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.86,
+     0.8
+    ],
+    [
+     2400,
+     0.85,
+     0.76
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.56,
+     0.86
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.45,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.86,
+     0.58
+    ],
+    [
+     2400,
+     0.84,
+     0.68
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.78
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.855,
+     0.585
+    ],
+    [
+     2400,
+     0.835,
+     0.685
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "outside",
+ "options": [
+  {
+   "id": "outside",
+   "target": {
+    "x": 0.8,
+    "y": 0.74
+   },
+   "labelKey": "fb-12.opt.outside",
+   "explainKey": "fb-12.why.outside",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-12.out.outside",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       600,
+       0.8,
+       0.74
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.84,
+       0.68
+      ],
+      [
+       1000,
+       0.93,
+       0.82
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       1000,
+       0.935,
+       0.825
+      ],
+      [
+       1500,
+       0.99,
+       0.86
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "inside",
+   "target": {
+    "x": 0.88,
+    "y": 0.74
+   },
+   "labelKey": "fb-12.opt.inside",
+   "explainKey": "fb-12.why.inside",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-12.out.inside",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       600,
+       0.88,
+       0.74
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.84,
+       0.68
+      ],
+      [
+       900,
+       0.72,
+       0.76
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       900,
+       0.72,
+       0.765
+      ],
+      [
+       1500,
+       0.55,
+       0.995
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "dive",
+   "target": "w",
+   "labelKey": "fb-12.opt.dive",
+   "explainKey": "fb-12.why.dive",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-12.out.dive",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       400,
+       0.84,
+       0.7
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.84,
+       0.68
+      ],
+      [
+       900,
+       0.72,
+       0.8
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       900,
+       0.72,
+       0.805
+      ],
+      [
+       1500,
+       0.55,
+       0.995
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "retreat",
+   "target": {
+    "x": 0.82,
+    "y": 0.86
+   },
+   "labelKey": "fb-12.opt.retreat",
+   "explainKey": "fb-12.why.retreat",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-12.out.retreat",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.85,
+       0.76
+      ],
+      [
+       900,
+       0.82,
+       0.86
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.84,
+       0.68
+      ],
+      [
+       900,
+       0.74,
+       0.78
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.835,
+       0.685
+      ],
+      [
+       900,
+       0.74,
+       0.785
+      ],
+      [
+       1500,
+       0.55,
+       0.995
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-12.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "w": [
+    [
+     0,
+     0.84,
+     0.68
+    ],
+    [
+     900,
+     0.72,
+     0.76
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.835,
+     0.685
+    ],
+    [
+     900,
+     0.72,
+     0.765
+    ],
+    [
+     1500,
+     0.55,
+     0.995
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

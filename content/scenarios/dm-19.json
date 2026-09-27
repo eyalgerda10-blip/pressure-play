@@ -1,0 +1,384 @@
+{
+ "id": "dm-19",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 3,
+ "tags": [
+  "screening",
+  "cover",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.62
+    ],
+    [
+     2400,
+     0.5,
+     0.63
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.56,
+     0.8
+    ],
+    [
+     2400,
+     0.55,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "cb2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.4,
+     0.8
+    ]
+   ]
+  },
+  {
+   "id": "rb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.85,
+     0.74
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.55,
+     0.72
+    ],
+    [
+     2400,
+     0.54,
+     0.66
+    ]
+   ]
+  },
+  {
+   "id": "w",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.75,
+     0.6
+    ],
+    [
+     2400,
+     0.66,
+     0.72
+    ]
+   ]
+  },
+  {
+   "id": "m",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.45,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.45,
+     0.505
+    ],
+    [
+     2400,
+     0.45,
+     0.505
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "cover",
+ "options": [
+  {
+   "id": "cover",
+   "target": {
+    "x": 0.6,
+    "y": 0.78
+   },
+   "labelKey": "dm-19.opt.cover",
+   "explainKey": "dm-19.why.cover",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-19.out.cover",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.63
+      ],
+      [
+       800,
+       0.6,
+       0.78
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.505
+      ],
+      [
+       800,
+       0.54,
+       0.65
+      ],
+      [
+       1200,
+       0.62,
+       0.76
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "double",
+   "target": "st",
+   "labelKey": "dm-19.opt.double",
+   "explainKey": "dm-19.why.double",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-19.out.double",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.63
+      ],
+      [
+       700,
+       0.53,
+       0.64
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.505
+      ],
+      [
+       900,
+       0.66,
+       0.78
+      ],
+      [
+       1500,
+       0.55,
+       0.995
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.66,
+       0.72
+      ],
+      [
+       900,
+       0.66,
+       0.78
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "press",
+   "target": "m",
+   "labelKey": "dm-19.opt.press",
+   "explainKey": "dm-19.why.press",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-19.out.press",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.63
+      ],
+      [
+       700,
+       0.46,
+       0.54
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.505
+      ],
+      [
+       900,
+       0.66,
+       0.78
+      ],
+      [
+       1500,
+       0.55,
+       0.995
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.66,
+       0.72
+      ],
+      [
+       900,
+       0.66,
+       0.78
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "stay",
+   "target": {
+    "x": 0.5,
+    "y": 0.63
+   },
+   "labelKey": "dm-19.opt.stay",
+   "explainKey": "dm-19.why.stay",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-19.out.stay",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.45,
+       0.505
+      ],
+      [
+       900,
+       0.66,
+       0.78
+      ],
+      [
+       1500,
+       0.55,
+       0.995
+      ]
+     ],
+     "w": [
+      [
+       0,
+       0.66,
+       0.72
+      ],
+      [
+       900,
+       0.66,
+       0.78
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-19.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.45,
+     0.505
+    ],
+    [
+     900,
+     0.66,
+     0.78
+    ],
+    [
+     1500,
+     0.55,
+     0.995
+    ]
+   ],
+   "w": [
+    [
+     0,
+     0.66,
+     0.72
+    ],
+    [
+     900,
+     0.66,
+     0.78
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

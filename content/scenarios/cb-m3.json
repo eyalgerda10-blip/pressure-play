@@ -1,0 +1,306 @@
+{
+ "id": "cb-m3",
+ "version": 1,
+ "type": "marking",
+ "position": "CB",
+ "difficulty": 2,
+ "tags": [
+  "corner",
+  "marking",
+  "box"
+ ],
+ "view": {
+  "top": 0.6,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.56,
+     0.9
+    ]
+   ]
+  },
+  {
+   "id": "cb2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.95
+    ]
+   ]
+  },
+  {
+   "id": "lb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.38,
+     0.95
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.5,
+     0.84
+    ]
+   ]
+  },
+  {
+   "id": "t",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.99,
+     0.995
+    ]
+   ]
+  },
+  {
+   "id": "n",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.62,
+     0.9
+    ],
+    [
+     2200,
+     0.62,
+     0.94
+    ]
+   ]
+  },
+  {
+   "id": "p",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.86
+    ],
+    [
+     2200,
+     0.52,
+     0.9
+    ]
+   ]
+  },
+  {
+   "id": "f",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.4,
+     0.88
+    ],
+    [
+     2200,
+     0.4,
+     0.94
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.99,
+     0.995
+    ]
+   ]
+  }
+ ],
+ "candidates": [
+  "n",
+  "p",
+  "f"
+ ],
+ "correctOptionId": "p",
+ "options": [
+  {
+   "id": "p",
+   "entity": "p",
+   "labelKey": "cb-m3.opt.p",
+   "explainKey": "cb-m3.why.p",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "cb-m3.out.p",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.56,
+       0.9
+      ],
+      [
+       600,
+       0.53,
+       0.9
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.99,
+       0.995
+      ],
+      [
+       700,
+       0.53,
+       0.895
+      ],
+      [
+       1500,
+       0.6,
+       0.7
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "n",
+   "entity": "n",
+   "labelKey": "cb-m3.opt.n",
+   "explainKey": "cb-m3.why.n",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-m3.out.n",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.56,
+       0.9
+      ],
+      [
+       600,
+       0.6,
+       0.93
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.99,
+       0.995
+      ],
+      [
+       700,
+       0.52,
+       0.9
+      ],
+      [
+       1200,
+       0.5,
+       0.995
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "f",
+   "entity": "f",
+   "labelKey": "cb-m3.opt.f",
+   "explainKey": "cb-m3.why.f",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-m3.out.f",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.56,
+       0.9
+      ],
+      [
+       700,
+       0.43,
+       0.93
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.99,
+       0.995
+      ],
+      [
+       700,
+       0.52,
+       0.9
+      ],
+      [
+       1200,
+       0.5,
+       0.995
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "cb-m3.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.99,
+     0.995
+    ],
+    [
+     700,
+     0.52,
+     0.9
+    ],
+    [
+     1200,
+     0.5,
+     0.995
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

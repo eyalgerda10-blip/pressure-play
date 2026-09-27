@@ -1,0 +1,283 @@
+{
+ "id": "fb-18",
+ "version": 1,
+ "type": "decision",
+ "position": "FB",
+ "difficulty": 2,
+ "tags": [
+  "receiving",
+  "switch",
+  "one-touch"
+ ],
+ "view": {
+  "top": 0.2,
+  "bottom": 0.85
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.1,
+     0.45
+    ],
+    [
+     2400,
+     0.1,
+     0.44
+    ]
+   ]
+  },
+  {
+   "id": "cm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.35,
+     0.42
+    ],
+    [
+     2400,
+     0.35,
+     0.4
+    ]
+   ]
+  },
+  {
+   "id": "lw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.2,
+     0.3
+    ]
+   ]
+  },
+  {
+   "id": "fbA",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.22,
+     0.3
+    ],
+    [
+     2400,
+     0.16,
+     0.4
+    ]
+   ]
+  },
+  {
+   "id": "m",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.4,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.7,
+     0.5
+    ],
+    [
+     2400,
+     0.11,
+     0.445
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "inside",
+ "options": [
+  {
+   "id": "inside",
+   "target": "cm",
+   "labelKey": "fb-18.opt.inside",
+   "explainKey": "fb-18.why.inside",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "fb-18.out.inside",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.11,
+       0.445
+      ],
+      [
+       600,
+       0.345,
+       0.405
+      ],
+      [
+       1400,
+       0.4,
+       0.28
+      ]
+     ],
+     "cm": [
+      [
+       0,
+       0.35,
+       0.4
+      ],
+      [
+       600,
+       0.35,
+       0.4
+      ],
+      [
+       1400,
+       0.4,
+       0.28
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "control",
+   "target": {
+    "x": 0.1,
+    "y": 0.44
+   },
+   "labelKey": "fb-18.opt.control",
+   "explainKey": "fb-18.why.control",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-18.out.control",
+    "durationMs": 1600,
+    "tracks": {
+     "fbA": [
+      [
+       0,
+       0.16,
+       0.4
+      ],
+      [
+       600,
+       0.12,
+       0.43
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "line",
+   "target": "lw",
+   "labelKey": "fb-18.opt.line",
+   "explainKey": "fb-18.why.line",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-18.out.line",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.11,
+       0.445
+      ],
+      [
+       400,
+       0.17,
+       0.38
+      ]
+     ],
+     "fbA": [
+      [
+       0,
+       0.16,
+       0.4
+      ],
+      [
+       400,
+       0.17,
+       0.385
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "carry",
+   "target": {
+    "x": 0.12,
+    "y": 0.38
+   },
+   "labelKey": "fb-18.opt.carry",
+   "explainKey": "fb-18.why.carry",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "fb-18.out.carry",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.1,
+       0.44
+      ],
+      [
+       500,
+       0.12,
+       0.4
+      ]
+     ],
+     "fbA": [
+      [
+       0,
+       0.16,
+       0.4
+      ],
+      [
+       500,
+       0.13,
+       0.4
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "fb-18.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "fbA": [
+    [
+     0,
+     0.16,
+     0.4
+    ],
+    [
+     600,
+     0.12,
+     0.43
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

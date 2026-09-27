@@ -1,0 +1,341 @@
+{
+ "id": "dm-m4",
+ "version": 1,
+ "type": "marking",
+ "position": "DM",
+ "difficulty": 3,
+ "tags": [
+  "counter-press",
+  "marking",
+  "scanning"
+ ],
+ "view": {
+  "top": 0.3,
+  "bottom": 1.0
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.5,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "cm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.44,
+     0.5
+    ],
+    [
+     2400,
+     0.45,
+     0.53
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.4,
+     0.8
+    ]
+   ]
+  },
+  {
+   "id": "cb2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.8
+    ]
+   ]
+  },
+  {
+   "id": "a",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.45,
+     0.48
+    ],
+    [
+     2400,
+     0.45,
+     0.51
+    ]
+   ]
+  },
+  {
+   "id": "f",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.55,
+     0.58
+    ],
+    [
+     2400,
+     0.55,
+     0.57
+    ]
+   ]
+  },
+  {
+   "id": "s",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.7,
+     0.48
+    ],
+    [
+     2400,
+     0.72,
+     0.47
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.5,
+     0.74
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.45,
+     0.485
+    ],
+    [
+     2400,
+     0.45,
+     0.515
+    ]
+   ]
+  }
+ ],
+ "candidates": [
+  "f",
+  "s",
+  "st"
+ ],
+ "correctOptionId": "f",
+ "options": [
+  {
+   "id": "f",
+   "entity": "f",
+   "labelKey": "dm-m4.opt.f",
+   "explainKey": "dm-m4.why.f",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-m4.out.f",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.62
+      ],
+      [
+       600,
+       0.54,
+       0.59
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.515
+      ],
+      [
+       800,
+       0.46,
+       0.54
+      ],
+      [
+       1400,
+       0.5,
+       0.6
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "s",
+   "entity": "s",
+   "labelKey": "dm-m4.opt.s",
+   "explainKey": "dm-m4.why.s",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-m4.out.s",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.62
+      ],
+      [
+       700,
+       0.66,
+       0.5
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.515
+      ],
+      [
+       600,
+       0.55,
+       0.57
+      ],
+      [
+       1400,
+       0.52,
+       0.74
+      ]
+     ],
+     "f": [
+      [
+       0,
+       0.55,
+       0.57
+      ],
+      [
+       600,
+       0.55,
+       0.575
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "st",
+   "entity": "st",
+   "labelKey": "dm-m4.opt.st",
+   "explainKey": "dm-m4.why.st",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-m4.out.st",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.5,
+       0.62
+      ],
+      [
+       700,
+       0.5,
+       0.7
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.45,
+       0.515
+      ],
+      [
+       600,
+       0.55,
+       0.57
+      ],
+      [
+       1400,
+       0.52,
+       0.74
+      ]
+     ],
+     "f": [
+      [
+       0,
+       0.55,
+       0.57
+      ],
+      [
+       600,
+       0.55,
+       0.575
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-m4.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.45,
+     0.515
+    ],
+    [
+     600,
+     0.55,
+     0.57
+    ],
+    [
+     1400,
+     0.52,
+     0.74
+    ]
+   ],
+   "f": [
+    [
+     0,
+     0.55,
+     0.57
+    ],
+    [
+     600,
+     0.55,
+     0.575
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

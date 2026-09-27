@@ -1,0 +1,367 @@
+{
+ "id": "dm-12",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 2,
+ "tags": [
+  "press-resistance",
+  "one-touch"
+ ],
+ "view": {
+  "top": 0.3,
+  "bottom": 1.0
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.52,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "rb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.85,
+     0.7
+    ]
+   ]
+  },
+  {
+   "id": "rw",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.88,
+     0.45
+    ],
+    [
+     2400,
+     0.9,
+     0.42
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.82
+    ]
+   ]
+  },
+  {
+   "id": "p1",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.44,
+     0.54
+    ],
+    [
+     2400,
+     0.48,
+     0.59
+    ]
+   ]
+  },
+  {
+   "id": "p2",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.62,
+     0.55
+    ],
+    [
+     2400,
+     0.57,
+     0.6
+    ]
+   ]
+  },
+  {
+   "id": "fb",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.8,
+     0.36
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.85,
+     0.695
+    ],
+    [
+     500,
+     0.85,
+     0.695
+    ],
+    [
+     2400,
+     0.53,
+     0.625
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "first",
+ "options": [
+  {
+   "id": "first",
+   "target": "rw",
+   "labelKey": "dm-12.opt.first",
+   "explainKey": "dm-12.why.first",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-12.out.first",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.53,
+       0.625
+      ],
+      [
+       800,
+       0.89,
+       0.43
+      ],
+      [
+       1500,
+       0.9,
+       0.3
+      ]
+     ],
+     "rw": [
+      [
+       0,
+       0.9,
+       0.42
+      ],
+      [
+       800,
+       0.9,
+       0.42
+      ],
+      [
+       1500,
+       0.9,
+       0.3
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "control",
+   "target": {
+    "x": 0.52,
+    "y": 0.62
+   },
+   "labelKey": "dm-12.opt.control",
+   "explainKey": "dm-12.why.control",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-12.out.control",
+    "durationMs": 1600,
+    "tracks": {
+     "p1": [
+      [
+       0,
+       0.48,
+       0.59
+      ],
+      [
+       700,
+       0.51,
+       0.61
+      ]
+     ],
+     "p2": [
+      [
+       0,
+       0.57,
+       0.6
+      ],
+      [
+       700,
+       0.54,
+       0.62
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.53,
+       0.625
+      ],
+      [
+       900,
+       0.52,
+       0.7
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "back",
+   "target": "cb",
+   "labelKey": "dm-12.opt.back",
+   "explainKey": "dm-12.why.back",
+   "outcome": {
+    "kind": "neutral",
+    "captionKey": "dm-12.out.back",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.53,
+       0.625
+      ],
+      [
+       700,
+       0.6,
+       0.815
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "dribble",
+   "target": {
+    "x": 0.52,
+    "y": 0.56
+   },
+   "labelKey": "dm-12.opt.dribble",
+   "explainKey": "dm-12.why.dribble",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-12.out.dribble",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.52,
+       0.62
+      ],
+      [
+       400,
+       0.52,
+       0.58
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.53,
+       0.625
+      ],
+      [
+       400,
+       0.52,
+       0.585
+      ],
+      [
+       1200,
+       0.45,
+       0.72
+      ]
+     ],
+     "p1": [
+      [
+       0,
+       0.48,
+       0.59
+      ],
+      [
+       400,
+       0.51,
+       0.585
+      ],
+      [
+       1200,
+       0.45,
+       0.715
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "dm-12.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "p1": [
+    [
+     0,
+     0.48,
+     0.59
+    ],
+    [
+     700,
+     0.51,
+     0.61
+    ]
+   ],
+   "p2": [
+    [
+     0,
+     0.57,
+     0.6
+    ],
+    [
+     700,
+     0.54,
+     0.62
+    ]
+   ],
+   "ball": [
+    [
+     0,
+     0.53,
+     0.625
+    ],
+    [
+     900,
+     0.52,
+     0.7
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

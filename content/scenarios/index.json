@@ -61,6 +61,66 @@
       "difficulty": 3
     },
     {
+      "id": "cb-11",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-12",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-13",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "cb-14",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-15",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-16",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-17",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "cb-18",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 3
+    },
+    {
+      "id": "cb-19",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-20",
+      "position": "CB",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
       "id": "cb-m1",
       "position": "CB",
       "type": "marking",
@@ -68,6 +128,18 @@
     },
     {
       "id": "cb-m2",
+      "position": "CB",
+      "type": "marking",
+      "difficulty": 3
+    },
+    {
+      "id": "cb-m3",
+      "position": "CB",
+      "type": "marking",
+      "difficulty": 2
+    },
+    {
+      "id": "cb-m4",
       "position": "CB",
       "type": "marking",
       "difficulty": 3
@@ -133,6 +205,66 @@
       "difficulty": 3
     },
     {
+      "id": "dm-11",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "dm-12",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "dm-13",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "dm-14",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "dm-15",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "dm-16",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "dm-17",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 3
+    },
+    {
+      "id": "dm-18",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "dm-19",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 3
+    },
+    {
+      "id": "dm-20",
+      "position": "DM",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
       "id": "dm-m1",
       "position": "DM",
       "type": "marking",
@@ -143,6 +275,18 @@
       "position": "DM",
       "type": "marking",
       "difficulty": 2
+    },
+    {
+      "id": "dm-m3",
+      "position": "DM",
+      "type": "marking",
+      "difficulty": 2
+    },
+    {
+      "id": "dm-m4",
+      "position": "DM",
+      "type": "marking",
+      "difficulty": 3
     },
     {
       "id": "fb-01",
@@ -205,6 +349,66 @@
       "difficulty": 3
     },
     {
+      "id": "fb-11",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-12",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-13",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-14",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "fb-15",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-16",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 3
+    },
+    {
+      "id": "fb-17",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
+      "id": "fb-18",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-19",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-20",
+      "position": "FB",
+      "type": "decision",
+      "difficulty": 1
+    },
+    {
       "id": "fb-m1",
       "position": "FB",
       "type": "marking",
@@ -212,6 +416,18 @@
     },
     {
       "id": "fb-m2",
+      "position": "FB",
+      "type": "marking",
+      "difficulty": 3
+    },
+    {
+      "id": "fb-m3",
+      "position": "FB",
+      "type": "marking",
+      "difficulty": 2
+    },
+    {
+      "id": "fb-m4",
       "position": "FB",
       "type": "marking",
       "difficulty": 3

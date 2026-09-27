@@ -1,0 +1,301 @@
+{
+ "id": "dm-18",
+ "version": 1,
+ "type": "decision",
+ "position": "DM",
+ "difficulty": 1,
+ "tags": [
+  "movement",
+  "receiving"
+ ],
+ "view": {
+  "top": 0.3,
+  "bottom": 0.9
+ },
+ "freezeAtMs": 2400,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.8,
+     0.55
+    ],
+    [
+     2400,
+     0.78,
+     0.55
+    ]
+   ]
+  },
+  {
+   "id": "t",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.995,
+     0.6
+    ]
+   ]
+  },
+  {
+   "id": "cm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.6,
+     0.5
+    ]
+   ]
+  },
+  {
+   "id": "cb",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.65,
+     0.8
+    ]
+   ]
+  },
+  {
+   "id": "a",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.8,
+     0.53
+    ],
+    [
+     2400,
+     0.79,
+     0.535
+    ]
+   ]
+  },
+  {
+   "id": "b",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.9,
+     0.45
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.995,
+     0.6
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "check",
+ "options": [
+  {
+   "id": "check",
+   "target": {
+    "x": 0.86,
+    "y": 0.58
+   },
+   "labelKey": "dm-18.opt.check",
+   "explainKey": "dm-18.why.check",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "dm-18.out.check",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.78,
+       0.55
+      ],
+      [
+       500,
+       0.72,
+       0.5
+      ],
+      [
+       1000,
+       0.86,
+       0.58
+      ]
+     ],
+     "a": [
+      [
+       0,
+       0.79,
+       0.535
+      ],
+      [
+       500,
+       0.74,
+       0.5
+      ],
+      [
+       1000,
+       0.8,
+       0.55
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.995,
+       0.6
+      ],
+      [
+       1200,
+       0.865,
+       0.58
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "stand",
+   "target": {
+    "x": 0.78,
+    "y": 0.55
+   },
+   "labelKey": "dm-18.opt.stand",
+   "explainKey": "dm-18.why.stand",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-18.out.stand",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.995,
+       0.6
+      ],
+      [
+       900,
+       0.8,
+       0.55
+      ]
+     ],
+     "a": [
+      [
+       0,
+       0.79,
+       0.535
+      ],
+      [
+       900,
+       0.8,
+       0.55
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "deep",
+   "target": {
+    "x": 0.92,
+    "y": 0.38
+   },
+   "labelKey": "dm-18.opt.deep",
+   "explainKey": "dm-18.why.deep",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-18.out.deep",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.78,
+       0.55
+      ],
+      [
+       1000,
+       0.92,
+       0.38
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.995,
+       0.6
+      ],
+      [
+       900,
+       0.95,
+       0.5
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "hide",
+   "target": {
+    "x": 0.8,
+    "y": 0.5
+   },
+   "labelKey": "dm-18.opt.hide",
+   "explainKey": "dm-18.why.hide",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "dm-18.out.hide",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.78,
+       0.55
+      ],
+      [
+       600,
+       0.8,
+       0.5
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "neutral",
+  "captionKey": "dm-18.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.995,
+     0.6
+    ],
+    [
+     900,
+     0.95,
+     0.7
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}

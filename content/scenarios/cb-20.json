@@ -1,0 +1,308 @@
+{
+ "id": "cb-20",
+ "version": 1,
+ "type": "decision",
+ "position": "CB",
+ "difficulty": 1,
+ "tags": [
+  "block",
+  "box"
+ ],
+ "view": {
+  "top": 0.4,
+  "bottom": 1.03
+ },
+ "freezeAtMs": 2200,
+ "decisionWindowMs": 5000,
+ "facing": "ball",
+ "entities": [
+  {
+   "id": "gk",
+   "team": "gk",
+   "track": [
+    [
+     0,
+     0.5,
+     0.975
+    ]
+   ]
+  },
+  {
+   "id": "me",
+   "team": "me",
+   "track": [
+    [
+     0,
+     0.46,
+     0.8
+    ],
+    [
+     2200,
+     0.47,
+     0.79
+    ]
+   ]
+  },
+  {
+   "id": "cb2",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.58,
+     0.84
+    ]
+   ]
+  },
+  {
+   "id": "dm",
+   "team": "home",
+   "track": [
+    [
+     0,
+     0.4,
+     0.7
+    ],
+    [
+     2200,
+     0.42,
+     0.72
+    ]
+   ]
+  },
+  {
+   "id": "a",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.48,
+     0.68
+    ],
+    [
+     2200,
+     0.49,
+     0.73
+    ]
+   ]
+  },
+  {
+   "id": "st",
+   "team": "away",
+   "track": [
+    [
+     0,
+     0.6,
+     0.86
+    ]
+   ]
+  },
+  {
+   "id": "ball",
+   "track": [
+    [
+     0,
+     0.48,
+     0.685
+    ],
+    [
+     2200,
+     0.49,
+     0.735
+    ]
+   ]
+  }
+ ],
+ "correctOptionId": "block",
+ "options": [
+  {
+   "id": "block",
+   "target": {
+    "x": 0.485,
+    "y": 0.765
+   },
+   "labelKey": "cb-20.opt.block",
+   "explainKey": "cb-20.why.block",
+   "outcome": {
+    "kind": "good",
+    "captionKey": "cb-20.out.block",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.47,
+       0.79
+      ],
+      [
+       300,
+       0.485,
+       0.765
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.49,
+       0.735
+      ],
+      [
+       250,
+       0.485,
+       0.76
+      ],
+      [
+       1000,
+       0.35,
+       0.6
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "turn",
+   "target": {
+    "x": 0.47,
+    "y": 0.8
+   },
+   "labelKey": "cb-20.opt.turn",
+   "explainKey": "cb-20.why.turn",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-20.out.turn",
+    "durationMs": 1600,
+    "tracks": {
+     "ball": [
+      [
+       0,
+       0.49,
+       0.735
+      ],
+      [
+       700,
+       0.53,
+       0.995
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "slide",
+   "target": "a",
+   "labelKey": "cb-20.opt.slide",
+   "explainKey": "cb-20.why.slide",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-20.out.slide",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.47,
+       0.79
+      ],
+      [
+       400,
+       0.48,
+       0.75
+      ]
+     ],
+     "a": [
+      [
+       0,
+       0.49,
+       0.73
+      ],
+      [
+       600,
+       0.56,
+       0.78
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.49,
+       0.735
+      ],
+      [
+       600,
+       0.56,
+       0.785
+      ],
+      [
+       1300,
+       0.5,
+       0.995
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "id": "drop",
+   "target": {
+    "x": 0.48,
+    "y": 0.88
+   },
+   "labelKey": "cb-20.opt.drop",
+   "explainKey": "cb-20.why.drop",
+   "outcome": {
+    "kind": "bad",
+    "captionKey": "cb-20.out.drop",
+    "durationMs": 1600,
+    "tracks": {
+     "me": [
+      [
+       0,
+       0.47,
+       0.79
+      ],
+      [
+       600,
+       0.48,
+       0.88
+      ]
+     ],
+     "ball": [
+      [
+       0,
+       0.49,
+       0.735
+      ],
+      [
+       800,
+       0.46,
+       0.995
+      ]
+     ]
+    }
+   }
+  }
+ ],
+ "timeoutOutcome": {
+  "kind": "bad",
+  "captionKey": "cb-20.out.timeout",
+  "durationMs": 1600,
+  "tracks": {
+   "ball": [
+    [
+     0,
+     0.49,
+     0.735
+    ],
+    [
+     800,
+     0.46,
+     0.995
+    ]
+   ]
+  }
+ },
+ "approvedBy": null,
+ "approvedAt": null,
+ "batch": 2
+}
