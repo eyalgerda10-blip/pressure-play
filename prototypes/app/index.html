@@ -138,6 +138,18 @@ button:focus-visible,input:focus-visible,label:focus-within,a:focus-visible{outl
 .secs input[type=range]{width:100%;height:40px;margin:6px 0 0;accent-color:#FFD23F;cursor:pointer}
 .secs .ends{display:flex;justify-content:space-between;font-size:14px;color:var(--chalk-muted)}
 
+/* מצבי לוח: איפה אתה עומד / צילום מגרש / מה יקרה */
+.q-prompt{font-family:"Secular One",sans-serif;font-size:20px;line-height:1.25;margin:0 0 8px;min-height:50px}
+.q-grade{position:absolute;left:10px;right:10px;top:10px;text-align:center;border-radius:4px;padding:8px 10px;
+  font-family:"Secular One",sans-serif;font-size:22px;line-height:1.2;pointer-events:none;animation:pop .25s ease-out}
+.q-grade.good{background:var(--marker);color:var(--on-marker)}
+.q-grade.bad{background:rgba(10,24,18,.92);color:var(--chalk);border:var(--dash)}
+.q-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.q-actions.one{grid-template-columns:1fr}
+.q-actions .primary,.q-actions .secondary{margin-top:0;min-height:54px}
+.q-why{margin-top:10px;font-size:16px}
+.q-count{position:absolute;right:12px;bottom:12px;font-family:"Secular One",sans-serif;font-size:28px;color:var(--marker);pointer-events:none;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+
 /* התקדמות */
 .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
 .tile{border:var(--dash);border-radius:4px;background:var(--board-2);padding:12px 14px}
@@ -356,6 +368,9 @@ canvas{display:block;width:100%}
     </div>
     <h3 class="section-gap" id="modesH"></h3>
     <div class="modes">
+      <button class="mode" id="mPos"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span><span><b id="mPosT"></b><span class="sub" id="mPosS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="mode" id="mScan"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><span><b id="mScanT"></b><span class="sub" id="mScanS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="mode" id="mRisk"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18c3-7 9-11 15-12"/><path d="M15 4l4 2-2 4"/><circle cx="12" cy="11" r="2.2" fill="#FFD23F"/></svg></span><span><b id="mRiskT"></b><span class="sub" id="mRiskS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="mode" id="mSurv"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span><b id="mSurvT"></b><span class="sub" id="mSurvS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="mode" id="mTf"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l4 4 7-8"/><path d="M15 14l6 6M21 14l-6 6"/></svg></span><span><b id="mTfT"></b><span class="sub" id="mTfS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="mode" id="mWeek"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></span><span><b id="mWeekT"></b><span class="sub" id="mWeekS"></span></span><svg class="go" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFD23F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -449,6 +464,25 @@ canvas{display:block;width:100%}
     <button class="scan" id="scanBtn" hidden></button>
     <div class="options concealed" id="options" hidden></div>
     <div class="prompt concealed" id="prompt" hidden></div>
+  </section>
+
+  <!-- ============ מצבי לוח ============ -->
+  <section id="s-q" hidden>
+    <div class="top"><span class="display" id="qTitle" style="font-size:20px"></span>
+      <button class="x" id="qClose" aria-label="יציאה"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="chips" id="qChips"></div>
+    <p class="q-prompt" id="qPrompt" aria-live="polite"></p>
+    <div class="secs" id="scanSetup" hidden>
+      <div class="k" data-t="q.scan.setupK"></div>
+      <div class="val"><span class="n"></span> <small data-t="sec.unit"></small></div>
+      <div class="lvl"></div>
+      <input type="range" min="0.5" max="5" step="0.5" dir="ltr">
+      <div class="ends" dir="ltr"><span data-t="q.scan.hard"></span><span data-t="q.scan.easy"></span></div>
+    </div>
+    <div class="tf-card" id="qCard"><canvas id="qPitch" aria-label="מגרש כדורגל מלמעלה"></canvas><div class="q-grade" id="qGrade" hidden></div><div class="q-count" id="qCount" hidden></div></div>
+    <div class="q-actions" id="qActions"><button class="primary" id="qMain"></button><button class="secondary" id="qAlt"></button></div>
+    <p class="card q-why" id="qWhy" hidden></p>
   </section>
 
   <!-- ============ נכון או לא ============ -->
@@ -615,7 +649,7 @@ function staticTexts(){
 }
 
 // ---------- ניווט ----------
-var SCREENS = ["send","tf","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
+var SCREENS = ["q","send","tf","modeEnd","splash","onboard","calibIntro","calibResult","waitlist","home","progress","profile","dev","play","summary","warmupDone","match"];
 var TABBED = {home:1, progress:1, profile:1};
 function nav(name){
   SCREENS.forEach(function(s){ el("s-" + s).hidden = s !== name; });
@@ -1008,6 +1042,11 @@ function renderModes(){
   el("mSurvS").textContent = rec.survival ? t("sv.best", {n:rec.survival}) : t("sv.sub");
   el("mTfT").textContent = t("tf.title");
   el("mTfS").textContent = rec.tf ? t("tf.best", {n:rec.tf}) : t("tf.sub");
+  ["pos", "scan", "risk"].forEach(function(k){
+    var id = {pos:"Pos", scan:"Scan", risk:"Risk"}[k];
+    el("m" + id + "T").textContent = t("q." + k + ".title");
+    el("m" + id + "S").textContent = rec[k] ? t("q.best", {n:rec[k], total:Q_ROUNDS}) : t("q." + k + ".sub");
+  });
   el("mWeekT").textContent = t("wk.title");
   var w = store.get("weekly", null), done = w && w.week === weekKey();
   el("mWeek").disabled = !!(done && !revealDay());
@@ -1038,6 +1077,216 @@ function startWeekly(){
   if (w && w.week === weekKey()){ if (revealDay()) startSession("weeklyReview", [w.id]); return; }
   startSession("weekly", [weeklyId()]);
 }
+
+// ---------- מצבי לוח: איפה אתה עומד / צילום מגרש / מה יקרה ----------
+var Q = null, qRaf = 0, Q_ROUNDS = 5;
+function trackEnd(tr){ var l = tr[tr.length - 1]; return {x:l[1], y:l[2]}; }
+function meters(a, b){ return Math.hypot((a.x - b.x) * 68, (a.y - b.y) * 105); }
+function fromPx(px, py){ return {x:px / PX + VL, y:VT + py / H * (VB - VT)}; }
+function corOpt(d){ for (var i = 0; i < d.options.length; i++) if (d.options[i].id === d.correctOptionId) return d.options[i]; }
+function entTeam(d, id){ for (var i = 0; i < d.entities.length; i++) if (d.entities[i].id === id) return d.entities[i].team; return null; }
+function freezeOf(d, id){ for (var i = 0; i < d.entities.length; i++) if (d.entities[i].id === id) return at(d.entities[i].track, d.freezeAtMs, id === "ball"); return null; }
+
+function qItems(mode){
+  var items = [];
+  pool.forEach(function(d){
+    var c = corOpt(d);
+    if (mode === "pos"){
+      var mt = c.outcome.tracks.me; if (!mt) return;
+      var ideal = trackEnd(mt);
+      if (meters(ideal, freezeOf(d, "me")) >= 3) items.push({d:d, ideal:ideal});
+    } else if (mode === "scan"){
+      if (d.type === "decision" && typeof c.target === "string" && entTeam(d, c.target) === "home") items.push({d:d, target:c.target});
+    } else if (mode === "risk"){
+      if (d.type !== "decision") return;
+      d.options.forEach(function(o){
+        var thief = Object.keys(o.outcome.tracks).filter(function(k){ return entTeam(d, k) === "away"; })[0];
+        if (o.outcome.kind === "good") items.push({d:d, opt:o, thief:null});
+        else if (thief) items.push({d:d, opt:o, thief:thief});
+      });
+    }
+  });
+  if (mode === "risk"){   // חצי "עובר", חצי "חוטפים"
+    var good = shuffle(items.filter(function(i){ return !i.thief; })), bad = shuffle(items.filter(function(i){ return i.thief; }));
+    var nGood = Math.min(good.length, Math.random() < 0.5 ? 2 : 3);
+    return shuffle(good.slice(0, nGood).concat(bad.slice(0, Q_ROUNDS - nGood)));
+  }
+  var mine = shuffle(items.filter(function(i){ return i.d.position === profile.pos; }));
+  var rest = shuffle(items.filter(function(i){ return i.d.position !== profile.pos; }));
+  return mine.concat(rest).slice(0, Q_ROUNDS);
+}
+
+function startQ(mode){
+  lastMode = mode;
+  loadPool().then(function(){
+    Q = {mode:mode, items:qItems(mode), i:-1, hits:0, state:"ask", guess:null};
+    canvas = el("qPitch"); ctx = canvas.getContext("2d");
+    nav("q");
+    el("qTitle").textContent = t("q." + mode + ".title");
+    if (mode === "scan") scanSetup(); else qNext();
+  }).catch(function(e){ alert(e.message); });
+}
+
+function scanLook(){ var v = +settings.scanSecs; return v >= 0.5 && v <= 5 ? v : 1.5; }
+function scanLevel(v){ return v <= 1 ? t("q.scan.lvl.pro") : v <= 2 ? t("q.scan.lvl.normal") : t("q.scan.lvl.easy"); }
+function scanSetup(){
+  Q.state = "setup";
+  el("qChips").innerHTML = ""; el("qGrade").hidden = true; el("qWhy").hidden = true; el("qCount").hidden = true;
+  el("qPrompt").textContent = t("q.scan.setupX");
+  el("qCard").hidden = true;
+  var box = el("scanSetup"), inp = box.querySelector("input"), n = box.querySelector(".n"), lvl = box.querySelector(".lvl");
+  function show(v){ n.textContent = v; lvl.textContent = scanLevel(v); inp.setAttribute("aria-valuetext", t("sec.aria", {n:v})); }
+  inp.setAttribute("aria-label", t("q.scan.setupK"));
+  inp.value = scanLook(); show(scanLook());
+  inp.oninput = function(){ var v = +inp.value; show(v); settings.scanSecs = v; store.set("settings", settings); };
+  box.hidden = false;
+  var main = el("qMain"); main.hidden = false; main.disabled = false; main.textContent = t("sp.start");
+  el("qAlt").hidden = true; el("qActions").className = "q-actions one";
+}
+
+function qNext(){
+  cancelAnimationFrame(qRaf); qRaf = 0;
+  el("scanSetup").hidden = true; el("qCard").hidden = false;
+  Q.i++;
+  if (Q.i >= Q.items.length){ qEnd(); return; }
+  var it = Q.items[Q.i]; sc = it.d;
+  VT0 = VT = sc.view ? sc.view.top : 0.4; VB0 = VB = sc.view ? sc.view.bottom : 1.03;
+  S = {phase:"q", fog:false, choice:null, meAt:null, hideOthers:false, qDraw:null};
+  Q.state = "ask"; Q.guess = null;
+  var chips = el("qChips"); chips.innerHTML = "";
+  chips.appendChild(h("span", "chip", t("pos." + sc.position)));
+  chips.appendChild(h("span", "chip progress", t("ui.progress", {n:Q.i + 1, total:Q.items.length})));
+  el("qGrade").hidden = true; el("qWhy").hidden = true; el("qCount").hidden = true;
+  layout(el("qCard"), 330);
+  var main = el("qMain"), alt = el("qAlt");
+  alt.hidden = true; main.hidden = false; main.disabled = false;
+  el("qActions").className = "q-actions one";
+
+  if (Q.mode === "pos"){
+    el("qPrompt").textContent = t(sc.id + ".intro") + " " + t("q.pos.ask");
+    S.meAt = freezePos("me");
+    main.textContent = t("q.pos.confirm");
+    S.qDraw = function(){ if (Q.state === "ask") ring(S.meAt, "#FFD23F", 0.2); };
+  } else if (Q.mode === "scan"){
+    el("qPrompt").textContent = t("q.scan.look");
+    main.hidden = true;
+    var shownAt = performance.now(), LOOK = scanLook() * 1000;
+    el("qCount").hidden = false;
+    (function tick(now){
+      var left = LOOK - (now - shownAt);
+      el("qCount").textContent = left > 0 ? Math.ceil(left / 1000 * 10) / 10 : "";
+      if (left > 0){ qRaf = requestAnimationFrame(tick); return; }
+      el("qCount").hidden = true;
+      S.hideOthers = true; Q.state = "guess";
+      el("qPrompt").textContent = t("q.scan.ask");
+      render(performance.now());
+    })(shownAt);
+  } else if (Q.mode === "risk"){
+    el("qPrompt").textContent = t("q.risk.ask", {x:t(it.opt.labelKey)});
+    main.textContent = t("q.risk.passes");
+    alt.hidden = true;
+    S.qDraw = function(){ if (Q.state === "ask") arrow(freezePos("me"), targetPos(it.opt), "#FFD23F"); };
+  }
+  render(performance.now());
+}
+
+function qPointer(ev, type){
+  if (!Q || Q.state === "done") return;
+  var r = canvas.getBoundingClientRect(), pt = fromPx(ev.clientX - r.left, ev.clientY - r.top);
+  if (Q.mode === "pos" && Q.state === "ask"){
+    if (type === "down") Q.drag = true;
+    if (Q.drag){ S.meAt = pt; render(performance.now()); }
+    if (type === "up") Q.drag = false;
+  } else if (Q.mode === "scan" && Q.state === "guess" && type === "down"){
+    qReveal(pt);
+  } else if (Q.mode === "risk" && Q.state === "ask" && type === "down"){
+    var best = null, bestD = R0 * 3;
+    sc.entities.forEach(function(e){
+      if (e.id === "me" || e.id === "ball") return;
+      var p = freezePos(e.id), d = Math.hypot(X(p.x) - (ev.clientX - r.left), Y(p.y) - (ev.clientY - r.top));
+      if (d < bestD){ bestD = d; best = e.id; }
+    });
+    if (best) qRiskAnswer(best);
+  }
+}
+
+function qGrade(m, loose){ var f = loose ? 1.3 : 1; return m <= 3 * f ? {k:"perfect", hit:true} : m <= 7 * f ? {k:"close", hit:true} : m <= 12 * f ? {k:"near", hit:false} : {k:"far", hit:false}; }
+function showGrade(text, good){ var g = el("qGrade"); g.className = "q-grade " + (good ? "good" : "bad"); g.textContent = text; g.hidden = false; }
+function qDone(hit, why){
+  Q.state = "done"; if (hit) Q.hits++;
+  var main = el("qMain"); main.hidden = false; main.disabled = false;
+  main.textContent = Q.i + 1 >= Q.items.length ? t("ui.finish") : t("ui.next");
+  el("qAlt").hidden = true; el("qActions").className = "q-actions one";
+  el("qWhy").textContent = why; el("qWhy").hidden = false;
+  if (hit && settings.sound !== false) blip();
+}
+
+function qConfirmPos(){
+  var it = Q.items[Q.i], m = meters(S.meAt, it.ideal), g = qGrade(m), mine = S.meAt;
+  S.qDraw = function(){ ring(it.ideal, "#FFD23F", 0.2); if (m > 1.5) arrow(mine, it.ideal, "#F2EFE6"); };
+  render(performance.now());
+  showGrade(t("q.grade." + g.k, {m:Math.round(m)}), g.hit);
+  qDone(g.hit, t(corOpt(sc).explainKey));
+}
+function qReveal(pt){
+  var it = Q.items[Q.i], target = freezePos(it.target), m = meters(pt, target), g = qGrade(m, true);
+  S.hideOthers = false;
+  S.qDraw = function(){ ring(target, "#FFD23F", 0.2); ctx.save(); ctx.fillStyle = "#F2EFE6"; ctx.globalAlpha = .9;
+    ctx.beginPath(); ctx.arc(X(pt.x), Y(pt.y), R0 * 0.55, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    if (m > 1.5) arrow(pt, target, "#F2EFE6"); };
+  render(performance.now());
+  showGrade(t("q.grade." + g.k, {m:Math.round(m)}), g.hit);
+  qDone(g.hit, t("q.scan.why", {x:t(corOpt(sc).labelKey)}));
+}
+function qRiskAnswer(ans){
+  var it = Q.items[Q.i], ok = it.thief ? ans === it.thief : ans === "pass";
+  Q.state = "anim"; S.qDraw = null;
+  el("qMain").hidden = true;
+  S.phase = "outcome"; S.out = it.opt.outcome; S.oStart = performance.now();
+  showGrade(t(it.opt.outcome.captionKey), it.opt.outcome.kind === "good");
+  (function f(now){
+    render(now);
+    if (now - S.oStart < S.out.durationMs + 150){ qRaf = requestAnimationFrame(f); return; }
+    S.phase = "after"; render(now);
+    var verdict = ok ? t("q.risk.right") : it.thief ? t("q.risk.wrongThief") : t("q.risk.wrongPass");
+    showGrade(verdict, ok);
+    qDone(ok, t(it.opt.explainKey));
+  })(S.oStart);
+}
+
+function blip(){
+  try { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return; var a = new AC(), o = a.createOscillator(), g = a.createGain(), t0 = a.currentTime;
+    o.type = "triangle"; o.frequency.value = 988; g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(0.22, t0 + 0.02); g.gain.exponentialRampToValueAtTime(0.001, t0 + 0.35);
+    o.connect(g); g.connect(a.destination); o.start(t0); o.stop(t0 + 0.4); setTimeout(function(){ try { a.close(); } catch(e){} }, 600); } catch(e){}
+}
+
+function qEnd(){
+  var res = Q; qExit();
+  var rec = records(), key = res.mode, isNew = res.hits > (rec[key] || 0);
+  if (isNew){ rec[key] = res.hits; store.set("records", rec); }
+  showModeEnd({k:t("q." + key + ".title"), big:res.hits + "/" + res.items.length, title:t("q.end." + (res.hits >= 4 ? "great" : res.hits >= 2 ? "ok" : "low")),
+    isNew:isNew && res.hits > 0, sub:isNew ? t("sv.subNew") : t("tf.subBest", {n:rec[key] || 0})});
+}
+function qExit(){
+  cancelAnimationFrame(qRaf); qRaf = 0; Q = null;
+  canvas = el("pitch"); ctx = canvas.getContext("2d");
+}
+el("qMain").addEventListener("click", function(){
+  if (!Q) return;
+  if (Q.state === "done" || Q.state === "setup"){ qNext(); return; }
+  if (Q.mode === "pos" && Q.state === "ask") qConfirmPos();
+  else if (Q.mode === "risk" && Q.state === "ask") qRiskAnswer("pass");
+});
+el("qClose").addEventListener("click", function(){ qExit(); nav("home"); });
+(function(){
+  var c = el("qPitch");
+  c.addEventListener("pointerdown", function(e){ c.setPointerCapture && c.setPointerCapture(e.pointerId); qPointer(e, "down"); });
+  c.addEventListener("pointermove", function(e){ qPointer(e, "move"); });
+  c.addEventListener("pointerup", function(e){ qPointer(e, "up"); });
+})();
+el("mPos").addEventListener("click", function(){ startQ("pos"); });
+el("mScan").addEventListener("click", function(){ startQ("scan"); });
+el("mRisk").addEventListener("click", function(){ startQ("risk"); });
 
 // ---------- נכון או לא ----------
 var tf = null, pool = null, tfTimer = 0, TF_MS = 30000;
@@ -1121,7 +1370,7 @@ function showModeEnd(o){
   el("meAgain").textContent = t("me.again");
   el("meHome").textContent = t("ma.home");
 }
-el("meAgain").addEventListener("click", function(){ if (lastMode === "tf") startTF(); else startSurvival(); });
+el("meAgain").addEventListener("click", function(){ if (lastMode === "tf") startTF(); else if (lastMode === "pos" || lastMode === "scan" || lastMode === "risk") startQ(lastMode); else startSurvival(); });
 el("meHome").addEventListener("click", function(){ nav("home"); });
 el("mSurv").addEventListener("click", startSurvival);
 el("mTf").addEventListener("click", startTF);
@@ -1515,6 +1764,7 @@ function entity(id){ for (var i = 0; i < sc.entities.length; i++) if (sc.entitie
 function freezePos(id){ var e = entity(id); return e ? at(e.track, sc.freezeAtMs, id === "ball") : {x:0.5, y:0.5}; }
 
 function posOf(id, now){
+  if (id === "me" && S.meAt) return S.meAt;
   var e = entity(id);
   if (S.phase === "countdown" || S.phase === "preview") return at(e.track, 0, id === "ball");
   if (S.phase === "run") return at(e.track, Math.min(sc.freezeAtMs, now - S.t0), id === "ball");
@@ -1537,8 +1787,8 @@ function reveal(now){
 function render(now){
   ctx.clearRect(0, 0, W, H);
   drawPitch();
-  sc.entities.forEach(function(e){ if (e.id !== "ball") drawPlayer(posOf(e.id, now), e.team); });
-  drawBall(posOf("ball", now));
+  sc.entities.forEach(function(e){ if (e.id !== "ball" && !(S.hideOthers && e.id !== "me")) drawPlayer(posOf(e.id, now), e.team); });
+  if (!S.hideOthers) drawBall(posOf("ball", now));
   if (sc.type === "marking" && S.phase === "decide"){
     var pulse = (Math.sin(now / 180) + 1) / 2;
     sc.candidates.forEach(function(id){ ring(freezePos(id), "#FFD23F", pulse); });
@@ -1546,6 +1796,7 @@ function render(now){
   if (sc.type === "marking" && (S.phase === "outcome" || S.phase === "after") && S.choice){
     ring(posOf(S.choice, now), S.choice === sc.correctOptionId ? "#FFD23F" : "#F2EFE6", 0);
   }
+  if (S.qDraw) S.qDraw(now);
   if (S.phase === "tf" && tf && tf.opt){
     if (sc.type === "marking") ring(freezePos(tf.opt.entity || tf.opt.id), "#FFD23F", 0.3);
     else arrow(freezePos("me"), targetPos(tf.opt), "#FFD23F");
